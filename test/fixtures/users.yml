@@ -1,0 +1,114 @@
+olivier:
+  id: 1
+  gender: male
+  gender_target: bisexual
+  first_name: Olivier
+  last_name: Thomas
+  age: 18
+  state: active
+  is_complete: true
+  is_onboarded: true
+  portrait_count: 1
+  picture_count: 3
+  ref: 84d73caf340ead441d5dd1f635a339c8
+  state: active
+  latitude: 48.88159400
+  longitude: 2.29060640
+  facebook_user_id: 1
+
+kevin:
+  id: 2
+  gender: male
+  gender_target: female
+  first_name: Kevin
+  last_name: Kuipers
+  age: 41
+  state: active
+  is_complete: true
+  is_onboarded: true
+  portrait_count: 1
+  picture_count: 3
+  latitude: 48.82833000
+  longitude: 2.35098800
+  ref: c134a5b66ef900b824750f8aae8aad35
+  facebook_user_id: 2
+
+laetitia:
+  id: 20
+  gender: female
+  gender_target: female
+  first_name: Laetitia
+  age: 18
+  state: active
+  is_complete: true
+  is_onboarded: true
+  portrait_count: 1
+  picture_count: 3
+  latitude: 48.88413400
+  longitude: 2.37064400
+  ref: ac7e39f8d4a7612810cb7969bd582ad3
+  facebook_user_id: 3
+
+clarice:
+  id: 4
+  gender: female
+  gender_target: male
+  first_name: Clarice
+  age: 18
+  state: active
+  is_complete: true
+  is_onboarded: true
+  portrait_count: 1
+  picture_count: 3
+  latitude: 48.87510200
+  longitude: 2.39604900
+  ref: fe93bfb2658139b54ef877d46980dae9
+  facebook_user_id: 4
+
+carlos:
+  id: 5
+  gender: male
+  gender_target: male
+  first_name: Carlos
+  age: 50
+  state: pending
+  is_complete: true
+  is_onboarded: true
+  portrait_count: 0
+  picture_count: 0
+  latitude: 48.87510200
+  longitude: 2.39604900
+  ref: feo3bfb2658139b54ef877d46980daec
+  facebook_user_id: 5
+
+george:
+  id: 6
+  gender: male
+  gender_target: male
+  first_name: George
+  age: 18
+  state: active
+  is_complete: true
+  is_onboarded: true
+  portrait_count: 1
+  picture_count: 3
+  latitude: 48.87510200
+  longitude: 2.39604900
+  ref: feo3bfb2658121b54ef877d46980daec
+  facebook_user_id: 20147645518180
+
+clara:
+  id: 7
+  gender: female
+  gender_target: bisexual
+  first_name: Clara
+  age: 43
+  state: active
+  is_complete: true
+  is_onboarded: true
+  portrait_count: 1
+  picture_count: 3
+  latitude: 48.87510200
+  longitude: 2.39604900
+  ref: aeo3bfb1658921b54ef877d46980daec
+  facebook_user_id: 2014764551818

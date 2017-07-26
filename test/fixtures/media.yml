@@ -1,0 +1,48 @@
+1:
+  ref: c9d0a766b05d4d3a0e1f3ccb47b1214591a78344
+  ref_clean: 7e6bc44c08536319b7e69f45fab6bd1693b78abb
+  ref_blurred: 0aca841494589c71e6c09460814e2e6500bd6f6c
+  user_id: 1
+  type_of: portrait
+  label:
+  item_content_type: "image/jpeg"
+  width: 400
+  height: 150
+  state: published
+  color: "#fff"
+2:
+  ref: 909f167291aaaa5feff907cd0267a316657c2e47
+  ref_clean: 212f7269911380ede0fe20cb09bc74953d0d60c9
+  ref_blurred: 6bde8e5864f17be1272c43598bb186f62d8778c7
+  user_id: 1
+  type_of: picture
+  label:
+  item_content_type: "image/jpeg"
+  width: 400
+  height: 150
+  state: published
+  color: "#fff"
+3:
+  ref: 5928ff67de32c9a0ee9824724da2fda309d74503
+  ref_clean: adf40294e25a021b0a9d73b72eaeb6ad32ffbcf5
+  ref_blurred: c3c82b6bc230dbab4674fe44f158bdccf0a5c750
+  user_id: 1
+  type_of: picture
+  label: "Image de vacances"
+  item_content_type: "image/jpeg"
+  width: 400
+  height: 150
+  state: published
+  color: "#fff"
+4:
+  ref: 066702185123a841dde0a382b21e93ecb5a50433
+  ref_clean: e5d6b5996ec0fe65fceb5f8f41f01e9cac3570a5
+  ref_blurred: 0e8dd00600a68b9f151cf7eed8bfe8acb1e69cd6
+  user_id: 1
+  type_of: picture
+  label: "A la teuf"
+  item_content_type: "image/jpeg"
+  width: 400
+  height: 150
+  state: published
+  color: "#fff"

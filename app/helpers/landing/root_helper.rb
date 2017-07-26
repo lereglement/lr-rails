@@ -1,0 +1,2 @@
+module Landing::RootHelper
+end

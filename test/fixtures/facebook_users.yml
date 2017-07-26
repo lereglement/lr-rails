@@ -1,0 +1,50 @@
+olivier:
+  id: 1
+  facebook_ref: 112923035909406
+  gender: male
+  first_name: Olivier
+  last_name: Thomas
+  birthday: 20/11/1980
+
+kevin:
+  id: 2
+  facebook_ref: 10209660124807207
+  gender: male
+  first_name: Kevin
+  last_name: Kuipers
+  birthday: 1/11/1980
+
+laetitia:
+  id: 3
+  facebook_ref: 117791882087948
+  gender: female
+  first_name: Laetitia
+  birthday: 5/11/1980
+
+clarice:
+  id: 4
+  facebook_ref: 10210147645518180
+  gender: female
+  first_name: Clarice
+  birthday: 6/11/1980
+
+carlos:
+  id: 5
+  facebook_ref: 210147645518180
+  gender: male
+  first_name: Carlos
+  birthday: 18/11/1980
+
+george:
+  id: 6
+  facebook_ref: 10213066880005258
+  gender: male
+  first_name: George
+  birthday: 19/11/1980
+
+clara:
+  id: 7
+  facebook_ref: 10212533484592338
+  gender: female
+  first_name: Clara
+  birthday: 18/11/1980

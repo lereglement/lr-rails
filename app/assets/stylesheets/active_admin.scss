@@ -1,0 +1,279 @@
+// SASS variable overrides must be declared before loading up Active Admin's styles.
+//
+// To view the variables that Active Admin provides, take a look at
+// `app/assets/stylesheets/active_admin/mixins/_variables.scss` in the
+// Active Admin source.
+//
+// For example, to change the sidebar width:
+// $sidebar-width: 242px;
+
+// Active Admin's got SASS!
+@import "active_admin/mixins";
+@import "active_admin/base";
+
+// Overriding any non-variable SASS must be done after the fact.
+// For example, to change the default status-tag color:
+//
+//   .status_tag { background: #6090DB; }
+$green-turquoise: #32e4c6;
+$grey-mineshaft: #333;
+$grey-alto: #d2d2d2;
+$grey-gallery: #ebebeb;
+$grey-alabaster: #fafafa;
+$black: #000;
+$red: #f00;
+
+a:visited,
+a:link,
+a {
+  text-decoration: none;
+}
+
+$font-classic: -apple-system, BlinkMacSystemFont,
+    "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans",
+    "Droid Sans", "Helvetica Neue", sans-serif;
+
+body {
+  color: $grey-mineshaft;
+  background-color: $grey-alabaster;
+}
+
+body,
+a {
+  font-family: system, -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Lucida Grande" !important;
+}
+
+#header {
+  background: $green-turquoise;
+  border-bottom: 1px solid darken($green-turquoise, 10%);
+}
+
+#header a:link,
+#header a {
+  color: white;
+  text-shadow: none;
+}
+
+#header ul.tabs > li:hover > a {
+  background-color: darken($green-turquoise, 10%);
+  border-radius: 5px;
+}
+
+#header ul.tabs > li.current > a {
+  background-color: darken($green-turquoise, 20%);
+  border-radius: 5px;
+}
+
+#active_admin_content {
+  border-radius: 5px;
+  h2 {
+    background: $green-turquoise;
+    color: $grey-mineshaft;
+    box-shadow: unset;
+    text-shadow: unset;
+    border-radius: 5px 5px 0 0;
+    padding: 10px;
+  }
+}
+
+#title_bar,
+.sidebar_section > h3,
+table.index_table th {
+  background-color: $grey-gallery;
+  background-image: none;
+  text-shadow: unset;
+  border-bottom: 1px solid $grey-alto;
+  box-shadow: unset;
+}
+
+#title_bar h2 {
+  font-weight: normal;
+}
+
+a,
+a:link {
+  text-decoration: none;
+}
+
+// sidebar_section
+.sidebar_section .panel_contents h3 {
+  font-size: 12px;
+  font-weight: bold;
+  margin: 0;
+  padding: 20px 0 10px;
+  text-transform: uppercase;
+}
+
+table.index_table td {
+  background-color: white;
+}
+
+.col-created,
+.col-updated {
+  white-space: nowrap;
+}
+
+.col-portrait,
+.col-card {
+  width: 100px;
+}
+
+// Comments
+.comments {
+  .active_admin_comment {
+    max-width: none;
+
+    .active_admin_comment_meta {
+      width: auto;
+      float: none;
+      margin-bottom: 10px;
+    }
+
+    .active_admin_comment_body {
+      margin: 0;
+      padding: 10px;
+      background-color: white;
+      border-radius: 10px;
+    }
+  }
+
+  // Textarea
+  form.active_admin_comment {
+    margin: 0;
+  }
+}
+
+.comments {
+  form {
+    input[type=text],
+    input[type=password],
+    input[type=email],
+    input[type=number],
+    input[type=url],
+    input[type=tel],
+    input[type=date],
+    input[type=time],
+    textarea {
+      font-size: 13px;
+      width: calc(100% - 22px);
+    }
+  }
+}
+
+form {
+  input[type=text],
+  input[type=password],
+  input[type=email],
+  input[type=number],
+  input[type=url],
+  input[type=tel],
+  input[type=date],
+  input[type=time],
+  textarea,
+  select {
+    -webkit-appearance:none;
+    border-radius: 5px;
+    color: $black;
+    font-family: $font-classic;
+    font-size: 1em;
+    padding: 10px;
+    border: 1px solid #ddd;
+  }
+
+  select {
+    border-left: 3px solid $green-turquoise;
+    border-radius: 2px;
+  }
+
+  textarea {
+    height: 100px;
+  }
+
+  input[type=submit] {
+    background-color: $green-turquoise;
+    background-image: none;
+    border: 0;
+    box-shadow: none;
+    color: white;
+    padding: 10px 20px;
+    text-shadow: none;
+
+    &:hover {
+      background-color: darken($green-turquoise, .2)!important;
+      background-image: none!important;
+    }
+  }
+}
+
+form fieldset ol > li label {
+  padding-top: 10px;
+}
+
+.see_more {
+  a {
+    text-decoration: none;
+    text-align: center;
+    border-radius: 5px;
+    background-color: white;
+    font-size: 14px;
+    padding: 10px;
+    display: block;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, .3);
+  }
+}
+
+.heart {
+  display: inline-block;
+  padding: 0 10px;
+}
+
+.icon {
+  font-size: 20px;
+}
+
+.status_tag {
+  border-radius: 3px;
+  &.yes,
+  &.active,
+  &.published,
+  &.complete {
+    background: #7ED321;
+  }
+  &.portrait {
+    background: #974B7B;
+  }
+  &.picture {
+    background: #F6A623;
+  }
+  &.deleted,
+  &.incomplete {
+    background: $red;
+  }
+}
+
+.icon-action-line {
+  vertical-align: middle;
+}
+
+.card-slot {
+  display: flex;
+  flex-wrap: wrap;
+}
+.card-item {
+  padding: 0 5px 5px 0;
+}
+
+.card {
+  border-radius: 10px;
+}
+.card-small {
+  border-radius: 5px;
+}
+
+.view-tags {
+  .view-tag {
+    display: block;
+    padding: 0 0 5px;
+  }
+}
