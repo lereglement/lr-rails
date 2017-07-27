@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   constraints(lambda { |req| req.host.match(/^api\.lereglement\.(here|fm)$/) }) do
     namespace :api, :path => '/' do
       namespace :v1 do
-        resources :connections, only: [:index]
+        get :get_not_converted, path: '/tracks/not_converted', to: 'tracks#get_not_converted'
       end
     end
   end

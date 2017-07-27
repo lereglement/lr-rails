@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170522170021) do
+ActiveRecord::Schema.define(version: 20170727204311) do
 
   create_table "active_admin_comments", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.string "namespace"
@@ -61,6 +61,10 @@ ActiveRecord::Schema.define(version: 20170522170021) do
     t.string "state", limit: 40, default: "active"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "track_file_name"
+    t.string "track_content_type"
+    t.integer "track_file_size"
+    t.datetime "track_updated_at"
     t.index ["bitrate"], name: "bitrate"
     t.index ["bitrate_type_of"], name: "bitrate_type_of"
     t.index ["state"], name: "state"

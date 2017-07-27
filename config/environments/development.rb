@@ -58,12 +58,6 @@ Rails.application.configure do
 
   config.paperclip_defaults = {
     storage: :s3,
-    s3_host_name: Rails.application.secrets.aws_host,
-    s3_options: {
-      endpoint: "https://#{Rails.application.secrets.aws_host}",
-      force_path_style: true,
-      signature_version: 's3'
-    },
     s3_credentials: {
       bucket: Rails.application.secrets.s3_bucket,
       access_key_id: Rails.application.secrets.aws_access_key_id,
