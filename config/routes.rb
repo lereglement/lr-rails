@@ -1,15 +1,13 @@
 Rails.application.routes.draw do
 
-
-  constraints(lambda { |req| req.host.match(/bobonn\.io/) }) do
+  constraints(lambda { |req| req.host.match(/^bo\.lereglement\.(here|fm)$/) }) do
     devise_for :admin_users, ActiveAdmin::Devise.config
     ActiveAdmin.routes(self)
-    post :send, path: '/chat/message', to: 'chat#message'
   end
 
-  constraints(lambda { |req| req.host.match(/^(api|api-dev)?\.getbonnie/) }) do
+  constraints(lambda { |req| req.host.match(/^api\.lereglement\.(here|fm)$/) }) do
     namespace :api, :path => '/' do
-      namespace :v3 do
+      namespace :v1 do
         resources :connections, only: [:index]
       end
     end
