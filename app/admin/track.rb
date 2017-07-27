@@ -15,8 +15,8 @@ ActiveAdmin.register Track do
       input :title
       input :length
       input :year
-      input :bitrate
-      input :bitrate_type_of
+      input :bitrate, as: :select, collection: Track.get_bitrates
+      input :bitrate_type_of, as: :select, collection: Track.get_bitrate_types
       input :is_converted, as: :check_boxes
       input :track, as: :file
     end
