@@ -4,7 +4,9 @@ ActiveAdmin.register Playlist do
 
   index do
     column :id
-    column :aired_at
+    column :aired_at do |track|
+      time_ago(track.aired_at)
+    end
     column :track do |item|
       div b item.track.artist if item.track.artist
       div do
