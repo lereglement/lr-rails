@@ -9,7 +9,6 @@ Rails.application.routes.draw do
     namespace :api, :path => '/' do
       namespace :v1 do
         get :get_not_converted, path: '/tracks/not_converted', to: 'tracks#get_not_converted'
-        put :set_converted, path: '/tracks/:id/converted', to: 'tracks#set_converted'
         resources :tracks, only: [:update]
       end
     end

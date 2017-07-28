@@ -8,14 +8,6 @@ class Api::V1::TracksController < Api::V1::BaseController
       each_serializer: Api::V1::Tracks::TranscodingSerializer
   end
 
-  def set_converted
-    id = params[:id]
-
-    Track.find(id).update(is_converted: true)
-
-    render json: true
-  end
-
   def update
     ref = params[:id]
 
