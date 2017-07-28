@@ -5,8 +5,7 @@ class Api::V1::Tracks::TranscodingSerializer < ActiveModel::Serializer
   end
 
   attribute :target do
-    filename = object.track.path.scan(/original\/(\w+)/)[0][0]
-    "/transcoded/#{filename.scan(/.{4}/).join("/")}/#{Rails.application.secrets.output_quality}.#{Rails.application.secrets.output_format}"
+    TrackLib.transcoded_file(object)
   end
 
   attribute :quality do

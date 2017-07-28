@@ -10,6 +10,18 @@ basePath: /api/v1
 schemes:
   - https
 paths:
+  /playlists/next:
+    get:
+      tags:
+        - playlist
+      summary: Get next file
+      produces:
+        - text/plain
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            type: string
   /tracks/not_converted:
     get:
       tags:
