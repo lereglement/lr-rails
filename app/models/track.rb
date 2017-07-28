@@ -3,26 +3,12 @@ class Track < ApplicationRecord
     use_timestamp: false
   do_not_validate_attachment_file_type :track
 
-  BITRATES = [
-    "96",
-    "128",
-    "192",
-    "256"
-  ]
+  after_create :set_after_create
 
-  BITRATE_TYPES = [
-    :abr,
-    :vbr,
-    :cbr
-  ]
-
-  def self.get_bitrates
-    BITRATES
+  def set_after_create
+    passphrase = "#{self.id}+#{DateTime.now.to_date}#{Rails.application.secrets.secret_key_base}"
+    self.ref = CryptLib.sha1(passphrase)
+    self.save
   end
-
-  def self.get_bitrate_types
-    BITRATE_TYPES
-  end
-
 
 end

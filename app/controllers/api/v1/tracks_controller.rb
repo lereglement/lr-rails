@@ -17,10 +17,14 @@ class Api::V1::TracksController < Api::V1::BaseController
   end
 
   def update
-    id = params[:id]
-    track_params = params[:track].permit(:is_converted)
+    ref = params[:id]
 
-    Track.find(id).update(track_params)
+    track = Track.find_by(ref: ref)
+    api_error(status: 500, errors: "Missing track") and return false if track.nil?
+
+    track_params = params[:track].permit(:is_converted, :duration, :bitrate)
+
+    Track.find(track.id).update(track_params)
 
     render json: true
   end

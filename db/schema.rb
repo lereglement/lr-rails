@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170727204311) do
+ActiveRecord::Schema.define(version: 20170728140107) do
 
   create_table "active_admin_comments", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.string "namespace"
@@ -53,10 +53,9 @@ ActiveRecord::Schema.define(version: 20170727204311) do
   create_table "tracks", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC" do |t|
     t.string "artist"
     t.string "title"
-    t.integer "length"
+    t.integer "duration"
     t.integer "year"
     t.integer "bitrate"
-    t.string "bitrate_type_of"
     t.boolean "is_converted", default: false, null: false
     t.string "state", limit: 40, default: "active"
     t.datetime "created_at", null: false
@@ -65,8 +64,9 @@ ActiveRecord::Schema.define(version: 20170727204311) do
     t.string "track_content_type"
     t.integer "track_file_size"
     t.datetime "track_updated_at"
+    t.string "ref", limit: 40
     t.index ["bitrate"], name: "bitrate"
-    t.index ["bitrate_type_of"], name: "bitrate_type_of"
+    t.index ["ref"], name: "idx_ref", unique: true
     t.index ["state"], name: "state"
     t.index ["year"], name: "year"
   end
