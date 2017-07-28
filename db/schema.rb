@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170728194217) do
+ActiveRecord::Schema.define(version: 20170728204818) do
 
   create_table "active_admin_comments", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.string "namespace"
@@ -48,6 +48,7 @@ ActiveRecord::Schema.define(version: 20170728194217) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["is_aired"], name: "is_aired"
+    t.index ["track_id"], name: "fk_playlist_track"
   end
 
   create_table "tracks", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC" do |t|
@@ -74,4 +75,5 @@ ActiveRecord::Schema.define(version: 20170728194217) do
     t.index ["year"], name: "year"
   end
 
+  add_foreign_key "playlists", "tracks", name: "fk_playlist_track"
 end
