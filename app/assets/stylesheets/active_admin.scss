@@ -20,6 +20,8 @@ $grey-mineshaft: #333;
 $grey-alto: #d2d2d2;
 $grey-gallery: #ebebeb;
 $grey-alabaster: #fafafa;
+$green-shamrock: #2FD575;
+$yellow-lighning: #FABE19;
 $black: #000;
 $red: #f00;
 
@@ -42,6 +44,7 @@ body {
 body,
 a {
   font-family: system, -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Lucida Grande" !important;
+  font-size: 13px;
 }
 
 body{
@@ -227,70 +230,15 @@ form fieldset ol > li label {
   padding-top: 10px;
 }
 
-.see_more {
-  a {
-    text-decoration: none;
-    text-align: center;
-    border-radius: 5px;
-    background-color: white;
-    font-size: 14px;
-    padding: 10px;
-    display: block;
-    box-shadow: 0 1px 5px rgba(0, 0, 0, .3);
-  }
-}
-
-.heart {
-  display: inline-block;
-  padding: 0 10px;
-}
-
-.icon {
-  font-size: 20px;
-}
-
 .status_tag {
   border-radius: 3px;
-  &.yes,
-  &.active,
-  &.published,
-  &.complete {
-    background: #7ED321;
+  &.track {
+    background: $purple-heliotrope;
   }
-  &.portrait {
-    background: #974B7B;
+  &.active {
+    background: $green-shamrock;
   }
-  &.picture {
-    background: #F6A623;
-  }
-  &.deleted,
-  &.incomplete {
-    background: $red;
-  }
-}
-
-.icon-action-line {
-  vertical-align: middle;
-}
-
-.card-slot {
-  display: flex;
-  flex-wrap: wrap;
-}
-.card-item {
-  padding: 0 5px 5px 0;
-}
-
-.card {
-  border-radius: 10px;
-}
-.card-small {
-  border-radius: 5px;
-}
-
-.view-tags {
-  .view-tag {
-    display: block;
-    padding: 0 0 5px;
+  &.pending {
+    background: $yellow-lighning;
   }
 }
