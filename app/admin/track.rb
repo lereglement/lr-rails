@@ -12,11 +12,16 @@ ActiveAdmin.register Track do
 
   index do
     column :id
-    column :artist
-    column :title
-    column :year
-    column :type do |track|
-      status_tag track.type_of
+    column :track do |track|
+      div b track.artist
+      div do
+        span track.title
+        span " (#{track.year})" if track.year
+      end
+    end
+    column :tags do |track|
+      span status_tag track.state
+      span status_tag track.type_of
     end
     column :created do |track|
       time_ago(track.created_at)
