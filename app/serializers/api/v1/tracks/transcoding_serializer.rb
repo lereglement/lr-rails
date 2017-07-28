@@ -14,7 +14,7 @@ class Api::V1::Tracks::TranscodingSerializer < ActiveModel::Serializer
   end
 
   attribute :pong do
-    "URL"
+    "#{Rails.application.secrets.domain_api_url}/tracks/#{object.id}/converted"
   end
 
 
