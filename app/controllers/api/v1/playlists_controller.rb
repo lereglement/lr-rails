@@ -15,6 +15,11 @@ class Api::V1::PlaylistsController < Api::V1::BaseController
 
     next_track = Playlist.where(is_aired: false).order(:id).first
 
+    next_track.update({
+      is_aired: true,
+      aired_at: Time.now
+    })
+
     render plain: TrackLib.transcoded_file(Track.find(next_track.track_id),)
 
   end
