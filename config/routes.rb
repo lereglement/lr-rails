@@ -13,4 +13,10 @@ Rails.application.routes.draw do
     end
   end
 
+  constraints(lambda { |req| req.host.match(/^lereglement\.(here|sale)$/) }) do
+    namespace :landing, :path => '/' do
+      get :root, path: '/', to: 'root#index'
+    end
+  end
+
 end
