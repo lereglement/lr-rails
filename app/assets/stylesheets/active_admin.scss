@@ -85,6 +85,31 @@ body{
   border-radius: 5px;
 }
 
+#header ul.tabs > li.has_nested:hover > a {
+  border-color: $purple-heliotrope;
+  background-color: $purple-heliotrope;
+}
+
+#header ul.tabs > li ul {
+  background-color: $purple-heliotrope;
+  box-shadow: none;
+  color: white;
+}
+
+#title_bar {
+  text-shadow: none;
+
+  .breadcrumb {
+    margin-bottom: 5px;
+  }
+
+  h2 {
+    font-size: 1.6em;
+    font-weight: 600!important;
+    text-shadow: none;
+  }
+}
+
 #active_admin_content {
   border-radius: 5px;
   h2 {
