@@ -12,6 +12,16 @@ ActiveAdmin.register Track do
     :state,
     :type_of
 
+  filter :title_or_artist_contains
+  filter :state, as: :select, collection: Track.get_states.map { |value| value }
+  filter :type_of, as: :select, collection: Track.get_types.map { |value| value }
+  filter :is_converted
+  filter :bitrate
+  filter :year
+  filter :created_at
+  filter :updated_at
+
+
   index do
     column :id
     column :track do |track|
@@ -24,6 +34,7 @@ ActiveAdmin.register Track do
     column :tags do |track|
       span status_tag track.state
       span status_tag track.type_of
+      span status_tag "Raw" if track.is_converted == false
     end
     column :created do |track|
       time_ago(track.created_at)
