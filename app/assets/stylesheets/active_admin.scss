@@ -15,7 +15,7 @@
 // For example, to change the default status-tag color:
 //
 //   .status_tag { background: #6090DB; }
-$green-turquoise: #32e4c6;
+$purple-heliotrope: #BD58FE;
 $grey-mineshaft: #333;
 $grey-alto: #d2d2d2;
 $grey-gallery: #ebebeb;
@@ -44,31 +44,48 @@ a {
   font-family: system, -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Lucida Grande" !important;
 }
 
+body{
+  &.logged_out {
+    background-color: black;
+
+    h2 {
+      color: white!important;
+      text-transform: uppercase;
+    }
+  }
+}
+
 #header {
-  background: $green-turquoise;
-  border-bottom: 1px solid darken($green-turquoise, 10%);
+  background: $black;
+  border-bottom: 5px solid $purple-heliotrope;
+  font-weight: bold;
+  text-transform: uppercase;
+
+  #site_title_image {
+    margin: 5px 0 3px;
+  }
 }
 
 #header a:link,
 #header a {
-  color: white;
+  color: rgba(white, .7);
   text-shadow: none;
 }
 
 #header ul.tabs > li:hover > a {
-  background-color: darken($green-turquoise, 10%);
+  background-color: $purple-heliotrope;
   border-radius: 5px;
 }
 
 #header ul.tabs > li.current > a {
-  background-color: darken($green-turquoise, 20%);
+  background-color: darken($purple-heliotrope, 10%);
   border-radius: 5px;
 }
 
 #active_admin_content {
   border-radius: 5px;
   h2 {
-    background: $green-turquoise;
+    background: $purple-heliotrope;
     color: $grey-mineshaft;
     box-shadow: unset;
     text-shadow: unset;
@@ -182,7 +199,7 @@ form {
   }
 
   select {
-    border-left: 3px solid $green-turquoise;
+    border-left: 3px solid $purple-heliotrope;
     border-radius: 2px;
   }
 
@@ -191,7 +208,7 @@ form {
   }
 
   input[type=submit] {
-    background-color: $green-turquoise;
+    background-color: $purple-heliotrope;
     background-image: none;
     border: 0;
     box-shadow: none;
@@ -200,7 +217,7 @@ form {
     text-shadow: none;
 
     &:hover {
-      background-color: darken($green-turquoise, .2)!important;
+      background-color: darken($purple-heliotrope, .2)!important;
       background-image: none!important;
     }
   }
