@@ -25,12 +25,10 @@ ActiveAdmin.register Track do
   index do
     column :id
     column :track do |track|
-      div b track.artist
+      div b track.artist if track.artist
       div do
-        auto_link track do
-          span track.title
-          span " (#{track.year})" if track.year
-        end
+        track_title = !track.title.blank? ? "#{track.title} #{track.year ? '(' + track.year.to_s + ')' : ''}" : track.track_file_name
+        auto_link track, track_title
       end
     end
     column :tags do |track|
@@ -83,6 +81,9 @@ ActiveAdmin.register Track do
       input :type_of, as: :select, collection: Track.get_types.map { |value| value }, include_blank: false
       input :is_converted
       input :track, as: :file
+      div class: "form_content_margin" do
+        div b "#{resource.track_file_name}"
+      end
     end
     actions
   end
