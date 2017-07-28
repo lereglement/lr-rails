@@ -27,8 +27,10 @@ ActiveAdmin.register Track do
     column :track do |track|
       div b track.artist
       div do
-        span track.title
-        span " (#{track.year})" if track.year
+        auto_link track do
+          span track.title
+          span " (#{track.year})" if track.year
+        end
       end
     end
     column :tags do |track|
