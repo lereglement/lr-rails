@@ -88,3 +88,5 @@ definitions:
         type: string
       file:
         type: string
+      cover:
+        type: string

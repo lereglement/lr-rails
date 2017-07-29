@@ -11,10 +11,10 @@ ActiveAdmin.register Track do
   permit_params :artist,
     :title,
     :duration,
-    :year,
     :bitrate,
     :is_converted,
     :track,
+    :cover,
     :state,
     :type_of
 
@@ -23,7 +23,6 @@ ActiveAdmin.register Track do
   filter :type_of, as: :select, collection: Track.get_types.map { |value| value }
   filter :is_converted
   filter :bitrate
-  filter :year
   filter :created_at
   filter :updated_at
 
@@ -33,10 +32,13 @@ ActiveAdmin.register Track do
 
   index do
     column :id
+    column :cover do |track|
+      auto_link(track, image_tag(track.cover.url(:xsmall), size: 50))
+    end
     column :track do |track|
       div b track.artist if track.artist
       div do
-        track_title = !track.title.blank? ? "#{track.title} #{track.year ? '(' + track.year.to_s + ')' : ''}" : track.track_file_name
+        track_title = !track.title.blank? ? track.title : track.track_file_name
         auto_link track, track_title
       end
     end
@@ -58,7 +60,6 @@ ActiveAdmin.register Track do
     attributes_table do
       row :artist
       row :title
-      row :year
       row :duration do |track|
         track.duration
       end
@@ -85,10 +86,11 @@ ActiveAdmin.register Track do
     inputs 'Details' do
       input :artist
       input :title
-      input :year
+      input :external_source
       input :state, as: :select, collection: Track.get_states.map { |value| value }, include_blank: false
       input :type_of, as: :select, collection: Track.get_types.map { |value| value }, include_blank: false
       input :is_converted
+      input :cover, as: :file
       input :track, as: :file
       div class: "form_content_margin" do
         div b "#{resource.track_file_name}"
@@ -99,6 +101,7 @@ ActiveAdmin.register Track do
 
   sidebar "Details", only: :show do
     div do
+      div image_tag(resource.cover.url(:large), size: 250)
       div b "Created: #{time_ago(resource.created_at)}"
       div b "Updated: #{time_ago(resource.updated_at)}"
       div b "Uploaded: #{time_ago(resource.track_updated_at)}" if resource.track_updated_at

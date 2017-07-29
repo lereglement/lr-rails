@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170728204818) do
+ActiveRecord::Schema.define(version: 20170729173204) do
 
   create_table "active_admin_comments", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.string "namespace"
@@ -55,7 +55,6 @@ ActiveRecord::Schema.define(version: 20170728204818) do
     t.string "artist"
     t.string "title"
     t.integer "duration"
-    t.integer "year"
     t.integer "bitrate"
     t.boolean "is_converted", default: false, null: false
     t.string "state", limit: 40, default: "active"
@@ -69,10 +68,14 @@ ActiveRecord::Schema.define(version: 20170728204818) do
     t.string "type_of", limit: 40
     t.datetime "last_aired_at"
     t.integer "aired_count"
+    t.string "cover_file_name"
+    t.string "cover_content_type"
+    t.integer "cover_file_size"
+    t.datetime "cover_updated_at"
+    t.string "external_source"
     t.index ["bitrate"], name: "bitrate"
     t.index ["ref"], name: "idx_ref", unique: true
     t.index ["state"], name: "state"
-    t.index ["year"], name: "year"
   end
 
   add_foreign_key "playlists", "tracks", name: "fk_playlist_track"
