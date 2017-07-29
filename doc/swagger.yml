@@ -88,5 +88,11 @@ definitions:
         type: string
       file:
         type: string
-      cover:
+      cover_xsmall:
+        type: string
+      cover_small:
+        type: string
+      cover_medium:
+        type: string
+      cover_large:
         type: string
