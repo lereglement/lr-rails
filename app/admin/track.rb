@@ -30,6 +30,12 @@ ActiveAdmin.register Track do
     link_to 'Reset Transco', '/tracks/reset', data: {confirm: 'Are you sure?'}
   end
 
+  scope("Active", default: true) { |scope| scope.where(state: :active) }
+  scope("Pending") { |scope| scope.where(state: :pending) }
+  scope("Expired") { |scope| scope.where(state: :expired) }
+  scope("Deleted") { |scope| scope.where(state: :deleted) }
+  scope("Not converted") { |scope| scope.where(state: [:active, :pending]).where(is_converted: false) }
+
   index do
     column :id
     column :track do |track|
