@@ -3,6 +3,16 @@ class Track < ApplicationRecord
     use_timestamp: false
   do_not_validate_attachment_file_type :track
 
+  has_attached_file :cover, styles: {
+    xsmall: '100x100#',
+    small: '200x200#',
+    medium: '400x400#',
+    large: '600x600#',
+    xlarge: '800x800#',
+  }, :default_url => "/missing/cover.png",
+  use_timestamp: false
+  validates_attachment_content_type :cover, :content_type => /\Aimage\/.*\Z/
+
   after_create :set_after_create
 
   TYPES = [
@@ -13,7 +23,9 @@ class Track < ApplicationRecord
   STATES = [
     :active,
     :pending,
-    :deleted
+    :deleted,
+    :expired,
+    :striked,
   ]
 
   def self.get_types

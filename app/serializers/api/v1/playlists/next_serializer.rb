@@ -8,6 +8,10 @@ class Api::V1::Playlists::NextSerializer < ActiveModel::Serializer
     object.track.title
   end
 
+  attribute :cover do
+    object.track.cover.path(:large)
+  end
+
   attribute :file do
     TrackLib.transcoded_file(Track.find(object.track_id))
   end
