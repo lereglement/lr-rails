@@ -92,10 +92,17 @@ ActiveAdmin.register Track do
       input :state, as: :select, collection: Track.get_states.map { |value| value }, include_blank: false
       input :type_of, as: :select, collection: Track.get_types.map { |value| value }, include_blank: false
       input :is_converted
-      input :cover, as: :file
-      input :track, as: :file
-      div class: "form_content_margin" do
-        div b "#{resource.track_file_name}"
+    end
+    inputs 'Cover' do
+      input :cover, as: :file, input_html: { accept:".jpeg,.jpg,.png,.gif" }
+      li style: "background-image: url(#{resource.cover.url(:large)}); width: 150px; height: 150px; background-size: cover; margin-left: 20%; margin-top: -170px;"
+    end
+    inputs 'File' do
+      input :track, as: :file, input_html: { accept:".mp3,.ogg" }
+      track_image = resource.track_file_name ? "/missing/track_on.svg" : "/missing/track_off.svg"
+      li style: "background-image: url(#{track_image}); width: 150px; height: 150px; background-size: cover; margin-left: 20%; margin-top: -170px;"
+      li class: "form_content_margin" do
+        "#{resource.track_file_name}"
       end
     end
     actions

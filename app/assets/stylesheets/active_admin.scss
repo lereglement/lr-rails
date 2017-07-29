@@ -271,3 +271,12 @@ form fieldset ol > li label {
     background: $yellow-lighning;
   }
 }
+
+#track_track_input input[type="file"],
+#track_track_input input[type="file"]::-webkit-file-upload-button,
+#track_cover_input input[type="file"],
+#track_cover_input input[type="file"]::-webkit-file-upload-button {
+  cursor: pointer;
+  height:190px;
+  padding: 15px 0 0;
+}
