@@ -11,9 +11,9 @@ class Api::V1::PlaylistsController < Api::V1::BaseController
         })
       end
       Playlist.create(to_insert)
-    end
 
-    next_track = Playlist.where(is_aired: false).order(:id).first
+      next_track = Playlist.where(is_aired: false).order(:id).first
+    end
 
     next_track.update({
       is_aired: true,
