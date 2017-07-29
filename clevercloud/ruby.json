@@ -1,5 +1,5 @@
 {
   "deploy" : {
-    "rakegoals": ["db:seed", "db:migrate"]
+    "rakegoals": ["db:migrate", "db:seed"]
   }
 }
