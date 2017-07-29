@@ -93,7 +93,7 @@ ActiveAdmin.register Track do
 
   form do |f|
     inputs 'Details' do
-      input :artist
+      input :artist, as: :autocomplete, url: autocomplete_artist_name_artists_path
       input :title
       input :external_source
       input :state, as: :select, collection: Track.get_states.map { |value| value }, include_blank: false

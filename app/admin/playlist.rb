@@ -3,12 +3,8 @@ ActiveAdmin.register Playlist do
 
   actions :index, :destroy
 
-  scope("Next", default: true) { |scope|
-    scope.where(is_aired: false).reorder(:id)
-  }
-  scope("Previous") { |scope|
-    scope.where(is_aired: true).reorder(id: :desc)
-  }
+  scope("Next", default: true) { |scope| scope.where(is_aired: false).reorder(:id) }
+  scope("Now & Previous") { |scope| scope.where(is_aired: true).reorder(id: :desc) }
 
   index do
     column :id

@@ -210,6 +210,8 @@ GEM
       nokogiri (>= 1.6)
     rails-html-sanitizer (1.0.3)
       loofah (~> 2.0)
+    rails3-jquery-autocomplete (1.0.15)
+      rails (>= 3.2)
     railties (5.1.1)
       actionpack (= 5.1.1)
       activesupport (= 5.1.1)
@@ -300,6 +302,7 @@ DEPENDENCIES
   puma (~> 3.0)
   rack-cors (~> 0.4.1)
   rails (~> 5.1.0)
+  rails3-jquery-autocomplete (~> 1.0.11)
   sass-rails (~> 5.0)
   slim (~> 3.0.7)
   spring
@@ -311,4 +314,4 @@ DEPENDENCIES
   web-console (>= 3.3.0)
 
 BUNDLED WITH
-   1.15.1
+   1.15.3
