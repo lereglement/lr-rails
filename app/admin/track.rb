@@ -33,6 +33,7 @@ ActiveAdmin.register Track do
   scope("Active", default: true) { |scope| scope.where(state: :active) }
   scope("Pending") { |scope| scope.where(state: :pending) }
   scope("Expired") { |scope| scope.where(state: :expired) }
+  scope("Striked") { |scope| scope.where(state: :striked) }
   scope("Deleted") { |scope| scope.where(state: :deleted) }
   scope("Not converted") { |scope| scope.where(state: [:active, :pending]).where(is_converted: false) }
 
