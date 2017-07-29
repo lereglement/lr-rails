@@ -9,5 +9,5 @@ staging:
   url: <%= ENV["REDIS_URL"] %>
 
 production:
-  adapter: redis
+  adapter: async
   url: <%= ENV["REDIS_URL"] %>

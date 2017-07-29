@@ -1,4 +1,4 @@
-class Api::V3::ErrorSerializer
+class Api::V1::ErrorSerializer
   UNKNOWN_ERROR = 'Something went wrong, no more info is available unforunately!'.freeze
   DEFAULT_POINTER = 'data'.freeze
 
