@@ -16,12 +16,12 @@ paths:
         - playlist
       summary: Get next file
       produces:
-        - text/plain
+        - application/json
       responses:
         '200':
           description: successful operation
           schema:
-            type: string
+            $ref: '#/definitions/PlaylistNext'
   /tracks/not_converted:
     get:
       tags:
@@ -79,3 +79,12 @@ definitions:
         type: integer
       duration:
         type: integer
+  PlaylistNext:
+    type: object
+    properties:
+      artist:
+        type: string
+      title:
+        type: string
+      file:
+        type: string

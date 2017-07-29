@@ -5,7 +5,7 @@ class Api::V1::PlaylistsController < Api::V1::BaseController
 
     if next_track.blank?
       to_insert = []
-      Track.where(state: :active, is_converted: true, type_of: :track).order("RAND()").pluck(:id).each do |track_id|
+      Track.where(state: :active,  type_of: :track).order("RAND()").pluck(:id).each do |track_id|
         to_insert.push({
           track_id: track_id
         })
@@ -20,7 +20,9 @@ class Api::V1::PlaylistsController < Api::V1::BaseController
       aired_at: Time.now
     })
 
-    render plain: TrackLib.transcoded_file(Track.find(next_track.track_id),)
+    render json: next_track,
+      root: 'data',
+      serializer: Api::V1::Playlists::NextSerializer
 
   end
 

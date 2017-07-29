@@ -16,6 +16,4 @@ class Api::V1::Tracks::TranscodingSerializer < ActiveModel::Serializer
     "#{Rails.application.secrets.domain_api_url}/#{Rails.application.secrets.api_version}/tracks/#{object.ref}"
   end
 
-
-
 end
