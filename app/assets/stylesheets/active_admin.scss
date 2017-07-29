@@ -22,6 +22,7 @@ $grey-gallery: #ebebeb;
 $grey-alabaster: #fafafa;
 $green-shamrock: #2FD575;
 $yellow-lighning: #FABE19;
+$red: #FF001F;
 $black: #000;
 $red: #f00;
 
@@ -269,6 +270,9 @@ form fieldset ol > li label {
   }
   &.pending {
     background: $yellow-lighning;
+  }
+  &.striked {
+    background: $red;
   }
 }
 

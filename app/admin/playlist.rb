@@ -1,6 +1,10 @@
 ActiveAdmin.register Playlist do
+  config.batch_actions = false
 
   actions :index, :destroy
+
+  scope("Next", default: true) { |scope| scope.where(is_aired: false).order(:id) }
+  scope("Previous") { |scope| scope.where(is_aired: true).order(id: :desc) }
 
   index do
     column :id
