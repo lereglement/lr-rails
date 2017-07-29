@@ -14,6 +14,7 @@ class Track < ApplicationRecord
   validates_attachment_content_type :cover, :content_type => /\Aimage\/.*\Z/
 
   after_create :set_after_create
+  before_save :insert_artist
 
   TYPES = [
     :track,
@@ -40,6 +41,12 @@ class Track < ApplicationRecord
     passphrase = "#{self.id}+#{DateTime.now.to_date}#{Rails.application.secrets.secret_key_base}"
     self.ref = CryptLib.sha1(passphrase)
     self.save
+  end
+
+  def insert_artist
+    if self.artist
+      Artist.where(name: self.artist).first_or_create
+    end
   end
 
 end
