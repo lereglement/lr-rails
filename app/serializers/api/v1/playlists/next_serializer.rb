@@ -9,7 +9,7 @@ class Api::V1::Playlists::NextSerializer < ActiveModel::Serializer
   end
 
   attribute :cover do
-    object.track.cover.url(:large)
+    object.track.cover.path(:large)
   end
 
   attribute :file do
