@@ -5,7 +5,7 @@ info:
   title: LeReglement API
   contact:
     email: nanark@gmail.com
-host: api.lereglement.sale
+host: api.lereglement.xyz
 basePath: /api/v1
 schemes:
   - https
