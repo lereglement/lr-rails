@@ -5,7 +5,7 @@ Rails.application.routes.draw do
     ActiveAdmin.routes(self)
   end
 
-  constraints(lambda { |req| req.host.match(/^api(-back)?\.lereglement\.(here|xyz)$/) }) do
+  constraints(lambda { |req| req.host.match(/^api?\.lereglement\.(here|xyz)$/) }) do
     namespace :api, :path => '/' do
       namespace :v1 do
         get :get_next_track, path: '/playlists/next', to: 'playlists#get_next'

@@ -1,5 +1,11 @@
 ActiveAdmin.register Track do
 
+  collection_action :reset, method: :get do
+    Track.where(is_converted: true).update(is_converted: false)
+
+    redirect_to collection_path, notice: "Reset done."
+  end
+
   actions :all, :except => [:destroy]
 
   permit_params :artist,
@@ -21,6 +27,9 @@ ActiveAdmin.register Track do
   filter :created_at
   filter :updated_at
 
+  action_item only: :index do
+    link_to 'Reset Transco', '/tracks/reset', data: {confirm: 'Are you sure?'}
+  end
 
   index do
     column :id
