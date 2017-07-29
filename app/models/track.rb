@@ -1,7 +1,7 @@
 class Track < ApplicationRecord
   has_attached_file :track,
     use_timestamp: false
-  do_not_validate_attachment_file_type :track
+  validates_attachment_file_name :track, :matches => %r{\.(mp3|ogg)$}i
 
   has_attached_file :cover, styles: {
     xsmall: '100x100#',
