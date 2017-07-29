@@ -7,14 +7,17 @@ ActiveAdmin.register Playlist do
     column :aired_at do |item|
       time_ago(item.aired_at)
     end
-    column :cover do |item|
-      auto_link(item.track, image_tag(item.track.cover.url(:xsmall), size: 50))
-    end
     column :track do |item|
-      div b item.track.artist if item.track.artist
-      div do
-        track_title = !item.track.title.blank? ? item.track.title : item.track.track_file_name
-        auto_link item.track, track_title
+      track = item.track
+      div style: "display:flex; align-items: center;" do
+        div auto_link(track, image_tag(track.cover.url(:xsmall), size: 50, style: "margin-right: 10px;"))
+        div do
+          div b track.artist if track.artist
+          div do
+            track_title = !track.title.blank? ? track.title : track.track_file_name
+            auto_link track, track_title
+          end
+        end
       end
     end
     column :player do |item|
