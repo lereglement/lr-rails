@@ -5,7 +5,7 @@ class Api::V1::PlaylistsController < Api::V1::BaseController
 
     if next_track.blank?
       to_insert = []
-      Track.where(state: :active,  type_of: :track).order("RAND()").pluck(:id).each do |track_id|
+      Track.where(state: :active, is_converted: true, type_of: :track).order("RAND()").pluck(:id).each do |track_id|
         to_insert.push({
           track_id: track_id
         })
@@ -19,6 +19,10 @@ class Api::V1::PlaylistsController < Api::V1::BaseController
       is_aired: true,
       aired_at: Time.now
     })
+
+    track = Track.find(next_track.track_id)
+    track.update(last_aired_at: Time.now)
+    track.increment!(:aired_count)
 
     render json: next_track,
       root: 'data',
