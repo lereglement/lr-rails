@@ -27,7 +27,7 @@ ActiveAdmin.register Track do
   filter :created_at
   filter :updated_at
 
-  action_item only: :index do
+  action_item(:index) do
     link_to 'Reset Transco', '/tracks/reset', data: {confirm: 'Are you sure?'}
   end
 
