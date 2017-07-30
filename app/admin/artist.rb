@@ -22,7 +22,7 @@ ActiveAdmin.register Artist do
     column :twitter do |artist|
       div do
         artist.twitter.split.each do |account|
-          span link_to "@#{account}", "https://twitter.com/#{account}", target: "_blank"
+          span link_to "#{account}", "https://twitter.com/#{account}", target: "_blank"
         end
       end if artist.twitter
     end
@@ -39,7 +39,7 @@ ActiveAdmin.register Artist do
       row :twitter do |artist|
         div do
           artist.twitter.split.each do |account|
-            span link_to "@#{account}", "https://twitter.com/#{account}", target: "_blank"
+            span link_to "#{account}", "https://twitter.com/#{account}", target: "_blank"
           end
         end
       end if artist.twitter

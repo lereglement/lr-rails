@@ -1,11 +1,21 @@
 class Api::V1::Playlists::NextSerializer < ActiveModel::Serializer
 
   attribute :artist do
-    object.track.artist
+    track = object.track
+    track.artist
   end
 
   attribute :title do
-    object.track.title
+    track = object.track
+    track.title
+  end
+
+  attribute :twitter do
+    track = object.track
+    artist = Artist.where(name: track.artist).first
+    unless artist.twitter.blank?
+      artist.twitter.split.map{ |account| "@#{account}"}.join(" ")
+    end
   end
 
   attribute :cover_xsmall do
@@ -25,7 +35,8 @@ class Api::V1::Playlists::NextSerializer < ActiveModel::Serializer
   end
 
   attribute :file do
-    TrackLib.transcoded_file(Track.find(object.track_id))
+    track = object.track
+    TrackLib.transcoded_file(Track.find(object.track_id)) if track.track_file_name
   end
 
 end
