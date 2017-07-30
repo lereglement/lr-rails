@@ -3,7 +3,8 @@ ActiveAdmin.register Artist do
 
   actions :all
 
-  permit_params :twitter
+  permit_params :twitter,
+    :name
 
   collection_action :autocomplete_artist_name, method: :get
 
@@ -68,7 +69,7 @@ ActiveAdmin.register Artist do
 
   form do |f|
     inputs 'Details' do
-      input :name, input_html: { disabled:"disabled" }
+      input :name
       input :twitter
     end
     inputs 'Picture' do
