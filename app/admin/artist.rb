@@ -4,7 +4,8 @@ ActiveAdmin.register Artist do
   actions :all
 
   permit_params :twitter,
-    :name
+    :name,
+    :picture
 
   collection_action :autocomplete_artist_name, method: :get
 
