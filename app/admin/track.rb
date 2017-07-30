@@ -1,4 +1,5 @@
 ActiveAdmin.register Track do
+  config.batch_actions = false
 
   collection_action :reset, method: :get do
     Track.where(is_converted: true).update(is_converted: false)
@@ -6,7 +7,7 @@ ActiveAdmin.register Track do
     redirect_to collection_path, notice: "Reset done."
   end
 
-  actions :all, :except => [:destroy]
+  actions :all
 
   permit_params :artist,
     :title,
@@ -34,8 +35,9 @@ ActiveAdmin.register Track do
   scope("Pending") { |scope| scope.where(state: :pending) }
   scope("Expired") { |scope| scope.where(state: :expired) }
   scope("Striked") { |scope| scope.where(state: :striked) }
-  scope("Deleted") { |scope| scope.where(state: :deleted) }
+  scope("Rejected") { |scope| scope.where(state: :rejected) }
   scope("Not converted") { |scope| scope.where(state: [:active, :pending]).where(is_converted: false) }
+  scope("All") { |scope| scope }
 
   index do
     column :id

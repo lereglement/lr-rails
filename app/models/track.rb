@@ -15,6 +15,8 @@ class Track < ApplicationRecord
 
   after_create :set_after_create
   before_save :insert_artist
+  after_save :set_after_save
+  before_destroy :set_before_destroy
 
   TYPES = [
     :track,
@@ -24,7 +26,7 @@ class Track < ApplicationRecord
   STATES = [
     :active,
     :pending,
-    :deleted,
+    :rejected,
     :expired,
     :striked,
   ]
@@ -41,6 +43,16 @@ class Track < ApplicationRecord
     passphrase = "#{self.id}+#{DateTime.now.to_date}#{Rails.application.secrets.secret_key_base}"
     self.ref = CryptLib.sha1(passphrase)
     self.save
+  end
+
+  def set_after_save
+    if ([:striked, :rejected].include? self.state.to_sym)
+      Playlist.where(is_aired: false, track_id: self.id).delete_all
+    end
+  end
+
+  def set_before_destroy
+    Playlist.where(track_id: self.id).delete_all
   end
 
   def insert_artist

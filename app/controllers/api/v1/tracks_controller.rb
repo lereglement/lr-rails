@@ -1,7 +1,7 @@
 class Api::V1::TracksController < Api::V1::BaseController
 
   def get_not_converted
-    tracks = Track.where.not(state: :deleted).where(is_converted: false)
+    tracks = Track.where(is_converted: false)
 
     render json: tracks,
       root: 'data',
