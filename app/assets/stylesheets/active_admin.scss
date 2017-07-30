@@ -276,10 +276,8 @@ form fieldset ol > li label {
   }
 }
 
-#track_track_input input[type="file"],
-#track_track_input input[type="file"]::-webkit-file-upload-button,
-#track_cover_input input[type="file"],
-#track_cover_input input[type="file"]::-webkit-file-upload-button {
+input[type="file"],
+input[type="file"]::-webkit-file-upload-button {
   cursor: pointer;
   height:190px;
   padding: 15px 0 0;
