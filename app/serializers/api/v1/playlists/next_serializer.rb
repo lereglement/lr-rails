@@ -10,6 +10,11 @@ class Api::V1::Playlists::NextSerializer < ActiveModel::Serializer
     track.title
   end
 
+  attribute :type_of do
+    track = object.track
+    track.type_of
+  end
+
   attribute :twitter do
     track = object.track
     artist = Artist.where(name: track.artist).first
@@ -19,19 +24,51 @@ class Api::V1::Playlists::NextSerializer < ActiveModel::Serializer
   end
 
   attribute :cover_xsmall do
-    object.track.cover.path(:xsmall)
+    track = object.track
+    unless track.cover.blank?
+      track.cover.path(:xsmall)
+    else
+      artist = Artist.where(name: track.artist).first
+      unless artist.picture.blank?
+        artist.picture.path(:xsmall)
+      end
+    end
   end
 
   attribute :cover_small do
-    object.track.cover.path(:small)
+    track = object.track
+    unless track.cover.blank?
+      track.cover.path(:small)
+    else
+      artist = Artist.where(name: track.artist).first
+      unless artist.picture.blank?
+        artist.picture.path(:small)
+      end
+    end
   end
 
   attribute :cover_medium do
-    object.track.cover.path(:medium)
+    track = object.track
+    unless track.cover.blank?
+      track.cover.path(:medium)
+    else
+      artist = Artist.where(name: track.artist).first
+      unless artist.picture.blank?
+        artist.picture.path(:medium)
+      end
+    end
   end
 
   attribute :cover_large do
-    object.track.cover.path(:large)
+    track = object.track
+    unless track.cover.blank?
+      track.cover.path(:large)
+    else
+      artist = Artist.where(name: track.artist).first
+      unless artist.picture.blank?
+        artist.picture.path(:large)
+      end
+    end
   end
 
   attribute :file do
