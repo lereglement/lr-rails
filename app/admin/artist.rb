@@ -9,4 +9,17 @@ ActiveAdmin.register Artist do
     autocomplete :artist, :name, full: true, limit: 20
   end
 
+  index do
+    column :id
+    column :name do |item|
+      # link_to item.name, tracks_path(q: { artist_eq: item.name})
+      auto_link item, item.name
+    end
+    column :tracks do |item|
+      Track.where(artist: item.name).count
+    end
+
+    actions
+  end
+
 end
