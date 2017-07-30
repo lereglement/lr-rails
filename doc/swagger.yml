@@ -84,6 +84,8 @@ definitions:
     properties:
       artist:
         type: string
+      twitter:
+        type: string
       title:
         type: string
       file:
