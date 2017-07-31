@@ -82,6 +82,8 @@ definitions:
   PlaylistNext:
     type: object
     properties:
+      type_of:
+        type: string
       artist:
         type: string
       twitter:

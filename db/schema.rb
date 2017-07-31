@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170730070918) do
+ActiveRecord::Schema.define(version: 20170731224100) do
 
   create_table "active_admin_comments", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.string "namespace"
@@ -50,7 +50,6 @@ ActiveRecord::Schema.define(version: 20170730070918) do
     t.integer "picture_file_size"
     t.datetime "picture_updated_at"
     t.string "twitter"
-    t.index ["name"], name: "name", unique: true
   end
 
   create_table "playlists", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC" do |t|
@@ -69,7 +68,7 @@ ActiveRecord::Schema.define(version: 20170730070918) do
     t.integer "duration"
     t.integer "bitrate"
     t.boolean "is_converted", default: false, null: false
-    t.string "state", limit: 40, default: "active"
+    t.string "state", limit: 40, default: "pending"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "track_file_name"

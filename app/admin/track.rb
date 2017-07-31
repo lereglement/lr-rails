@@ -92,6 +92,7 @@ ActiveAdmin.register Track do
       row :tags do |track|
         span status_tag track.state
         span status_tag track.type_of
+        span status_tag "Raw" if track.is_converted == false
       end
       row :ref
     end
