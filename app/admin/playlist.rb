@@ -13,10 +13,17 @@ ActiveAdmin.register Playlist do
     end
     column :track do |item|
       track = item.track
+      artist = Artist.find_by(name: track.artist)
       div style: "display:flex; align-items: center;" do
-        div auto_link(track, image_tag(track.cover.url(:xsmall), size: 50, style: "margin-right: 10px;"))
+        if !track.cover.blank?
+          cover = track.cover.url(:xsmall)
+        elsif artist
+          cover = artist.picture.url(:xsmall)
+        else
+          cover = track.cover.url(:xsmall)
+        end
+        div auto_link(track, image_tag(cover, size: 50, style: "margin-right: 10px;"))
         div do
-          artist = Artist.find_by(name: track.artist)
           if artist
             div b auto_link artist, track.artist
           else
