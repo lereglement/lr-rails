@@ -82,6 +82,9 @@ ActiveAdmin.register Track do
       row :listen do |track|
         div audio_tag(track.track.url, controls: true)
       end
+      row :converted do |track|
+        div audio_tag("//#{Rails.application.secrets.s3_host_name}/#{Rails.application.secrets.s3_bucket}#{TrackLib.transcoded_file(track)}", controls: true)
+      end if resource.is_converted == true
       row :file do |track|
         div track.track_file_name
         div do
