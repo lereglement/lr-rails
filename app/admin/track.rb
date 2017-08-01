@@ -35,7 +35,8 @@ ActiveAdmin.register Track do
   scope("Expired") { |scope| scope.where(state: :expired) }
   scope("Striked") { |scope| scope.where(state: :striked) }
   scope("Rejected") { |scope| scope.where(state: :rejected) }
-  scope("Not converted") { |scope| scope.where(state: [:active, :pending]).where(is_converted: false) }
+  scope("Not converted") { |scope| scope.where(state: [:active, :pending, :expired]).where(is_converted: false) }
+  scope("Issues") { |scope| scope.where(" duration <> duration_converted ").where(is_converted: true) }
   scope("All") { |scope| scope }
 
   index do
@@ -73,20 +74,22 @@ ActiveAdmin.register Track do
 
   show title: proc{|track| "#{track.title}" } do
     attributes_table do
-      row :artist
+      row :artist do |track|
+        auto_link(Artist.find_by(name: track.artist), track.artist)
+      end
       row :title
       row :duration do |track|
-        track.duration
-      end
+        Time.at(track.duration).utc.strftime("%M:%S")
+      end if resource.duration
       row :duration_converted do |track|
-        track.duration_converted
-      end
+        Time.at(track.duration_converted).utc.strftime("%M:%S")
+      end if resource.duration_converted
       row :listen do |track|
         div audio_tag(track.track.url, controls: true)
       end
       row :converted do |track|
         div audio_tag("//#{Rails.application.secrets.s3_host_name}/#{Rails.application.secrets.s3_bucket}#{TrackLib.transcoded_file(track)}", controls: true)
-      end if resource.is_converted == true
+      end if resource.is_converted == true && !resource.track_file_name.blank?
       row :file do |track|
         div track.track_file_name
         div do
