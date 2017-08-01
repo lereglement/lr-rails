@@ -36,7 +36,7 @@ ActiveAdmin.register Track do
   scope("Striked") { |scope| scope.where(state: :striked) }
   scope("Rejected") { |scope| scope.where(state: :rejected) }
   scope("Not converted") { |scope| scope.where(state: [:active, :pending, :expired]).where(is_converted: false) }
-  scope("Issues") { |scope| scope.where(" duration <> duration_converted ").where(is_converted: true) }
+  scope("Issues") { |scope| scope.where(" duration <> duration_converted ").where(is_converted: true).reorder(" ABS(duration - duration_converted) DESC") }
   scope("All") { |scope| scope }
 
   index do
@@ -57,6 +57,9 @@ ActiveAdmin.register Track do
           end
         end
       end
+    end
+    column :diff do |track|
+      "#{(track.duration - track.duration_converted).abs} sec" if track.duration && track.duration_converted && (track.duration - track.duration_converted).abs > 0
     end
     column :tags do |track|
       span status_tag track.state
