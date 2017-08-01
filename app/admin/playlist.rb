@@ -36,8 +36,8 @@ ActiveAdmin.register Playlist do
         end
       end
     end
-    column :player do |item|
-      div audio_tag(item.track.track.url, controls: true)
+    column :duration do |item|
+      Time.at(item.track.duration).utc.strftime("%M:%S") if item.track.duration
     end
     column :created do |item|
       time_ago(item.created_at)

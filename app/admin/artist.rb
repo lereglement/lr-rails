@@ -58,6 +58,9 @@ ActiveAdmin.register Artist do
               div auto_link(track, track.title.length > 0 ? track.title : track.track_file_name)
             end
           end
+          column :listen do |track|
+            div audio_tag(track.track.url, controls: true)
+          end
           column :aired_count
           column :last_aired_at
         end
