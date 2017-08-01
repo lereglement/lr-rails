@@ -43,7 +43,7 @@ ActiveAdmin.register Playlist do
       div do
         before = Playlist.where(track_id: item.track_id).where("id < ?", item.id).order(id: :desc).first
         unless before.blank?
-          div Time.at((item.created_at - before.created_at).to_i / 60).utc.strftime("%Mmin %S")
+          div Time.at((item.created_at - before.created_at).to_i / 60).utc.strftime("%Hh %Mmin %S")
         end
       end
     end
