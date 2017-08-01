@@ -63,6 +63,8 @@ class Api::V1::PlaylistsController < Api::V1::BaseController
         to_play = Track.where(state: :active, is_converted: true, type_of: :track).where.not(artist: artists_to_avoid).order("RAND()").first
         Playlist.create({ track_id: to_play.id, type_of: :random })
 
+        Bucket.delete_all
+
       end
 
       next_track = Playlist.where(is_aired: false).order(:id).first
