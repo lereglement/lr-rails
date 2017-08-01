@@ -1,0 +1,32 @@
+@font-face {
+	font-family: "futura-bold";
+	src: url('/fonts/FuturaStd-Bold.otf');
+}
+
+body {
+  background-color: #9013FE;
+  font-family: "futura-bold";
+  font-size: 40px;
+  font-weight: bold;
+  text-shadow: 0 2px 5px rgba(black, .3);
+  text-transform: uppercase;
+  color: white;
+  line-height: 1em;
+}
+
+#content {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  height: 100vh;
+  text-align: center;
+  width: 100%;
+
+  #artist {
+    font-size: 50px;
+  }
+
+  #title {
+    font-size: 30px;
+  }
+}

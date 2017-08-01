@@ -11,4 +11,6 @@ Rails.application.config.assets.version = '1.0'
 Rails.application.config.assets.precompile += %w(
   boilerplate.css
   normalize.css
+  obs/tracks_current.js
+  obs/tracks_current.css
 )
