@@ -1,8 +1,5 @@
 class Api::V1::Tracks::TranscodingSerializer < ActiveModel::Serializer
 
-  attribute :artist
-  attribute :title
-
   attribute :source do
     object.track.path
   end
