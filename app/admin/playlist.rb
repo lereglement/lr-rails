@@ -39,6 +39,14 @@ ActiveAdmin.register Playlist do
     column :duration do |item|
       Time.at(item.track.duration).utc.strftime("%M:%S") if item.track.duration
     end
+    column :interval do |item|
+      div do
+        before = Playlist.where(track_id: item.track_id).where("id < ?", item.id).order(id: :desc).first
+        unless before.blank?
+          div Time.at((item.created_at - before.created_at).to_i / 60).utc.strftime("%Mmin %S")
+        end
+      end
+    end
     column :created do |item|
       time_ago(item.created_at)
     end
