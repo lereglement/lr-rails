@@ -4,6 +4,9 @@
 - content_for :javascript_footer
   = javascript_include_tag "#{params[:controller]}_#{params[:action]}"
 
+script
+  | var urlApi = "#{Rails.application.secrets.domain_api_url}"
+
 #content
-  #artist #{@current_track.artist}
-  #title #{@current_track.title}
+  #artist
+  #title

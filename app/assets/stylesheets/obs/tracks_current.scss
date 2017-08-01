@@ -19,14 +19,14 @@ body {
   flex-direction: column;
   justify-content: flex-end;
   height: 100vh;
-  text-align: center;
+  text-align: left;
   width: 100%;
 
   #artist {
-    font-size: 50px;
+    font-size: 40px;
   }
 
   #title {
-    font-size: 30px;
+    font-size: 40px;
   }
 }

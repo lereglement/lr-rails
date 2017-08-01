@@ -31,11 +31,8 @@ class Api::V1::PlaylistsController < Api::V1::BaseController
 
         artist_buffer_count = Artist.count / 3
 
-        p "BUFFER: #{artist_buffer_count}"
         tracks_with_artists_to_avoid = Playlist.where(is_aired: true).order(id: :desc).limit(artist_buffer_count).pluck(:track_id)
-        p ">>>>>>>>>>>>>tracks_with_artists_to_avoid: #{artist_buffer_count}"
         artists_to_avoid = Track.where(id: tracks_with_artists_to_avoid).pluck(:artist)
-        p ">>>>>>>>>>>>>artists_to_avoid: #{artists_to_avoid}"
 
         bucket_pick = Bucket.where.not(artist: artists_to_avoid).order("RAND()").first
 
@@ -48,7 +45,6 @@ class Api::V1::PlaylistsController < Api::V1::BaseController
             })
           end
           Bucket.create(to_insert)
-          p "@@@@@@@@@@@@@@@ INSERTING  @@@@@@@@@@@@@@@@@@@@2"
 
           bucket_pick = Bucket.where.not(artist: artists_to_avoid).order("RAND()").first
         end
@@ -86,36 +82,14 @@ class Api::V1::PlaylistsController < Api::V1::BaseController
       serializer: Api::V1::Playlists::NextSerializer
 
   end
-  #
-  # def get_next
-  #   next_track = Playlist.where(is_aired: false).order(:id).first
-  #
-  #   if next_track.blank?
-  #     to_insert = []
-  #     Track.where(state: :active, is_converted: true, type_of: :track).order("RAND()").pluck(:id).each do |track_id|
-  #       to_insert.push({
-  #         track_id: track_id
-  #       })
-  #     end
-  #     Playlist.create(to_insert)
-  #
-  #     next_track = Playlist.where(is_aired: false).order(:id).first
-  #   end
-  #
-  #   next_track.update({
-  #     is_aired: true,
-  #     aired_at: Time.now
-  #   })
-  #
-  #   track = Track.find(next_track.track_id)
-  #   track.update(last_aired_at: Time.now)
-  #   track.increment!(:aired_count)
-  #
-  #   render json: next_track,
-  #     root: 'data',
-  #     serializer: Api::V1::Playlists::NextSerializer
-  #
-  # end
+
+  def get_current
+    current_track = Playlist.joins("INNER JOIN tracks ON tracks.id = playlists.track_id AND tracks.type_of = 'track'").where(is_aired: true).order(id: :desc).first.track
+
+    render json: current_track,
+      root: 'data',
+      serializer: Api::V1::Tracks::TrackSerializer
+  end
 
 
 end
