@@ -11,7 +11,6 @@ ActiveAdmin.register Track do
 
   permit_params :artist,
     :title,
-    :duration,
     :bitrate,
     :is_converted,
     :track,
@@ -78,6 +77,9 @@ ActiveAdmin.register Track do
       row :title
       row :duration do |track|
         track.duration
+      end
+      row :duration_converted do |track|
+        track.duration_converted
       end
       row :listen do |track|
         div audio_tag(track.track.url, controls: true)
