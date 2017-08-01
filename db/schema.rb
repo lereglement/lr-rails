@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170731224100) do
+ActiveRecord::Schema.define(version: 20170801060725) do
 
   create_table "active_admin_comments", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.string "namespace"
@@ -52,6 +52,13 @@ ActiveRecord::Schema.define(version: 20170731224100) do
     t.string "twitter"
   end
 
+  create_table "buckets", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC" do |t|
+    t.integer "track_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["track_id"], name: "track_id"
+  end
+
   create_table "playlists", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC" do |t|
     t.bigint "track_id"
     t.boolean "is_aired", default: false, null: false
@@ -78,12 +85,13 @@ ActiveRecord::Schema.define(version: 20170731224100) do
     t.string "ref", limit: 40
     t.string "type_of", limit: 40
     t.datetime "last_aired_at"
-    t.integer "aired_count"
+    t.integer "aired_count", default: 0
     t.string "cover_file_name"
     t.string "cover_content_type"
     t.integer "cover_file_size"
     t.datetime "cover_updated_at"
     t.string "external_source"
+    t.integer "duration_converted"
     t.index ["bitrate"], name: "bitrate"
     t.index ["ref"], name: "idx_ref", unique: true
     t.index ["state"], name: "state"

@@ -62,6 +62,10 @@ definitions:
   TracksNotConverted:
     type: object
     properties:
+      artist:
+        type: string
+      title:
+        type: string
       source:
         type: string
       target:
@@ -78,6 +82,8 @@ definitions:
       bitrate:
         type: integer
       duration:
+        type: integer
+      duration_converted:
         type: integer
   PlaylistNext:
     type: object
