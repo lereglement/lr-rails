@@ -10,6 +10,18 @@ basePath: /api/v1
 schemes:
   - https
 paths:
+  /playlists/current:
+    get:
+      tags:
+        - playlist
+      summary: Get current track
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: '#/definitions/CurrentTrack'
   /playlists/next:
     get:
       tags:
@@ -105,4 +117,11 @@ definitions:
       cover_medium:
         type: string
       cover_large:
+        type: string
+  CurrentTrack:
+    type: object
+    properties:
+      title:
+        type: string
+      artist:
         type: string
