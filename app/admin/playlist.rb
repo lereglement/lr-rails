@@ -1,6 +1,20 @@
 ActiveAdmin.register Playlist do
   config.batch_actions = false
 
+  collection_action :now, method: :get do
+    id = params[:id]
+    track = Track.where(state: :active, is_converted: true).find(id)
+
+    unless track.blank?
+      Playlist.create({
+        track_id: track.id,
+        type_of: track.type_of,
+      })
+    end
+
+    redirect_to collection_path, notice: "Inserted in playlist."
+  end
+
   actions :index, :destroy
 
   index do
@@ -41,9 +55,9 @@ ActiveAdmin.register Playlist do
     end
     column :interval do |item|
       div do
-        before = Playlist.where(track_id: item.track_id).where("id < ?", item.id).order(id: :desc).first
+        before = Playlist.where(track_id: item.track_id, is_aired: true).where.not(aired_at: nil).where("id < ?", item.id).order(id: :desc).first
         unless before.blank?
-          div DateLib.humanize(item.aired_at - before.aired_at)
+          div DateLib.humanize(item.aired_at - before.aired_at) if item.aired_at
         end
       end
     end

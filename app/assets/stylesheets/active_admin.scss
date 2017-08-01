@@ -156,6 +156,11 @@ table.index_table td {
   background-color: white;
 }
 
+.col-interval,
+.col-last_aired {
+  text-align: right;
+}
+
 .col-created,
 .col-updated {
   white-space: nowrap;
@@ -286,6 +291,18 @@ input[type="file"]::-webkit-file-upload-button {
   cursor: pointer;
   height:190px;
   padding: 15px 0 0;
+}
+
+.play-next {
+  background: rgba(black, .1);
+  border-radius: 20px;
+  color: black;
+  display: inline-block;
+  font-size: 9px;
+  font-weight: bold;
+  margin-top: 5px;
+  padding: 5px 10px;
+  text-transform: uppercase;
 }
 
 .ui-autocomplete {
