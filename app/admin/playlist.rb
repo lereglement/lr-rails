@@ -3,13 +3,13 @@ ActiveAdmin.register Playlist do
 
   actions :index, :destroy
 
-  scope("Next", default: true) { |scope| scope.where(is_aired: false).reorder(:id) }
-  scope("Now & Previous") { |scope| scope.where(is_aired: true).reorder(id: :desc) }
-
   index do
     column :id
     column :aired_at do |item|
       time_ago(item.aired_at)
+    end
+    column :type do |item|
+      status_tag item.type_of
     end
     column :track do |item|
       track = item.track
