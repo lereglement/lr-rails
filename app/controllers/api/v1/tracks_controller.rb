@@ -14,7 +14,7 @@ class Api::V1::TracksController < Api::V1::BaseController
     track = Track.find_by(ref: ref)
     api_error(status: 500, errors: "Missing track") and return false if track.nil?
 
-    track_params = params[:track].permit(:is_converted, :duration, :bitrate)
+    track_params = params[:track].permit(:is_converted, :duration, :bitrate, :duration_converted, :cover)
 
     Track.find(track.id).update(track_params)
 
