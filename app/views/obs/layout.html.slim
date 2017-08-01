@@ -1,0 +1,14 @@
+doctype html
+html
+  head
+    = stylesheet_link_tag 'normalize'
+    = stylesheet_link_tag 'boilerplate'
+    = yield :javascript
+    = yield :stylesheet
+    = csrf_meta_tags
+
+  body
+    = yield
+    
+    = javascript_include_tag 'application'
+    = yield :javascript_footer

@@ -1,5 +1,11 @@
 Rails.application.routes.draw do
 
+  constraints(lambda { |req| req.host.match(/^obs(-staging)?\.lereglement\.(here|xyz)$/) }) do
+    namespace :obs, :path => '/' do
+      get :track, path: '/tracks/current', to: 'tracks#current'
+    end
+  end
+
   constraints(lambda { |req| req.host.match(/^bo(-staging)?\.lereglement\.(here|xyz)$/) }) do
     devise_for :admin_users, ActiveAdmin::Devise.config
     ActiveAdmin.routes(self)

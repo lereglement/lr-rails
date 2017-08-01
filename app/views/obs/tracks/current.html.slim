@@ -1,0 +1,9 @@
+- content_for :stylesheet
+  = stylesheet_link_tag "#{params[:controller]}_#{params[:action]}"
+
+- content_for :javascript_footer
+  = javascript_include_tag "#{params[:controller]}_#{params[:action]}"
+
+#content
+  #artist #{@current_track.artist}
+  #title #{@current_track.title}
