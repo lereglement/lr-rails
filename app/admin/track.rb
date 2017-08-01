@@ -66,11 +66,12 @@ ActiveAdmin.register Track do
       span status_tag track.type_of
       span status_tag "Raw" if track.is_converted == false
     end
+    column :last_aired do |track|
+      div DateLib.humanize(Time.now - track.last_aired_at) if track.last_aired_at
+      div link_to "Play next", "/playlists/now/?id=#{track.id}", class: "play-next", data: {confirm: 'Are you sure to play it next?'} if track.state.to_sym == :active && track.is_converted == true
+    end
     column :created do |track|
       time_ago(track.created_at)
-    end
-    column :updated do |track|
-      time_ago(track.updated_at)
     end
     actions
   end
