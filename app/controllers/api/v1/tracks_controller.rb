@@ -1,7 +1,7 @@
 class Api::V1::TracksController < Api::V1::BaseController
 
   def get_not_converted
-    tracks = Track.where(is_converted: false)
+    tracks = Track.where(is_converted: false).where.not(track_file_name: false)
 
     render json: tracks,
       root: 'data',
