@@ -36,6 +36,8 @@ ActiveAdmin.register Track do
   scope("Expired") { |scope| scope.where(state: :expired) }
   scope("Striked") { |scope| scope.where(state: :striked) }
   scope("Rejected") { |scope| scope.where(state: :rejected) }
+  scope("Wip") { |scope| scope.where(state: :wip) }
+  scope("Suggested") { |scope| scope.where(state: :suggested) }
   scope("Not converted") { |scope| scope.where(state: [:active, :pending, :expired]).where(is_converted: false) }
   scope("Issues") { |scope| scope.where(" duration <> duration_converted ").where(is_converted: true).reorder(" ABS(duration - duration_converted) DESC") }
   scope("All") { |scope| scope }

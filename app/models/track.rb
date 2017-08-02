@@ -1,7 +1,8 @@
 class Track < ApplicationRecord
   has_attached_file :track,
     use_timestamp: false
-  validates_attachment_file_name :track, :matches => %r{\.(mp3|ogg)$}i
+  do_not_validate_attachment_file_type :track
+  # validates_attachment_file_name :track, :matches => %r{\.(mp3|ogg)$}i
 
   has_attached_file :cover, styles: {
     xsmall: '100x100#',
@@ -30,7 +31,7 @@ class Track < ApplicationRecord
     :expired,
     :striked,
     :wip,
-    :suggestion,
+    :suggested,
   ]
 
   def self.get_types
@@ -48,9 +49,6 @@ class Track < ApplicationRecord
   end
 
   def set_after_save
-    if ([:striked, :rejected].include? self.state.to_sym)
-      Playlist.where(is_aired: false, track_id: self.id).delete_all
-    end
   end
 
   def set_before_destroy
