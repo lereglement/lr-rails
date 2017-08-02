@@ -58,13 +58,14 @@ ActiveAdmin.register Track do
         end
       end
     end
-    column :diff do |track|
-      "#{(track.duration - track.duration_converted).abs} sec" if track.duration && track.duration_converted && (track.duration - track.duration_converted).abs > 0
-    end
     column :tags do |track|
       span status_tag track.state
       span status_tag track.type_of
       span status_tag "Raw" if track.is_converted == false
+    end
+    column :stats do |track|
+      div "Aired: #{track.aired_count}"
+      div "Diff: #{(track.duration - track.duration_converted).abs} sec" if track.duration && track.duration_converted && (track.duration - track.duration_converted).abs > 0
     end
     column :last_aired do |track|
       div DateLib.humanize(Time.now - track.last_aired_at) if track.last_aired_at
