@@ -17,7 +17,8 @@ ActiveAdmin.register Track do
     :cover,
     :state,
     :type_of,
-    :external_source
+    :external_source,
+    :origin
 
   filter :title_or_artist_contains
   filter :state, as: :select, collection: Track.get_states.map { |value| value }

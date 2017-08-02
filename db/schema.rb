@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170802111930) do
+ActiveRecord::Schema.define(version: 20170802204646) do
 
   create_table "active_admin_comments", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.string "namespace"
@@ -50,6 +50,8 @@ ActiveRecord::Schema.define(version: 20170802111930) do
     t.integer "picture_file_size"
     t.datetime "picture_updated_at"
     t.string "twitter"
+    t.string "type_of", limit: 40
+    t.index ["type_of"], name: "type_of"
   end
 
   create_table "buckets", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC" do |t|
