@@ -17,6 +17,10 @@ ActiveAdmin.register Playlist do
 
   actions :index, :destroy
 
+  action_item do
+    link_to 'Double-R Live', 'https://www.youtube.com/watch?v=A54RYoEmIpA'
+  end
+
   index do
     column :id
     column :aired_at do |item|
