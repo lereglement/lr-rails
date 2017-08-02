@@ -15,7 +15,7 @@ ActiveAdmin.register Playlist do
     redirect_to collection_path, notice: "Inserted in playlist."
   end
 
-  actions :index, :destroy
+  actions :index
 
   action_item do
     link_to 'Double-R Live', 'https://www.youtube.com/watch?v=A54RYoEmIpA'
