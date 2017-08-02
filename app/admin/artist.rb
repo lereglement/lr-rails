@@ -5,7 +5,8 @@ ActiveAdmin.register Artist do
 
   permit_params :twitter,
     :name,
-    :picture
+    :picture,
+    :type_of
 
   collection_action :autocomplete_artist_name, method: :get
 
@@ -20,6 +21,9 @@ ActiveAdmin.register Artist do
         div auto_link(artist, image_tag(artist.picture.url(:xsmall), size: 50, style: "margin-right: 10px;"))
         div auto_link(artist, artist.name)
       end
+    end
+    column :tags do |artist|
+      span status_tag artist.type_of if artist.type_of
     end
     column :twitter do |artist|
       div do
@@ -38,6 +42,7 @@ ActiveAdmin.register Artist do
   show do
     attributes_table do
       row :name
+      row :type_of
       row :twitter do |artist|
         div do
           artist.twitter.split.each do |account|
@@ -75,6 +80,7 @@ ActiveAdmin.register Artist do
     inputs 'Details' do
       input :name
       input :twitter
+      input :type_of, as: :select, collection: Artist.get_types.map { |value| value }
     end
     inputs 'Picture' do
       input :picture, as: :file, input_html: { accept:".jpeg,.jpg,.png,.gif" }

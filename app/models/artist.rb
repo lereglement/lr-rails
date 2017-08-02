@@ -12,6 +12,14 @@ class Artist < ApplicationRecord
 
   after_save :check_tracks
 
+  TYPES = [
+    :mif
+  ]
+
+  def self.get_types
+    TYPES
+  end
+
   def check_tracks
 
     if self.name != self.name_before_last_save
