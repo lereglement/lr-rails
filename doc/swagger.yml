@@ -97,6 +97,10 @@ definitions:
         type: integer
       duration_converted:
         type: integer
+      ref_external_source:
+        type: string
+      origin_external_source:
+        type: string
   PlaylistNext:
     type: object
     properties:

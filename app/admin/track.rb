@@ -16,7 +16,8 @@ ActiveAdmin.register Track do
     :track,
     :cover,
     :state,
-    :type_of
+    :type_of,
+    :external_source
 
   filter :title_or_artist_contains
   filter :state, as: :select, collection: Track.get_states.map { |value| value }
@@ -116,21 +117,33 @@ ActiveAdmin.register Track do
     inputs 'Details' do
       input :artist, as: :autocomplete, url: autocomplete_artist_name_artists_path
       input :title
-      input :external_source
       input :state, as: :select, collection: Track.get_states.map { |value| value }, include_blank: false
       input :type_of, as: :select, collection: Track.get_types.map { |value| value }, include_blank: false
       input :is_converted
     end
-    inputs 'Cover' do
-      input :cover, as: :file, input_html: { accept:".jpeg,.jpg,.png,.gif" }
-      li style: "background-image: url(#{resource.cover.url(:large)}); width: 150px; height: 150px; background-size: cover; margin-left: 20%; margin-top: -170px;"
+    div style: "display: flex; align-items: stretch; " do
+      div style: "flex-grow: 1" do
+        inputs 'Cover' do
+          input :cover, as: :file, input_html: { accept:".jpeg,.jpg,.png,.gif" }
+          li style: "background-image: url(#{resource.cover.url(:large)}); width: 150px; height: 150px; background-size: cover; margin-left: 20%; margin-top: -170px;"
+        end
+      end
+      div style: "flex-grow: 1" do
+        inputs 'File' do
+          input :track, as: :file, input_html: { accept:".mp3,.ogg" }
+          track_image = resource.track_file_name ? "/missing/track_on.svg" : "/missing/track_off.svg"
+          li style: "background-image: url(#{track_image}); width: 150px; height: 150px; background-size: cover; margin-left: 20%; margin-top: -170px;"
+          li class: "form_content_margin" do
+            "#{resource.track_file_name}"
+          end
+        end
+      end
     end
-    inputs 'File' do
-      input :track, as: :file, input_html: { accept:".mp3,.ogg" }
-      track_image = resource.track_file_name ? "/missing/track_on.svg" : "/missing/track_off.svg"
-      li style: "background-image: url(#{track_image}); width: 150px; height: 150px; background-size: cover; margin-left: 20%; margin-top: -170px;"
+    inputs 'External' do
+      input :external_source
       li class: "form_content_margin" do
-        "#{resource.track_file_name}"
+        div resource.ref_external_source
+        div resource.origin_external_source
       end
     end
     actions

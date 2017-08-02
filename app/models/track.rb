@@ -29,6 +29,8 @@ class Track < ApplicationRecord
     :rejected,
     :expired,
     :striked,
+    :wip,
+    :suggestion,
   ]
 
   def self.get_types
