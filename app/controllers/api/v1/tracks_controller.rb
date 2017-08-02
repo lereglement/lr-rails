@@ -8,6 +8,13 @@ class Api::V1::TracksController < Api::V1::BaseController
       each_serializer: Api::V1::Tracks::TranscodingSerializer
   end
 
+  def create
+    track_params = params[:track].permit(:title, :artist, :track, :title_external_source, :ref_external_source, :origin_external_source)
+    Track.create({ state: :wip, type_of: :track }.merge(track_params))
+
+    render json: params
+  end
+
   def update
     ref = params[:id]
 

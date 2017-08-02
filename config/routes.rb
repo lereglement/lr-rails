@@ -17,7 +17,7 @@ Rails.application.routes.draw do
         get :get_next_track, path: '/playlists/next', to: 'playlists#get_next'
         get :get_current_track, path: '/playlists/current', to: 'playlists#get_current'
         get :get_not_converted, path: '/tracks/not_converted', to: 'tracks#get_not_converted'
-        resources :tracks, only: [:update]
+        resources :tracks, only: [:create, :update]
       end
     end
   end
