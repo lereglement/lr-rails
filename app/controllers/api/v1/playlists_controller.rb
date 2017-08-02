@@ -30,11 +30,13 @@ class Api::V1::PlaylistsController < Api::V1::BaseController
       if !has_next_track
 
         artist_buffer_count = Artist.count / 3
+        track_buffer_count = Track.where(state: :active).count / 2
 
         tracks_with_artists_to_avoid = Playlist.where(is_aired: true).order(id: :desc).limit(artist_buffer_count).pluck(:track_id)
+        tracks_to_avoid = Playlist.where(is_aired: true).order(id: :desc).limit(track_buffer_count).pluck(:track_id)
         artists_to_avoid = Track.where(id: tracks_with_artists_to_avoid).pluck(:artist)
 
-        bucket_pick = Bucket.where.not(artist: artists_to_avoid).order("RAND()").first
+        bucket_pick = Bucket.where.not(artist: artists_to_avoid).where.not(id: tracks_to_avoid).order("RAND()").first
 
         if bucket_pick.blank?
           to_insert = []
