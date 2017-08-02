@@ -37,6 +37,8 @@ ActiveAdmin.register Bucket do
       div do
         before = Playlist.joins("INNER JOIN tracks ON tracks.id = playlists.track_id").where(is_aired: true).where("tracks.artist = ?", item.track.artist).where.not(aired_at: nil).order("playlists.id DESC").first
         unless before.blank?
+          track_interval = Playlist.where("id > ?", before.id).count
+          div "#{track_interval} track#{track_interval > 1 ? 's' : ''} before"
           div DateLib.humanize(Time.now - before.aired_at)
         end
       end
