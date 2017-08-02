@@ -35,7 +35,7 @@ ActiveAdmin.register Bucket do
     end
     column :last_from_artist do |item|
       div do
-        before = Playlist.joins("INNER JOIN tracks ON tracks.id = playlists.track_id").where(is_aired: true).where("tracks.artist = ?", item.track.artist).where.not(aired_at: nil).where("playlists.id < ?", item.id).order("playlists.id DESC").first
+        before = Playlist.joins("INNER JOIN tracks ON tracks.id = playlists.track_id").where(is_aired: true).where("tracks.artist = ?", item.track.artist).where.not(aired_at: nil).order("playlists.id DESC").first
         unless before.blank?
           div DateLib.humanize(Time.now - before.aired_at)
         end
