@@ -5,7 +5,7 @@ class Api::V1::Tracks::TranscodingSerializer < ActiveModel::Serializer
   end
 
   attribute :target do
-    TrackLib.transcoded_file(object)
+    object.transcoded_file
   end
 
   attribute :quality do
