@@ -31,6 +31,7 @@ class Track < ApplicationRecord
     :expired,
     :striked,
     :wip,
+    :to_review,
     :suggested,
   ]
 
@@ -40,6 +41,18 @@ class Track < ApplicationRecord
 
   def self.get_states
     STATES
+  end
+
+  def self.get_state_to_check
+    [
+      :active,
+      :pending,
+      :expired,
+      :striked,
+      :wip,
+      :to_review,
+      :suggested,
+    ]
   end
 
   def set_after_create
@@ -52,12 +65,42 @@ class Track < ApplicationRecord
   end
 
   def set_before_destroy
+    Bucket.where(track_id: self.id).delete_all
     Playlist.where(track_id: self.id).delete_all
   end
 
   def insert_artist
     if self.artist
       Artist.where(name: self.artist).first_or_create
+    end
+  end
+
+  def transcoded_file
+    if self.track.path
+      filename = self.track.path.scan(/original\/(\w+)/)[0][0]
+      "/transcoded/#{filename.scan(/.{4}/).join("/")}/#{Rails.application.secrets.output_quality}.#{Rails.application.secrets.output_format}"
+    end
+  end
+
+  def check_errors
+    require 'net/http'
+    errors = []
+    # Check source
+    errors.push("Filename missing in db") unless self.track.path
+    if self.track.path
+      uri = URI(self.track.url)
+      request = Net::HTTP.new uri.host
+      response = request.request_head uri.path
+      errors.push("Header for file #{response.code}") if response.code.to_i != 200
+    end
+
+    errors.push("Duration missing") unless self.duration
+    errors.push("Duration converted missing") unless self.duration_converted
+
+    self.update(error_logs: errors.join(','), state: :to_review)
+
+    if errors
+      Bucket.where(track_id: self.id).delete_all
     end
   end
 

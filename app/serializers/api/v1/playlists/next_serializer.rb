@@ -73,7 +73,7 @@ class Api::V1::Playlists::NextSerializer < ActiveModel::Serializer
 
   attribute :file do
     track = object.track
-    TrackLib.transcoded_file(Track.find(object.track_id)) if track.track_file_name
+    Track.find(object.track_id).transcoded_file if track.track_file_name
   end
 
 end

@@ -7,6 +7,26 @@ ActiveAdmin.register Track do
     redirect_to collection_path, notice: "Reset done."
   end
 
+  collection_action :check_all, method: :get do
+    tracks = Track.where(state: Track.get_state_to_check, is_converted: true)
+
+    tracks.each do |track|
+      track.check_errors
+    end
+
+    redirect_to collection_path, notice: "Check all done."
+  end
+
+  collection_action :check, method: :get do
+    track_id = params[:id] ? params[:id] : nil
+
+    if track_id
+      Track.find(track_id).check_errors
+    end
+
+    redirect_to "/tracks/#{track_id}", notice: "Check track done."
+  end
+
   actions :all
 
   permit_params :artist,
@@ -40,7 +60,7 @@ ActiveAdmin.register Track do
   scope("Wip") { |scope| scope.where(state: :wip) }
   scope("Suggested") { |scope| scope.where(state: :suggested) }
   scope("Not converted") { |scope| scope.where(state: [:active, :pending, :expired]).where(is_converted: false) }
-  scope("Issues") { |scope| scope.where(" duration <> duration_converted ").where(is_converted: true).reorder(" ABS(duration - duration_converted) DESC") }
+  scope("To Review") { |scope| scope.where(state: :to_review) }
   scope("All") { |scope| scope }
 
   index do
@@ -87,6 +107,13 @@ ActiveAdmin.register Track do
         auto_link(Artist.find_by(name: track.artist), track.artist)
       end
       row :title
+      row :error_logs do |track|
+        div do
+          track.error_logs.split(",").each do |log|
+            status_tag log
+          end
+        end
+      end if resource.error_logs and resource.state.to_sym == :to_review
       row :duration do |track|
         Time.at(track.duration).utc.strftime("%M:%S")
       end if resource.duration
@@ -97,7 +124,7 @@ ActiveAdmin.register Track do
         div audio_tag(track.track.url, controls: true)
       end
       row :converted do |track|
-        div audio_tag("//#{Rails.application.secrets.s3_host_name}/#{Rails.application.secrets.s3_bucket}#{TrackLib.transcoded_file(track)}", controls: true)
+        "#{Rails.application.secrets.s3_bucket}#{track.transcoded_file}"
       end if resource.is_converted == true && !resource.track_file_name.blank?
       row :file do |track|
         div track.track_file_name
@@ -112,6 +139,9 @@ ActiveAdmin.register Track do
         span status_tag "Raw" if track.is_converted == false
       end
       row :ref
+      row :actions do |track|
+        link_to "Check errors", "/tracks/check?id=#{track.id}"
+      end
     end
     active_admin_comments
   end

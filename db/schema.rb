@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170802204646) do
+ActiveRecord::Schema.define(version: 20170817081649) do
 
   create_table "active_admin_comments", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.string "namespace"
@@ -55,7 +55,7 @@ ActiveRecord::Schema.define(version: 20170802204646) do
   end
 
   create_table "buckets", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC" do |t|
-    t.integer "track_id"
+    t.bigint "track_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "artist"
@@ -99,11 +99,13 @@ ActiveRecord::Schema.define(version: 20170802204646) do
     t.string "title_external_source"
     t.string "ref_external_source", limit: 30
     t.string "origin_external_source", limit: 40
+    t.string "error_logs"
     t.index ["bitrate"], name: "bitrate"
     t.index ["ref"], name: "idx_ref", unique: true
     t.index ["ref_external_source"], name: "ref_external_source", unique: true
     t.index ["state"], name: "state"
   end
 
+  add_foreign_key "buckets", "tracks", name: "fk_bucket_track"
   add_foreign_key "playlists", "tracks", name: "fk_playlist_track"
 end
