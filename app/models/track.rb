@@ -97,9 +97,9 @@ class Track < ApplicationRecord
     errors.push("Duration missing") unless self.duration
     errors.push("Duration converted missing") unless self.duration_converted
 
-    self.update(error_logs: errors.join(','), state: :to_review)
 
     if errors
+      self.update(error_logs: errors.join(','), state: :to_review)
       Bucket.where(track_id: self.id).delete_all
     end
   end
