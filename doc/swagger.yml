@@ -10,6 +10,20 @@ basePath: /api/v1
 schemes:
   - https
 paths:
+  /youtube_videos/playlist:
+    get:
+      tags:
+        - youtube
+      summary: Get last Youtube videos
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/YoutubeVideo'
   /playlists/current:
     get:
       tags:
@@ -45,7 +59,9 @@ paths:
         '200':
           description: successful operation
           schema:
-            $ref: '#/definitions/TracksNotConverted'
+            type: array
+            items:
+              $ref: '#/definitions/TracksNotConverted'
   /tracks/{id}:
     put:
       tags:
@@ -122,10 +138,40 @@ definitions:
         type: string
       cover_large:
         type: string
+  YoutubeVideo:
+    type: object
+    properties:
+      id:
+        type: string
+      url:
+        type: string
+      title:
+        type: string
+      thumbnail:
+        $ref: '#/definitions/YoutubeThumbnail'
+  YoutubeThumbnail:
+    type: object
+    properties:
+      url:
+        type: string
+      width:
+        type: integer
+      height:
+        type: integer
   CurrentTrack:
     type: object
     properties:
       title:
         type: string
       artist:
+        type: string
+      cover_xsmall:
+        type: string
+      cover_small:
+        type: string
+      cover_medium:
+        type: string
+      cover_large:
+        type: string
+      cover_xlarge:
         type: string
