@@ -9,7 +9,7 @@ class Api::V1::Tracks::TrackSerializer < ActiveModel::Serializer
 
   attribute :is_mif do
     artist = Artist.where(name: object.artist).first
-    if artist.type_of.to_sym == :mif
+    if artist.type_of == "mif"
       true
     else
       false
