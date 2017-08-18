@@ -14,6 +14,7 @@ Rails.application.routes.draw do
   constraints(lambda { |req| req.host.match(/^api(-staging)?\.lereglement\.(here|xyz)$/) }) do
     namespace :api, :path => '/' do
       namespace :v1 do
+        get :get_youtube_playlist, path: '/youtube_videos/playlist', to: 'youtube_videos#get_playlist'
         get :get_next_track, path: '/playlists/next', to: 'playlists#get_next'
         get :get_current_track, path: '/playlists/current', to: 'playlists#get_current'
         get :get_not_converted, path: '/tracks/not_converted', to: 'tracks#get_not_converted'
