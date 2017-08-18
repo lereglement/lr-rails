@@ -165,6 +165,10 @@ definitions:
         type: string
       artist:
         type: string
+      is_new:
+        type: boolean
+      is_mif:
+        type: boolean
       cover_xsmall:
         type: string
       cover_small:
