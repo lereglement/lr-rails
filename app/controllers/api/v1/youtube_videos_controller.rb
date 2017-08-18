@@ -24,7 +24,7 @@ class Api::V1::YoutubeVideosController < Api::V1::BaseController
       end
     end
 
-    render json: playlist
+    render json: { data: playlist }
   end
 
 
