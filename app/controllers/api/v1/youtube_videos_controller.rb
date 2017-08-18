@@ -10,16 +10,18 @@ class Api::V1::YoutubeVideosController < Api::V1::BaseController
 
     playlist = []
     parsed.each do |item|
-      playlist.push({
-        id: item["id"]["videoId"],
-        url: "https://www.youtube.com/watch?v=#{item["id"]["videoId"]}",
-        title: item["snippet"]["title"],
-        thumbnail: {
-          url: item["snippet"]["thumbnails"]["high"]["url"],
-          width: item["snippet"]["thumbnails"]["high"]["width"],
-          height: item["snippet"]["thumbnails"]["high"]["height"],
-        }
-      })
+      if item["id"]["kind"] == "youtube#video"
+        playlist.push({
+          id: item["id"]["videoId"],
+          url: "https://www.youtube.com/watch?v=#{item["id"]["videoId"]}",
+          title: item["snippet"]["title"],
+          thumbnail: {
+            url: item["snippet"]["thumbnails"]["high"]["url"],
+            width: item["snippet"]["thumbnails"]["high"]["width"],
+            height: item["snippet"]["thumbnails"]["high"]["height"],
+          }
+        })
+      end
     end
 
     render json: playlist

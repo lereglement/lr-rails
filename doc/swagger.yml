@@ -173,5 +173,3 @@ definitions:
         type: string
       cover_large:
         type: string
-      cover_xlarge:
-        type: string
