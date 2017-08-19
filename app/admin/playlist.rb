@@ -18,7 +18,7 @@ ActiveAdmin.register Playlist do
   actions :index
 
   action_item do
-    link_to 'Double-R Live', 'https://www.youtube.com/watch?v=A54RYoEmIpA'
+    link_to 'Double-R Live', 'https://www.youtube.com/lereglement/live'
   end
 
   index do
