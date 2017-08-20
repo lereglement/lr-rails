@@ -90,10 +90,7 @@ ActiveAdmin.register Track do
     column :duration do |track|
       Time.at(track.duration).utc.strftime("%M:%S") if track.duration
     end
-    column :stats do |track|
-      div "Aired: #{track.aired_count}"
-      div "Diff: #{(track.duration - track.duration_converted).abs} sec" if track.duration && track.duration_converted && (track.duration - track.duration_converted).abs > 0
-    end
+    column :aired_count
     column :last_aired do |track|
       div DateLib.humanize(Time.now - track.last_aired_at) if track.last_aired_at
       div link_to "Play next", "/playlists/now/?id=#{track.id}", class: "play-next", data: {confirm: 'Are you sure to play it next?'} if track.state.to_sym == :active && track.is_converted == true

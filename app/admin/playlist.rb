@@ -61,7 +61,20 @@ ActiveAdmin.register Playlist do
       track = item.track
       track.aired_count
     end
-    column :interval do |item|
+    column :gap do |track|
+      before = Playlist.where("id > ?", track.id).order(id: :desc).first
+      unless before.blank? || track.type_of == "jingle"
+        gap = (before.created_at - track.created_at).to_i
+        if gap < 3
+          b style: "color:red; font-weight: bold" do
+            span "#{gap} s."
+          end
+        else
+          span "#{gap} s."
+        end
+      end
+    end
+    column :last_aired do |item|
       div do
         before = Playlist.where(track_id: item.track_id, is_aired: true).where.not(aired_at: nil).where("id < ?", item.id).order(id: :desc).first
         unless before.blank?
