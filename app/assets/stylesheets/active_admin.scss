@@ -288,6 +288,9 @@ form fieldset ol > li label {
   &.auto_feat {
     background: $purple-heliotrope;
   }
+  &.manual {
+    background: $green-shamrock;
+  }
 }
 
 input[type="file"],
