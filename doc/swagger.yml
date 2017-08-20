@@ -86,6 +86,26 @@ paths:
           description: successful operation
           schema:
             type: boolean
+  /tracks:
+    post:
+      tags:
+        - tracks
+      summary: Create a track
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: track
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/TrackCreate'
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            type: boolean
 definitions:
   TracksNotConverted:
     type: object
@@ -117,6 +137,26 @@ definitions:
         type: string
       origin_external_source:
         type: string
+  TrackCreate:
+    type: object
+    properties:
+      title:
+        type: string
+      artist:
+        type: string
+      track:
+        type: string
+      title_external_source:
+        type: string
+        description: video title
+      ref_external_source:
+        type: string
+        description: uri
+      origin_external_source:
+        type: string
+        enum:
+          - youtube
+          - soundcloud
   PlaylistNext:
     type: object
     properties:
