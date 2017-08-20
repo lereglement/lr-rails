@@ -73,6 +73,23 @@ ActiveAdmin.register_page "Dashboard" do
           end unless new_tracks.blank?
         end
 
+        auto_featured_tracks = Track
+          .where(state: :active, type_of: :track)
+          .where("aired_count <= ?", Rails.application.secrets.track_auto_featured_limit)
+          .order(id: :desc).limit(50)
+
+        panel "Auto-featured" do
+          table do
+            auto_featured_tracks.map do |track|
+              tr do
+                td do
+                  div b link_to(track.title, track_path(track))
+                end
+              end
+            end
+          end unless auto_featured_tracks.blank?
+        end
+
       end
 
       column do
