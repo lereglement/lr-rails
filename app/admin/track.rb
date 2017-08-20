@@ -140,7 +140,8 @@ ActiveAdmin.register Track do
       end
       row :ref
       row :actions do |track|
-        link_to "Check errors", "/tracks/check?id=#{track.id}"
+        div link_to "Check errors", "/tracks/check?id=#{track.id}"
+        div link_to "Play next", "/playlists/now/?id=#{track.id}", class: "play-next", data: {confirm: 'Are you sure to play it next?'} if track.state.to_sym == :active && track.is_converted == true
       end
       row :aired_count do |track|
         track.aired_count
