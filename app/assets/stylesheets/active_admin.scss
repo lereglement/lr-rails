@@ -285,6 +285,9 @@ form fieldset ol > li label {
   &.jingle {
     background: $blue-turquoise;
   }
+  &.auto_feat {
+    background: $purple-heliotrope;
+  }
 }
 
 input[type="file"],
