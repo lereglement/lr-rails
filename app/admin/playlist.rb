@@ -62,9 +62,9 @@ ActiveAdmin.register Playlist do
       track.aired_count
     end
     column :gap do |track|
-      before = Playlist.where("id < ?", track.id).order(id: :desc).first
-      unless before.blank? || track.type_of == "jingle"
-        gap = (track.created_at - before.created_at).to_i
+      after = Playlist.where("id > ?", track.id).order(:id).first
+      unless after.blank? || track.type_of == "jingle"
+        gap = (after.created_at - track.created_at).to_i
         if gap < 3
           b style: "color:red; font-weight: bold" do
             span "#{gap} s."
