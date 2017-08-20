@@ -57,6 +57,10 @@ ActiveAdmin.register Playlist do
     column :duration do |item|
       Time.at(item.track.duration).utc.strftime("%M:%S") if item.track.duration
     end
+    column :aired_count do |item|
+      track = item.track
+      track.aired_count
+    end
     column :interval do |item|
       div do
         before = Playlist.where(track_id: item.track_id, is_aired: true).where.not(aired_at: nil).where("id < ?", item.id).order(id: :desc).first

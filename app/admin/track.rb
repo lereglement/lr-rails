@@ -87,6 +87,9 @@ ActiveAdmin.register Track do
       span status_tag track.type_of
       span status_tag "Raw" if track.is_converted == false
     end
+    column :duration do |track|
+      Time.at(track.duration).utc.strftime("%M:%S") if track.duration
+    end
     column :stats do |track|
       div "Aired: #{track.aired_count}"
       div "Diff: #{(track.duration - track.duration_converted).abs} sec" if track.duration && track.duration_converted && (track.duration - track.duration_converted).abs > 0
@@ -141,6 +144,12 @@ ActiveAdmin.register Track do
       row :ref
       row :actions do |track|
         link_to "Check errors", "/tracks/check?id=#{track.id}"
+      end
+      row :aired_count do |track|
+        track.aired_count
+      end
+      row :last_aired do |track|
+        div DateLib.humanize(Time.now - track.last_aired_at) if track.last_aired_at
       end
     end
     active_admin_comments
