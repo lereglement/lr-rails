@@ -56,13 +56,17 @@ class Api::V1::PlaylistsController < Api::V1::BaseController
           has_next_track = true
         end
 
-        Bucket.find_by(track_id: bucket_pick.track_id).delete
+        Bucket.find_by(track_id: bucket_pick.track_id).delete if bucket_pick
 
       end
 
       if !has_next_track
 
         to_play = Track.where(state: :active, is_converted: true, type_of: :track).where.not(artist: artists_to_avoid).order("RAND()").first
+
+
+        to_play = Track.where(state: :active, is_converted: true, type_of: :track).order("RAND()").first if to_play.blank?
+
         Playlist.create({ track_id: to_play.id, type_of: :random })
 
         Bucket.delete_all
