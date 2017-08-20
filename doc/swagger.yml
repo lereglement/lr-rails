@@ -151,12 +151,8 @@ definitions:
         description: video title
       ref_external_source:
         type: string
-        description: uri
       origin_external_source:
         type: string
-        enum:
-          - youtube
-          - soundcloud
   PlaylistNext:
     type: object
     properties:
