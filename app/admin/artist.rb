@@ -66,6 +66,10 @@ ActiveAdmin.register Artist do
           column :listen do |track|
             div audio_tag(track.track.url, controls: true)
           end
+          column :tags do |track|
+            span status_tag track.state
+            span status_tag track.type_of
+          end
           column :aired_count
           column :last_aired_at
         end
