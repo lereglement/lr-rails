@@ -26,19 +26,35 @@ class Api::V1::PlaylistsController < Api::V1::BaseController
 
       end
 
-      # Insert a track
       if !has_next_track
-
         artist_buffer_count = Artist.count / 3
         track_buffer_count = Track.where(state: :active).count / 2
 
         tracks_with_artists_to_avoid = Playlist.where(is_aired: true).order(id: :desc).limit(artist_buffer_count).pluck(:track_id)
         tracks_to_avoid = Playlist.where(is_aired: true).order(id: :desc).limit(track_buffer_count).pluck(:track_id)
         artists_to_avoid = Track.where(id: tracks_with_artists_to_avoid).pluck(:artist)
+      end
+
+      # Play auto featured
+      if !has_next_track
+        if last_track.id % 10 == 0
+          auto_featured = Track.where.not(artist: artists_to_avoid).where("aired_count <= ?", Rails.application.secrets.track_auto_featured_limit).order(:last_aired_at).first
+          unless auto_featured.blank?
+            Playlist.create({ track_id: auto_featured.id, type_of: :auto_feat })
+            has_next_track = true
+          end
+        end
+      end
+
+      # Insert a track
+      if !has_next_track
 
         bucket_pick = Bucket.where.not(artist: artists_to_avoid).where.not(id: tracks_to_avoid).order("RAND()").first
 
+        # Regenerate bucket if can't find tracks
         if bucket_pick.blank?
+          Bucket.delete_all
+
           to_insert = []
           Track.where(state: :active, is_converted: true, type_of: :track).order("RAND()").each do |track|
             to_insert.push({
@@ -63,7 +79,6 @@ class Api::V1::PlaylistsController < Api::V1::BaseController
       if !has_next_track
 
         to_play = Track.where(state: :active, is_converted: true, type_of: :track).where.not(artist: artists_to_avoid).order("RAND()").first
-
 
         to_play = Track.where(state: :active, is_converted: true, type_of: :track).order("RAND()").first if to_play.blank?
 

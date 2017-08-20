@@ -334,3 +334,28 @@ input[type="file"]::-webkit-file-upload-button {
   }
 
 }
+
+
+.dashboard {
+
+  .panel {
+    border-radius: 0;
+
+    .panel_contents {
+      padding: 1px;
+    }
+
+    table {
+      margin-bottom: 0px;
+    }
+
+    tr:nth-child(even) {
+      background-color: white;
+    }
+
+    td {
+      padding: 10px;
+    }
+  }
+
+}

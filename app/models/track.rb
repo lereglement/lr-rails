@@ -107,4 +107,13 @@ class Track < ApplicationRecord
     end
   end
 
+  def self.get_hours(aired_count_min, state = :active)
+    hours = Track.select("
+      SUM(duration)/60/60 AS hours
+    ")
+    .where(state: state)
+    .where("aired_count < ?", aired_count_min).first["hours"]
+    hours.round(1)
+  end
+
 end
