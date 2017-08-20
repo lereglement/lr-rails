@@ -27,7 +27,7 @@ ActiveAdmin.register Track do
     redirect_to "/tracks/#{track_id}", notice: "Check track done."
   end
 
-  actions :all
+  actions :all, except: :destroy
 
   permit_params :artist,
     :title,
@@ -48,7 +48,7 @@ ActiveAdmin.register Track do
   filter :created_at
   filter :updated_at
 
-  action_item(:index) do
+  action_item only: :index do
     link_to 'Reset Transco', '/tracks/reset', data: {confirm: 'Are you sure?'}
   end
 

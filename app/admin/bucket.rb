@@ -1,7 +1,17 @@
 ActiveAdmin.register Bucket do
   config.batch_actions = false
 
+  collection_action :empty, method: :get do
+    Bucket.delete_all
+
+    redirect_to collection_path, notice: "Reset done."
+  end
+
   actions :index
+
+  action_item only: :index do
+    link_to 'Empty bucket', '/buckets/empty', data: {confirm: 'Are you sure?'}
+  end
 
   index do
     column :id
