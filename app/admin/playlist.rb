@@ -8,7 +8,7 @@ ActiveAdmin.register Playlist do
     unless track.blank?
       Playlist.create({
         track_id: track.id,
-        type_of: track.type_of,
+        type_of: :manual,
       })
     end
 
