@@ -113,7 +113,7 @@ class Track < ApplicationRecord
     ")
     .where(state: state)
     .where("aired_count < ?", aired_count_min).first["hours"]
-    hours.round(1)
+    hours.round(1) if hours
   end
 
 end
