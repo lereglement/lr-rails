@@ -27,7 +27,7 @@ ActiveAdmin.register Track do
     redirect_to "/tracks/#{track_id}", notice: "Check track done."
   end
 
-  actions :all
+  actions :all, except: :destroy
 
   permit_params :artist,
     :title,

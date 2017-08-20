@@ -62,6 +62,9 @@ class Track < ApplicationRecord
   end
 
   def set_after_save
+    if self.state && self.state.to_sym != :active
+      Bucket.where(track_id: self.id).delete_all
+    end
   end
 
   def set_before_destroy
