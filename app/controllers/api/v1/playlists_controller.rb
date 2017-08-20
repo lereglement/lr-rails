@@ -37,8 +37,11 @@ class Api::V1::PlaylistsController < Api::V1::BaseController
 
       # Play auto featured
       if !has_next_track
-        if last_track.id % 10 == 0
+        last_auto_feat = Playlist.where(type_of: :auto_feat).order(id: :desc).first
+        count_between = Playlist.where.not(type_of: :jingle).where("id > ?", last_auto_feat.id).count
+        if count_between >= Rails.application.secrets.track_auto_featured_modulo
           auto_featured = Track.where.not(artist: artists_to_avoid).where(state: :active).where("aired_count <= ?", Rails.application.secrets.track_auto_featured_limit).order(:last_aired_at).first
+
           unless auto_featured.blank?
             Playlist.create({ track_id: auto_featured.id, type_of: :auto_feat })
             has_next_track = true
