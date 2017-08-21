@@ -96,11 +96,20 @@ ActiveAdmin.register_page "Dashboard" do
       end
 
       column do
+        hours = Track.get_hours(10000000)
         hours_less_than_30 = Track.get_hours(30)
         hours_less_than_20 = Track.get_hours(20)
 
         panel "Stats" do
           table do
+            tr do
+              td do
+                div b "Every active tracks"
+              end
+              td style: "width: 40px" do
+                "#{hours} hours"
+              end
+            end
             tr do
               td do
                 div b "Played less than 30 times"
