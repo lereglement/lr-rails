@@ -8,6 +8,14 @@ class Api::V1::TracksController < Api::V1::BaseController
       each_serializer: Api::V1::Tracks::TranscodingSerializer
   end
 
+  def get_not_downloaded
+    tracks = Track.where.not(external_source: nil).where(track_file_name: nil)
+
+    render json: tracks,
+      root: 'data',
+      each_serializer: Api::V1::Tracks::NotDownloadedSerializer
+  end
+
   def create
     track_params = params[:track].permit(:title, :artist, :track, :title_external_source, :ref_external_source, :origin_external_source)
     Track.create({ state: :wip, type_of: :track }.merge(track_params))
@@ -21,7 +29,7 @@ class Api::V1::TracksController < Api::V1::BaseController
     track = Track.find_by(ref: ref)
     api_error(status: 500, errors: "Missing track") and return false if track.nil?
 
-    track_params = params[:track].permit(:is_converted, :duration, :bitrate, :duration_converted, :cover, :origin_external_source, :ref_external_source)
+    track_params = params[:track].permit(:is_converted, :duration, :bitrate, :duration_converted, :cover, :origin_external_source, :ref_external_source, :title_external_source, :track, :state)
 
     Track.find(track.id).update(track_params)
 
