@@ -27,6 +27,7 @@ Rails.application.routes.draw do
     namespace :data, :path => '/' do
       namespace :v1 do
         get :get_youtube_playlist, path: '/youtube_videos/playlist', to: 'youtube_videos#get_playlist'
+        get :get_current_track, path: '/playlists/current', to: 'playlists#get_current'
         resources :facebook, only: [:create, :show]
       end
     end
