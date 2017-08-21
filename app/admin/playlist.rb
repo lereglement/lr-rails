@@ -64,7 +64,7 @@ ActiveAdmin.register Playlist do
     column :gap do |track|
       after = Playlist.where("id > ?", track.id).order(:id).first
       unless after.blank? || track.type_of == "jingle"
-        gap = (after.created_at - track.created_at).to_i
+        gap = (after.aired_at - track.aired_at).to_i
         if gap < 3
           b style: "color:red; font-weight: bold" do
             span "#{gap} s."
