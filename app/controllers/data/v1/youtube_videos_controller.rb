@@ -1,4 +1,6 @@
-class Api::V1::YoutubeVideosController < Api::V1::BaseController
+class Data::V1::YoutubeVideosController < Data::V1::BaseController
+
+  skip_before_action :authenticate_request!, only: [:get_playlist]
 
   def get_playlist
 

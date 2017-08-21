@@ -17,6 +17,7 @@ gem 'active_model_serializers', '~> 0.10.6'
 gem 'devise', '~> 4.3.0'
 gem "mini_magick", '~> 4.7.0'
 gem 'rack-cors', "~> 0.4.1"
+gem 'jwt', '~> 1.5.6'
 gem 'curb', "~> 0.9.3"
 gem 'inherited_resources', '~> 1.7'
 gem 'activeadmin', '~> 1.0.0'

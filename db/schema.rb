@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170820171348) do
+ActiveRecord::Schema.define(version: 20170821181828) do
 
   create_table "active_admin_comments", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.string "namespace"
@@ -62,6 +62,18 @@ ActiveRecord::Schema.define(version: 20170820171348) do
     t.index ["track_id"], name: "track_id"
   end
 
+  create_table "facebook_users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC" do |t|
+    t.bigint "facebook_ref"
+    t.string "first_name"
+    t.string "last_name"
+    t.string "email"
+    t.string "gender"
+    t.date "birthday"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["facebook_ref"], name: "facebook_ref", unique: true
+  end
+
   create_table "playlists", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC" do |t|
     t.bigint "track_id"
     t.boolean "is_aired", default: false, null: false
@@ -104,6 +116,23 @@ ActiveRecord::Schema.define(version: 20170820171348) do
     t.index ["bitrate"], name: "bitrate"
     t.index ["ref"], name: "idx_ref", unique: true
     t.index ["ref_external_source"], name: "ref_external_source", unique: true
+    t.index ["state"], name: "state"
+  end
+
+  create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC" do |t|
+    t.string "ref", limit: 40
+    t.bigint "facebook_user_id"
+    t.string "first_name"
+    t.string "last_name"
+    t.string "username"
+    t.string "email"
+    t.integer "age"
+    t.string "gender", limit: 40
+    t.string "state", limit: 40, default: "pending"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["facebook_user_id"], name: "facebook_user_id", unique: true
+    t.index ["ref"], name: "ref", unique: true
     t.index ["state"], name: "state"
   end
 
