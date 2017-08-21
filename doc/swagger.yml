@@ -48,6 +48,20 @@ paths:
           description: successful operation
           schema:
             $ref: '#/definitions/PlaylistNext'
+  /tracks/not_downloaded:
+    get:
+      tags:
+        - tracks
+      summary: Get not downloaded tracks
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/TracksNotDownloaded'
   /tracks/not_converted:
     get:
       tags:
@@ -107,6 +121,13 @@ paths:
           schema:
             type: boolean
 definitions:
+  TracksNotDownloaded:
+    type: object
+    properties:
+      ref:
+        type: string
+      external_source:
+        type: string
   TracksNotConverted:
     type: object
     properties:
@@ -136,6 +157,10 @@ definitions:
       ref_external_source:
         type: string
       origin_external_source:
+        type: string
+      title_external_source:
+        type: string
+      state:
         type: string
   TrackCreate:
     type: object
