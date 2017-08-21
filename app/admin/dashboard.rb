@@ -85,6 +85,9 @@ ActiveAdmin.register_page "Dashboard" do
                 td do
                   div b link_to(track.title, track_path(track))
                 end
+                td style: "width: 40px" do
+                  div track.aired_count
+                end
               end
             end
           end unless auto_featured_tracks.blank?
