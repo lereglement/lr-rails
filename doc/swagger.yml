@@ -162,14 +162,15 @@ definitions:
         type: string
       state:
         type: string
+      track:
+        type: string
+        format: binary
   TrackCreate:
     type: object
     properties:
       title:
         type: string
       artist:
-        type: string
-      track:
         type: string
       title_external_source:
         type: string
@@ -178,6 +179,9 @@ definitions:
         type: string
       origin_external_source:
         type: string
+      track:
+        type: string
+        format: binary
   PlaylistNext:
     type: object
     properties:
