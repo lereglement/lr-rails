@@ -11,7 +11,16 @@ ActiveAdmin.register Track do
     tracks = Track.where(state: Track.get_state_to_check, is_converted: true)
 
     tracks.each do |track|
-      track.check_errors
+      if track.external_source && !track.ref_external_source
+        source_details = ExternalResourceLib.extract_from_url(track.external_source)
+
+        if source_details
+          track.update_column(:ref_external_source, source_details[:ref])
+          track.update_column(:origin_external_source, source_details[:origin])
+        end
+
+      end
+      # track.check_errors
     end
 
     redirect_to collection_path, notice: "Check all done."
