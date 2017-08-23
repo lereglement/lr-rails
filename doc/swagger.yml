@@ -126,8 +126,8 @@ definitions:
     properties:
       ref:
         type: string
-      external_source:
-        type: string
+      external:
+        $ref: '#/definitions/ExternalResource'
   TracksNotConverted:
     type: object
     properties:
@@ -241,4 +241,19 @@ definitions:
       cover_medium:
         type: string
       cover_large:
+        type: string
+  ExternalResource:
+    type: object
+    properties:
+      id_source:
+        type: string
+      ref:
+        type: string
+      origin:
+        type: string
+      thumbnail:
+        type: string
+      title:
+        type: string
+      description:
         type: string
