@@ -18,6 +18,7 @@ class ExternalResourceLib
           snippet = parsed["items"][0]["snippet"]
 
           return {
+            id_source: ref,
             ref: ref,
             origin: :youtube,
             url: "https://www.youtube.com/watch?v=#{ref}",
@@ -42,7 +43,8 @@ class ExternalResourceLib
         parsed = JSON.parse(http.body_str)
 
         return {
-          ref: match[1],
+          id_source: ref,
+          ref: ref,
           origin: :dailymotion,
           url: "https://www.dailymotion.com/video/#{ref}",
           thumbnail: "https://www.dailymotion.com/thumbnail/video/#{ref}",
@@ -65,7 +67,8 @@ class ExternalResourceLib
         if parsed && item = parsed[0]
 
           return {
-            ref: match[1],
+            id_source: ref,
+            ref: ref,
             origin: :vimeo,
             url: "https://www.dailymotion.com/video/#{ref}",
             thumbnail: item["thumbnail_large"],
@@ -74,6 +77,28 @@ class ExternalResourceLib
           }
 
         end
+      end
+
+    elsif match = /^https?:\/\/(soundcloud\.com|snd\.sc)\/(.*)$/.match(url)
+
+      unless match[2].blank?
+        ref = match[2]
+
+        xml = HTTParty.get(url).body
+        content_parsed = Nokogiri::HTML(xml)
+
+        title = content_parsed.title
+
+        return {
+          id_source: ref,
+          ref: CryptLib.md5(ref),
+          origin: :soundcloud,
+          url: url,
+          thumbnail: nil,
+          title: title,
+          description: nil
+        }
+
       end
 
     end
