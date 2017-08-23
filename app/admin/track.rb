@@ -152,6 +152,24 @@ ActiveAdmin.register Track do
       row :last_aired do |track|
         div DateLib.humanize(Time.now - track.last_aired_at) if track.last_aired_at
       end
+      row :external_source do |track|
+        source = ExternalResourceLib.extract_from_url(track.external_source)
+        if source
+          div style: "display:flex" do
+            div do
+              link_to image_tag(source[:thumbnail], style: "width:200px; border-radius: 5px;"), source[:url], target: "_blank"
+            end
+            div style: "padding: 20px;" do
+              div b source[:title]
+              div source[:description][0..500]
+            end
+          end
+        elsif track.external_source
+          link_to track.external_source, track.external_source, target: "_blank"
+        end
+      end
+      row :ref_external_source
+      row :origin_external_source
     end
     active_admin_comments
   end
@@ -185,8 +203,8 @@ ActiveAdmin.register Track do
     inputs 'External' do
       input :external_source
       li class: "form_content_margin" do
-        div resource.ref_external_source
-        div resource.origin_external_source
+        span b resource.origin_external_source if resource.origin_external_source
+        span " (Ref: #{resource.ref_external_source})" if resource.ref_external_source
       end
     end
     actions
