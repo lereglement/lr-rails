@@ -157,12 +157,14 @@ ActiveAdmin.register Track do
         source = ExternalResourceLib.extract_from_url(track.external_source)
         if source
           div style: "display:flex" do
-            div do
-              link_to image_tag(source[:thumbnail], style: "width:200px; border-radius: 5px;"), source[:url], target: "_blank"
+            if source[:thumbnail]
+              div link_to image_tag(source[:thumbnail], style: "width:200px; border-radius: 5px;"), source[:url], target: "_blank"
+            else
+              div link_to source[:url], source[:url], target: "_blank"
             end
             div style: "padding: 20px;" do
               div b source[:title]
-              div source[:description][0..500]
+              div source[:description][0..500] if source[:description]
             end
           end
         elsif track.external_source
