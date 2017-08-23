@@ -70,7 +70,7 @@ class Track < ApplicationRecord
   end
 
   def set_after_save
-    if saved_change_to_external_source?
+    if saved_change_to_external_source? || (self.external_source && !self.ref_external_source)
       source_details = ExternalResourceLib.extract_from_url(self.external_source)
 
       if source_details
