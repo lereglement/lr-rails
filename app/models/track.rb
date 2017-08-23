@@ -22,8 +22,6 @@ class Track < ApplicationRecord
     [:external_source_missing_in]
   end
 
-
-
   after_create :set_after_create
   before_save :insert_artist
   after_save :set_after_save
@@ -72,6 +70,15 @@ class Track < ApplicationRecord
   end
 
   def set_after_save
+    if saved_change_to_external_source?
+      source_details = ExternalResourceLib.extract_from_url(self.external_source)
+
+      if source_details
+        self.update_column(:ref_external_source, source_details[:ref])
+        self.update_column(:origin_external_source, source_details[:origin])
+      end
+    end
+
     if self.state && self.state.to_sym != :active
       Bucket.where(track_id: self.id).delete_all
     end
