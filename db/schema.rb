@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170821181828) do
+ActiveRecord::Schema.define(version: 20170823170350) do
 
   create_table "active_admin_comments", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.string "namespace"
@@ -42,7 +42,7 @@ ActiveRecord::Schema.define(version: 20170821181828) do
   end
 
   create_table "artists", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC" do |t|
-    t.string "name"
+    t.string "name", limit: 100
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "picture_file_name"
@@ -51,6 +51,7 @@ ActiveRecord::Schema.define(version: 20170821181828) do
     t.datetime "picture_updated_at"
     t.string "twitter"
     t.string "type_of", limit: 40
+    t.index ["name"], name: "artist"
     t.index ["type_of"], name: "type_of"
   end
 
@@ -58,7 +59,8 @@ ActiveRecord::Schema.define(version: 20170821181828) do
     t.bigint "track_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "artist"
+    t.string "artist", limit: 100
+    t.index ["artist"], name: "artist"
     t.index ["track_id"], name: "track_id"
   end
 
@@ -87,7 +89,7 @@ ActiveRecord::Schema.define(version: 20170821181828) do
   end
 
   create_table "tracks", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC" do |t|
-    t.string "artist"
+    t.string "artist", limit: 100
     t.string "title"
     t.integer "duration"
     t.integer "bitrate"
@@ -113,6 +115,7 @@ ActiveRecord::Schema.define(version: 20170821181828) do
     t.string "ref_external_source", limit: 30
     t.string "origin_external_source", limit: 40
     t.string "error_logs"
+    t.index ["artist"], name: "artist"
     t.index ["bitrate"], name: "bitrate"
     t.index ["ref"], name: "idx_ref", unique: true
     t.index ["ref_external_source"], name: "ref_external_source", unique: true
@@ -126,7 +129,7 @@ ActiveRecord::Schema.define(version: 20170821181828) do
     t.string "last_name"
     t.string "username"
     t.string "email"
-    t.integer "age"
+    t.date "birthday"
     t.string "gender", limit: 40
     t.string "state", limit: 40, default: "pending"
     t.datetime "created_at", null: false
