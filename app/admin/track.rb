@@ -87,6 +87,9 @@ ActiveAdmin.register Track do
       span status_tag track.type_of
       span status_tag "Raw" if track.is_converted == false
     end
+    column :from_artist do |track|
+      Track.where(artist: track.artist, state: :active).count
+    end
     column :duration do |track|
       Time.at(track.duration).utc.strftime("%M:%S") if track.duration
     end
