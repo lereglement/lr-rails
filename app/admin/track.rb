@@ -68,7 +68,8 @@ ActiveAdmin.register Track do
     column :id
     column :track do |track|
       div style: "display:flex; align-items: center;" do
-        div auto_link(track, image_tag(track.cover.url(:xsmall), size: 50, style: "margin-right: 10px;"))
+        artist = Artist.find_by(name: track.artist)
+        div auto_link(track, image_tag(artist.picture.url(:xsmall), size: 50, style: "margin-right: 10px;"))
         div do
           artist = Artist.find_by(name: track.artist)
           if artist
@@ -78,26 +79,29 @@ ActiveAdmin.register Track do
           end
           div do
             track_title = !track.title.blank? ? track.title : track.track_file_name
-            auto_link track, track_title
+            span auto_link track, track_title
+            span " (#{Time.at(track.duration).utc.strftime("%M:%S")})" if track.duration
           end
         end
       end
     end
     column :tags do |track|
-      span status_tag track.state
-      span status_tag track.type_of
-      span status_tag "Raw" if track.is_converted == false
+      div status_tag track.state
+      div status_tag track.type_of
+      div status_tag "Raw" if track.is_converted == false
     end
     column :from_artist do |track|
       Track.where(artist: track.artist, state: :active).count
     end
-    column :duration do |track|
-      Time.at(track.duration).utc.strftime("%M:%S") if track.duration
+    column :aired do |track|
+      track.aired_count
     end
-    column :aired_count
     column :last_aired do |track|
       div DateLib.humanize(Time.now - track.last_aired_at) if track.last_aired_at
       div link_to "Play next", "/playlists/now/?id=#{track.id}", class: "play-next", data: {confirm: 'Are you sure to play it next?'} if track.state.to_sym == :active && track.is_converted == true
+    end
+    column :source do |track|
+      div b track.origin_external_source
     end
     column :created do |track|
       time_ago(track.created_at)
