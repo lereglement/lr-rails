@@ -14,6 +14,16 @@ class Track < ApplicationRecord
   use_timestamp: false
   validates_attachment_content_type :cover, :content_type => /\Aimage\/.*\Z/
 
+  scope :external_source_missing_in, -> (bool) {
+    where(" external_source IS NULL OR external_source = '' ")
+  }
+
+  def self.ransackable_scopes(_auth_object = nil)
+    [:external_source_missing_in]
+  end
+
+
+
   after_create :set_after_create
   before_save :insert_artist
   after_save :set_after_save

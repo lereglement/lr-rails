@@ -44,6 +44,7 @@ ActiveAdmin.register Track do
   filter :state, as: :select, collection: Track.get_states.map { |value| value }
   filter :type_of, as: :select, collection: Track.get_types.map { |value| value }
   filter :is_converted
+  filter :external_source_missing, as: :check_boxes, collection: ['yes']
   filter :bitrate
   filter :created_at
   filter :updated_at
