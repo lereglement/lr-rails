@@ -1,0 +1,22 @@
+iframe width="560" height="315" src="https://www.youtube.com/embed/A4tUSvPBDao?rel=0&amp;showinfo=0" frameborder="0"
+main
+  header.header-main
+    .container
+      .current-track-cover
+
+      .current-track-infos
+        .current-track-title
+        .current-track-artist
+          span = 'de'
+        .header-main-actions
+          .player-toggle
+            = render 'icons/pause'
+          .badge-live
+            = 'LIVE'
+
+          a.button.button-youtube target='blank'
+            = render 'icons/youtube'
+            = 'LIEN DU SON'
+
+side
+  iframe allowfullscreen="" frameborder="0" src="https://www.youtube.com/live_chat?v=A4tUSvPBDao&embed_domain=#{request.domain}" width="100%"
