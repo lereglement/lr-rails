@@ -6,12 +6,31 @@
 
 iframe width='250px' style="#{Rails.env.development? ? "position: fixed;right:0;bottom:0;z-index: 9;" : "display: none"}" id='radio-iframe' src="https://www.youtube.com/embed/A4tUSvPBDao?rel=0&amp;showinfo=0&autoplay=1" frameborder="0"
 main
+  .navbar-wrapper
+    .container
+      .navbar
+        a.navbar-logo-link href='/'
+          span.navbar-logo
+            span.navbar-logo-glow
+          div
+            span.navbar-typo
+              = 'LE REGLEMENT'
+            span.navbar-tagline = 'Du bon rap mon cousin'
+
+        .navbar-menu
+          .navbar-networks
+            - @networks.each do |network|
+              a href="#{network[:link]}" target='_blank'
+                = render "icons/#{network[:slug]}"
+
+
   header.header-radio
     .header-radio-background
       = video_tag(["fries.mp4", "fries.webm"], autoplay: true, loop: true)
     .container
       .header-radio-content
-        .cover.cover-huge
+        .cover.cover-huge style="background: url(https://e-cdns-images.dzcdn.net/images/cover/067f08efeea448ff2d1c032e913bae4f/528x528-000000-80-0-0.jpg);"
+          .cover-shadow style="background: url(https://e-cdns-images.dzcdn.net/images/cover/067f08efeea448ff2d1c032e913bae4f/528x528-000000-80-0-0.jpg);"
 
         .header-radio-infos
           h1.header-radio-title
@@ -25,8 +44,8 @@ main
             .badge-live
               = 'LIVE'
 
-            a.button class="button-#{@current_track.origin_external_source || 'youtube'}" target='blank'
-              = render 'icons/youtube'
+            a.button class="button-#{@current_track.origin_external_source || 'soundcloud'}" target='blank'
+              = render "icons/#{@current_track.origin_external_source || 'soundcloud'}"
               = 'LIEN DU SON'
 
 side

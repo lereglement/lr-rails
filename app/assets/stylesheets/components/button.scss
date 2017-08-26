@@ -7,6 +7,9 @@
   background-image: linear-gradient(0deg, rgba(255,255,255,0.80) 0%, #FFFFFF 100%);
   box-shadow: $shadow-1;
   border-radius: 50%;
+  svg {
+    width: 12px;
+  }
 }
 
 .button {
@@ -39,5 +42,13 @@
   background: $brand_youtube;
   &:hover {
     background: lighten($brand_youtube, 07%);
+  }
+}
+
+.button-soundcloud {
+  background: linear-gradient(#ff8800,#ff3300);
+
+  &:hover {
+    background: linear-gradient(lighten(#ff8800, 07%),lighten(#ff3300, 07%));
   }
 }

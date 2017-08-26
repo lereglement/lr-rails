@@ -1,0 +1,75 @@
+.navbar {
+  padding-top: 30px;
+  display: flex;
+  align-items: center;
+
+  &-menu {
+    margin-left: auto;
+  }
+
+  &-networks {
+    a {
+      margin-left: $padding;
+      opacity: .5;
+
+      &:hover {
+        opacity: .7;
+      }
+    }
+  }
+
+  &-wrapper {
+    padding-bottom: 0;
+    position: absolute;
+    z-index: 9;
+    left: 0;
+    right: 0;
+    padding-right: 250px;
+  }
+
+  &-logo {
+    height: 40px;
+    width: 40px;
+    display: inline-block;
+    background: image-url("logo.png");
+    background-size: cover;
+    position: relative;
+
+    &-link {
+      display: flex;
+    }
+
+    &-glow {
+      background: image-url("logo.png");
+      background-size: cover;
+      z-index: -1;
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      filter: blur(10px);
+      top: 0;
+    }
+  }
+
+  &-typo {
+    color: white;
+    margin-left: 15px;
+    line-height: 1;
+    font-weight: 900;
+    font-size: 20px;
+    text-decoration: none;
+    letter-spacing: 0px;
+    display: inline-block;
+    margin-top: 2px;
+  }
+
+  &-tagline {
+    display: block;
+    margin-left: 15px;
+    color: white;
+    opacity: .5;
+    font-weight: 400;
+    line-height: .9;
+  }
+}
