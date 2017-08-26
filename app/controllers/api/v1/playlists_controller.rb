@@ -110,7 +110,7 @@ class Api::V1::PlaylistsController < Api::V1::BaseController
   end
 
   def get_current
-    current_track = Playlist.joins("INNER JOIN tracks ON tracks.id = playlists.track_id AND tracks.type_of = 'track'").where(is_aired: true).order(id: :desc).first.track
+    current_track = Track.get_current
 
     render json: current_track,
       root: 'data',

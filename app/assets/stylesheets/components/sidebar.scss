@@ -1,0 +1,19 @@
+$sidebar-size: 250px;
+
+side {
+  position: fixed;
+  right: 0;
+  width: $sidebar-size;
+  top: 0;
+  bottom: 0;
+  box-shadow: 0 0 0 1px rgba(0,0,0,0.07), 0 22px 45px 0 rgba(0,0,0,0.08);
+
+  iframe {
+    height: 100%;
+    width: 100%;
+  }
+}
+
+main {
+  padding-right: $sidebar-size;
+}

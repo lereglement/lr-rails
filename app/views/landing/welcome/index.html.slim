@@ -1,9 +1,33 @@
 = content_for :stylesheet
-  = stylesheet_link_tag "#{params[:controller]}_#{params[:action]}" 
+  = stylesheet_link_tag "#{params[:controller]}_#{params[:action]}"
 
 = content_for :javascript_footer
   = javascript_include_tag "#{params[:controller]}_#{params[:action]}"
-  
-div
-  h1
-  |  "hi"
+
+iframe width='250px' style="#{Rails.env.development? ? "position: fixed;right:0;bottom:0;z-index: 9;" : "display: none"}" id='radio-iframe' src="https://www.youtube.com/embed/A4tUSvPBDao?rel=0&amp;showinfo=0&autoplay=1" frameborder="0"
+main
+  header.header-radio
+    .header-radio-background
+      = video_tag(["fries.mp4", "fries.webm"], autoplay: true, loop: true)
+    .container
+      .header-radio-content
+        .cover.cover-huge
+
+        .header-radio-infos
+          h1.header-radio-title
+            = @current_track.title
+          .header-radio-subtitle
+            span = 'de '
+            = @current_track.artist
+          .header-radio-actions
+            .button-player
+              = render 'icons/pause'
+            .badge-live
+              = 'LIVE'
+
+            a.button class="button-#{@current_track.origin_external_source || 'youtube'}" target='blank'
+              = render 'icons/youtube'
+              = 'LIEN DU SON'
+
+side
+  iframe allowfullscreen="" frameborder="0" src="https://www.youtube.com/live_chat?v=A4tUSvPBDao&embed_domain=#{request.domain}" width="100%"

@@ -1,0 +1,43 @@
+.button-player {
+  height: $padding * 2;
+  display: inline-flex;
+  width: $padding * 2;
+  align-items: center;
+  justify-content: center;
+  background-image: linear-gradient(0deg, rgba(255,255,255,0.80) 0%, #FFFFFF 100%);
+  box-shadow: $shadow-1;
+  border-radius: 50%;
+}
+
+.button {
+  height: $padding * 2;
+  display: inline-flex;
+  align-items: center;
+  box-shadow: $shadow-1;
+  font-size: 14px;
+  border-radius: $radius;
+  padding: 0 $padding / 2;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all .15s;
+
+  &:hover {
+    transform: translateY(-05%);
+  }
+
+  &:active {
+    transform: translateY(0%);
+  }
+
+  svg {
+    height: 14px;
+    margin-right: 7px;
+  }
+}
+
+.button-youtube {
+  background: $brand_youtube;
+  &:hover {
+    background: lighten($brand_youtube, 07%);
+  }
+}

@@ -1,0 +1,24 @@
+.badge-live {
+  border: 1px solid $brand_youtube;
+  padding: 0 $padding / 2;
+  position: relative;
+  display: flex;
+  align-items: center;
+  color: $brand_youtube;
+  font-weight: 600;
+  font-size: 14px;
+  letter-spacing: 0;
+  margin: 0 15px;
+  border-radius: $radius;
+
+  &:after {
+    content: '';
+    height: $padding /2;
+    margin-left: $padding / 2;
+    top: 0;
+    bottom: 0;
+    width: $padding /2;
+    background: $brand_youtube;
+    border-radius: 50%;
+  }
+}
