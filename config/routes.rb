@@ -35,7 +35,7 @@ Rails.application.routes.draw do
 
   constraints(lambda { |req| req.host.match(/^(staging\.)?lereglement\.(here|sale)$/) }) do
     namespace :landing, :path => '/' do
-      get :root, path: '/', to: 'root#index'
+      get :welcome, path: '/', to: 'welcome#index'
     end
   end
 
