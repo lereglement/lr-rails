@@ -94,6 +94,18 @@ class Track < ApplicationRecord
     playlist_current.blank? ? nil : playlist_current.track
   end
 
+  def self.get_previous(limit)
+    playlist = Playlist.joins("INNER JOIN tracks ON tracks.id = playlists.track_id AND tracks.type_of = 'track'").where(is_aired: true).order(id: :desc).limit(limit).offset(1)
+
+    return nil if playlist.blank?
+
+    tracks = []
+    playlist.each do |item|
+      tracks.push(item.track) unless item.track.blank?
+    end
+    tracks
+  end
+
   def insert_artist
     if self.artist
       Artist.where(name: self.artist).first_or_create
