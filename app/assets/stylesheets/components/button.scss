@@ -4,16 +4,29 @@
   width: $padding * 2;
   align-items: center;
   justify-content: center;
-  background-image: linear-gradient(0deg, rgba(255,255,255,0.80) 0%, #FFFFFF 100%);
-  background: rgba(255,255,255,0.80);
+  background: linear-gradient(0deg, rgba(255,255,255,0.80) 0%, #FFFFFF 100%);
   box-shadow: $shadow-1;
   border-radius: 50%;
   cursor: pointer;
   transition: all .15s;
   margin-right: $padding;
 
+  &[data-icon='pause'] {
+    svg:last-child { display: none }
+  }
+
+  &[data-icon='play'] {
+    svg {
+      position: relative;
+      left: 2px;
+      top: 1px;
+    }
+
+    svg:first-child { display: none }
+  }
+
   &:hover {
-    background: white;
+    background: linear-gradient(0deg, rgba(255,255,255,1) 0%, #FFFFFF 100%);
     transform: translateY(-05%);
   }
 

@@ -24,9 +24,9 @@
   $('.button-player').on('click', function() {
     if(player.isMuted()) {
       player.unMute()
-      $('.button-player').attr('data-status', 'pause')
+      $('.button-player').attr('data-icon', 'pause')
     } else {
-      $('.button-player').attr('data-status', 'play')
+      $('.button-player').attr('data-icon', 'play')
       player.mute()
     }
   })
@@ -36,7 +36,6 @@
   }
 
   function onPlayerStateChange(event) {
-      console.log(event.data)
     if(event.data === 1) {
       player.setVolume(100)
       $('.button-player, .button-provider, .badge-live').addClass('is-active')

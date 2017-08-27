@@ -12,9 +12,9 @@ main
         a.navbar-logo-link href='/'
           span.navbar-logo
             span.navbar-logo-glow
-          div
+          div style="margin-top: -4px;"
             span.navbar-typo
-              = 'LE REGLEMENT'
+              = render 'icons/typo_lr'
             span.navbar-tagline = 'Du bon rap mon cousin'
 
         .navbar-menu
@@ -41,8 +41,9 @@ main
           .header-radio-actions
             .badge.badge-buffering.is-active
               = 'BUFFERING'
-            .button-player
+            .button-player data-icon='pause'
               = render 'icons/pause'
+              = render 'icons/play'
             a.button.button-provider href="#{@current_track.external_source}" class="button-#{@current_track.origin_external_source || 'soundcloud'}" target='_blank'
               = render "icons/#{@current_track.origin_external_source || 'soundcloud'}"
               = 'LIEN DU SON'
