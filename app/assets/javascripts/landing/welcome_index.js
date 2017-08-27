@@ -1,1 +1,2 @@
-console.log ('bite');
+//= require jquery
+//= require ../player

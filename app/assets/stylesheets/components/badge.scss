@@ -1,29 +1,49 @@
-
-.badge-live {
-  border: 1px solid $brand_youtube;
-  padding: 0 $padding / 2;
+.badge {
   position: relative;
   display: flex;
   align-items: center;
-  color: $brand_youtube;
+  border-radius: $radius;
+  height: $padding * 2;
   font-weight: 600;
   font-size: 14px;
   letter-spacing: 0;
-  margin: 0 15px;
-  border-radius: $radius;
-  background: rgba(205, 32, 31, .1);
+  padding: 0 $padding / 2;
 
   &:after {
     content: '';
-    height: $padding /2;
+    height: 8px;
     margin-left: $padding / 2;
     top: 0;
     bottom: 0;
-    width: $padding /2;
-    background: $brand_youtube;
-    animation: blink-animation 1s steps(5, start) infinite;
+    width: 8px;
     border-radius: 50%;
+    animation: blink-animation 1s steps(5, start) infinite;
   }
+}
+
+.badge-live {
+  border: 1px solid $brand_youtube;
+  color: $brand_youtube;
+  margin: 0 15px;
+  background: rgba(205, 32, 31, .1);
+
+  &:after {
+    background: $brand_youtube;
+  }
+}
+
+.badge-buffering {
+  border: 1px solid #fd9800;
+  color: #fd9800;
+  background: rgba(253, 152, 0, 0.15);
+  margin: 0;
+  position: absolute;
+  transform: translateY(-07%);
+  &.is-active {
+    transition-delay: .4s !important;
+  }
+
+  &:after { background: #fd9800 }
 }
 
 @keyframes blink-animation {
