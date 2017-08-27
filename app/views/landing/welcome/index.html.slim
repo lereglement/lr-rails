@@ -4,7 +4,6 @@
 = content_for :javascript_footer
   = javascript_include_tag "#{params[:controller]}_#{params[:action]}"
 
-div#player style="#{Rails.env.development? ? "position: fixed;right:0;bottom:0;z-index: 9;" : "opacity: 0;visibility:hidden;position: absolute;z-index: -1"}"
 main
   .navbar-wrapper
     .container
@@ -29,8 +28,9 @@ main
       = video_tag(["fries.mp4", "fries.webm"], autoplay: true, loop: true)
     .container
       .header-radio-content
-        .cover.cover-huge style="background: url(https://e-cdns-images.dzcdn.net/images/cover/067f08efeea448ff2d1c032e913bae4f/528x528-000000-80-0-0.jpg);"
-          .cover-shadow style="background: url(https://e-cdns-images.dzcdn.net/images/cover/067f08efeea448ff2d1c032e913bae4f/528x528-000000-80-0-0.jpg);"
+        .cover.cover-huge style="background-image: url(#{@current_track.cover_large || image_url('default_cover.jpg')})"
+          .cover-shadow style="background-image: url(#{@current_track.cover_large || image_url('default_cover.jpg')})"
+
 
         .header-radio-infos
           h1.header-radio-title
@@ -44,11 +44,13 @@ main
             .button-player data-icon='pause'
               = render 'icons/pause'
               = render 'icons/play'
-            a.button.button-provider href="#{@current_track.external_source}" class="button-#{@current_track.origin_external_source || 'soundcloud'}" target='_blank'
-              = render "icons/#{@current_track.origin_external_source || 'soundcloud'}"
-              = 'LIEN DU SON'
+            - if @current_track.origin_external_source
+              a.button.button-provider href="#{@current_track.external_source}" class="button-#{@current_track.origin_external_source || 'soundcloud'}" target='_blank'
+                = render "icons/#{@current_track.origin_external_source || 'soundcloud'}"
+                = 'LIEN DU SON'
             .badge.badge-live
               = 'LIVE'
 
 side
-  iframe allowfullscreen="" frameborder="0" src="https://www.youtube.com/live_chat?v=A4tUSvPBDao&embed_domain=#{request.domain}" width="100%"
+  iframe#chat allowfullscreen="" frameborder="0" src="https://www.youtube.com/live_chat?v=A4tUSvPBDao&embed_domain=#{request.domain}" width="100%"
+  div#player style="#{!Rails.env.development? && "opacity: 0;visibility:hidden;position: absolute;z-index: -1"}"

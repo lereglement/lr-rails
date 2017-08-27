@@ -38,6 +38,10 @@
   &-actions {
     display: flex;
     align-items: strech;
+
+    & > * {
+      margin-right: $padding;
+    }
   }
 }
 

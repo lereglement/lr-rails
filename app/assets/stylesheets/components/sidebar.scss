@@ -7,11 +7,19 @@ side {
   top: 0;
   bottom: 0;
   box-shadow: 0 0 0 1px rgba(0,0,0,0.07), 0 22px 45px 0 rgba(0,0,0,0.08);
+  display: flex;
+  flex-flow: column;
 
-  iframe {
+  #chat {
     height: 100%;
     width: 100%;
   }
+
+  #player {
+    min-height: 130px;
+    height: 170px;
+  }
+
 }
 
 main {

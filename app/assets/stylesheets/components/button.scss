@@ -9,7 +9,6 @@
   border-radius: 50%;
   cursor: pointer;
   transition: all .15s;
-  margin-right: $padding;
 
   &[data-icon='pause'] {
     svg:last-child { display: none }
@@ -62,7 +61,9 @@
 
 .button-youtube {
   color: white;
-  background: $brand_youtube;
+  background: white;
+  color: $brand_youtube;
+  svg { fill: $brand_youtube }
   &:hover {
     background: lighten($brand_youtube, 07%);
   }

@@ -11,7 +11,7 @@
   function onYouTubeIframeAPIReady() {
     player = new YT.Player('player', {
       width: '250',
-      height: '141',
+      height: '180px',
       videoId: 'A4tUSvPBDao',
       autoplay: true,
       events: {
@@ -39,7 +39,6 @@
     if(event.data === 1) {
       player.setVolume(100)
       player.unMute()
-      console.log('yo')
 
       $('.button-player, .button-provider, .badge-live').addClass('is-active')
       $('.badge-buffering').removeClass('is-active')
@@ -53,3 +52,9 @@
   function stopVideo() {
     player.stopVideo();
   }
+
+$(document).ready(function() {
+  setInterval(function() {
+    console.log(player.getCurrentTime(), player.getDuration())
+  }, 1000)
+})
