@@ -5,6 +5,8 @@ class Landing::WelcomeController < Landing::BaseController
     set_meta_tags default_meta_tags
     set_meta_tags title: "REGLEMENT.SALE"
     @current_track = Track.get_current
+    # http://data.lereglement.sale/v1/playlists/current
+    # http://data.lereglement.sale/v1/playlists/previous
     @networks = [
       {
         slug: 'facebook',

@@ -38,6 +38,9 @@
   function onPlayerStateChange(event) {
     if(event.data === 1) {
       player.setVolume(100)
+      player.unMute()
+      console.log('yo')
+
       $('.button-player, .button-provider, .badge-live').addClass('is-active')
       $('.badge-buffering').removeClass('is-active')
       return false
