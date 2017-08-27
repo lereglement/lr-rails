@@ -52,9 +52,3 @@
   function stopVideo() {
     player.stopVideo();
   }
-
-$(document).ready(function() {
-  setInterval(function() {
-    console.log(player.getCurrentTime(), player.getDuration())
-  }, 1000)
-})

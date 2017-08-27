@@ -28,7 +28,8 @@ main
       = video_tag(["fries.mp4", "fries.webm"], autoplay: true, loop: true)
     .container
       .header-radio-content
-        .cover.cover-huge style="background-image: url(#{@current_track.cover_large || image_url('default_cover.jpg')})"
+        .cover-huge-container.is-in
+          .cover.cover-huge style="background-image: url(#{@current_track.cover_large || image_url('default_cover.jpg')})"
           .cover-shadow style="background-image: url(#{@current_track.cover_large || image_url('default_cover.jpg')})"
 
 
