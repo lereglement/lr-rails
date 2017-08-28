@@ -1,7 +1,9 @@
 class Data::V1::Tracks::TrackSerializer < ActiveModel::Serializer
 
   attributes :title,
-    :artist
+    :artist,
+    :external_source,
+    :origin_external_source
 
   attribute :is_new do
     object.aired_count <= Rails.application.secrets.track_new_limit ? true : false
