@@ -1,0 +1,96 @@
+swagger: '2.0'
+info:
+  description: Public API for Le Reglement
+  version: 1.0.0
+  title: LeReglement DATA
+  contact:
+    email: nanark@gmail.com
+host: data.lereglement.sale
+basePath: /data/v1
+schemes:
+  - http
+paths:
+  /youtube_videos/playlist:
+    get:
+      tags:
+        - youtube
+      summary: Get last Youtube videos
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/YoutubeVideo'
+  /playlists/current:
+    get:
+      tags:
+        - playlist
+      summary: Get current track
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: '#/definitions/Track'
+  /playlists/previous:
+    get:
+      tags:
+        - playlist
+      summary: Get previous played tracks
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Track'
+definitions:
+  YoutubeVideo:
+    type: object
+    properties:
+      id:
+        type: string
+      url:
+        type: string
+      title:
+        type: string
+      thumbnail:
+        $ref: '#/definitions/YoutubeThumbnail'
+  YoutubeThumbnail:
+    type: object
+    properties:
+      url:
+        type: string
+      width:
+        type: integer
+      height:
+        type: integer
+  Track:
+    type: object
+    properties:
+      title:
+        type: string
+      artist:
+        type: string
+      external_source:
+        type: string
+      origin_external_source:
+        type: string
+      is_new:
+        type: boolean
+      is_mif:
+        type: boolean
+      cover_xsmall:
+        type: string
+      cover_small:
+        type: string
+      cover_medium:
+        type: string
+      cover_large:
+        type: string

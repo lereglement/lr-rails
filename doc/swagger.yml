@@ -8,7 +8,7 @@ info:
 host: api.lereglement.xyz
 basePath: /api/v1
 schemes:
-  - https
+  - http
 paths:
   /youtube_videos/playlist:
     get:
