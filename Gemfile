@@ -32,6 +32,7 @@ gem 'nilify_blanks', '~> 1.2.0'
 gem 'kaminari', '~> 1.0.1'
 gem 'rails3-jquery-autocomplete', '~> 1.0.11'
 gem 'httparty', '~> 0.15.6'
+gem "autoprefixer-rails"
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development

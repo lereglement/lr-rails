@@ -1,9 +1,57 @@
 = content_for :stylesheet
-  = stylesheet_link_tag "#{params[:controller]}_#{params[:action]}" 
+  = stylesheet_link_tag "#{params[:controller]}_#{params[:action]}"
 
 = content_for :javascript_footer
   = javascript_include_tag "#{params[:controller]}_#{params[:action]}"
-  
-div
-  h1
-  |  "hi"
+
+main
+  .navbar-wrapper
+    .container
+      .navbar
+        a.navbar-logo-link href='/'
+          span.navbar-logo
+            span.navbar-logo-glow
+          div style="margin-top: -4px;"
+            span.navbar-typo
+              = render 'icons/typo_lr'
+            span.navbar-tagline = 'Du bon rap mon cousin'
+
+        .navbar-menu
+          .navbar-networks
+            - @networks.each do |network|
+              a href="#{network[:link]}" target='_blank'
+                = render "icons/#{network[:slug]}"
+
+
+  header.header-radio
+    .header-radio-background
+      = video_tag(["fries.mp4", "fries.webm"], autoplay: true, loop: true)
+    .container
+      .header-radio-content
+        .cover-huge-container.is-in
+          .cover.cover-huge style="background-image: url(#{@current_track.cover_large || image_url('default_cover.jpg')})"
+          .cover-shadow style="background-image: url(#{@current_track.cover_large || image_url('default_cover.jpg')})"
+
+
+        .header-radio-infos
+          h1.header-radio-title
+            = @current_track.title
+          .header-radio-subtitle
+            span = 'de '
+            = @current_track.artist
+          .header-radio-actions
+            .badge.badge-buffering.is-active
+              = 'BUFFERING'
+            .button-player data-icon='pause'
+              = render 'icons/pause'
+              = render 'icons/play'
+            - if @current_track.origin_external_source
+              a.button.button-provider href="#{@current_track.external_source}" class="button-#{@current_track.origin_external_source || 'soundcloud'}" target='_blank'
+                = render "icons/#{@current_track.origin_external_source || 'soundcloud'}"
+                = 'LIEN DU SON'
+            .badge.badge-live
+              = 'LIVE'
+
+side
+  iframe#chat allowfullscreen="" frameborder="0" src="https://www.youtube.com/live_chat?v=A4tUSvPBDao&embed_domain=#{request.domain}" width="100%"
+  div#player style="#{!Rails.env.development? && "opacity: 0;visibility:hidden;position: absolute;z-index: -1"}"

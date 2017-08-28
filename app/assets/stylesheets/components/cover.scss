@@ -1,0 +1,42 @@
+.cover {
+  background-size: cover !important;
+  position: relative;
+
+  &-huge {
+    height: 196px;
+    width: 196px;
+    background: rgba(white, .15);
+    border-radius: 10px;
+    box-shadow: 0 3px 6px 0 rgba(0,0,0,0.09), 0 3px 6px 1px rgba(0,0,0,0.05);
+
+    &-container {
+      position: relative;
+      transition: all .15s;
+      transform: scale(.8);
+      opacity:  0;
+      &.is-in {
+        opacity: 1;
+        transform: scale(1);
+      }
+
+      &.is-out {
+        transform: scale(1.2);
+        opacity: 0;
+      }
+    }
+
+  }
+
+  &-shadow {
+    position: absolute;
+    left: 0;
+    right: 0;
+    z-index: -1;
+    bottom: 0;
+    top: 0;
+    filter: blur(20px);
+    opacity: .5;
+    background-size: cover !important;
+    border-radius: 10px;
+  }
+}
