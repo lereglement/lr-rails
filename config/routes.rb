@@ -28,6 +28,7 @@ Rails.application.routes.draw do
       namespace :v1 do
         get :get_youtube_playlist, path: '/youtube_videos/playlist', to: 'youtube_videos#get_playlist'
         get :get_current_track, path: '/playlists/current', to: 'playlists#get_current'
+        get :get_previous_tracks, path: '/playlists/previous', to: 'playlists#get_previous'
         resources :facebook, only: [:create, :show]
       end
     end
@@ -35,7 +36,7 @@ Rails.application.routes.draw do
 
   constraints(lambda { |req| req.host.match(/^(staging\.)?lereglement\.(here|sale)$/) }) do
     namespace :landing, :path => '/' do
-      get :root, path: '/', to: 'root#index'
+      get :welcome, path: '/', to: 'welcome#index'
     end
   end
 

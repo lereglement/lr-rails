@@ -1,0 +1,79 @@
+@import '../vars';
+.header-radio {
+  color: white;
+  position: relative;
+
+  &-content {
+    padding: $padding * 4 0;
+    display: flex;
+    padding-top: 135px;
+    align-items: center;
+  }
+
+  &-infos {
+    padding-left: $padding * 2;
+  }
+
+  &-title {
+    font-size: 2em;
+    font-weight: 400;
+    color: #FFFFFF;
+    letter-spacing: -0.72px;
+    margin: 0;
+  }
+
+  &-subtitle {
+    font-size: 1.4em;
+    font-weight: 300;
+    line-height: 1;
+    margin-top: $padding;
+    margin-bottom: $padding * 2;
+
+    color: rgba(white, .8);
+
+    span {
+      color: rgba(white, .4);
+    }
+  }
+
+  &-actions {
+    display: flex;
+    align-items: strech;
+
+    & > * {
+      margin-right: $padding;
+    }
+  }
+}
+
+.header-radio-background {
+  position: absolute;
+  z-index: -1;
+  left: 0;
+  background: rgb(21, 11, 44);
+  right: 0;
+  bottom: 0;
+  top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+
+  &:after {
+    content: '';
+    background: rgba(21, 11, 44, 0.75);
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+  }
+
+  video {
+    opacity: 1;
+    width: 100%;
+    min-width: 722px;
+    left: 0;
+    top: 0;
+  }
+}

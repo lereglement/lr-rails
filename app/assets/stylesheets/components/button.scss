@@ -1,0 +1,106 @@
+@import '../vars';
+.button-player {
+  height: $padding * 2;
+  display: inline-flex;
+  width: $padding * 2;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(0deg, rgba(255,255,255,0.80) 0%, #FFFFFF 100%);
+  box-shadow: $shadow-1;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all .15s;
+
+  &[data-icon='pause'] {
+    svg:last-child { display: none }
+  }
+
+  &[data-icon='play'] {
+    svg {
+      position: relative;
+      left: 2px;
+      top: 1px;
+    }
+
+    svg:first-child { display: none }
+  }
+
+  &:hover {
+    background: linear-gradient(0deg, rgba(255,255,255,1) 0%, #FFFFFF 100%);
+    transform: translateY(-05%);
+  }
+
+  &:active { transform: translateY(0%)  }
+  svg { width: 12px }
+}
+
+.button {
+  height: $padding * 2;
+  display: inline-flex;
+  align-items: center;
+  box-shadow: $shadow-1;
+  font-size: 14px;
+  border-radius: $radius;
+  padding: 0 $padding / 2;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all .15s;
+
+  &:hover {
+    transform: translateY(-05%);
+  }
+
+  &:active {
+    transform: translateY(0%);
+  }
+
+  svg {
+    height: 14px;
+    margin-right: 7px;
+  }
+}
+
+.button-youtube {
+  color: white;
+  background: white;
+  color: $brand_youtube;
+  svg { fill: $brand_youtube }
+  &:hover {
+    background: lighten($brand_youtube, 07%);
+  }
+}
+
+.button-soundcloud {
+  color: white;
+  background: linear-gradient(#ff8800,#ff3300);
+
+  &:hover {
+    background: linear-gradient(lighten(#ff8800, 07%),lighten(#ff3300, 07%));
+  }
+}
+
+
+.button-player, .button-provider, .badge-live, .badge-buffering {
+  opacity: 0;
+  visibility: hidden;
+  transition: all .15s;
+  transform: translateY(07%);
+
+  &.is-active {
+    transform: translateY(0);
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+.button-player {
+  transition-delay: .1s;
+}
+
+.button-provider {
+  transition-delay: .2s;
+}
+
+.badge-live {
+  transition-delay: .3s;
+}

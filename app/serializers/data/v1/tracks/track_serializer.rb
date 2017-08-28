@@ -18,49 +18,41 @@ class Data::V1::Tracks::TrackSerializer < ActiveModel::Serializer
 
   attribute :cover_xsmall do
     track = object
-    unless track.cover.blank?
-      track.cover.url(:xsmall)
+    artist = Artist.where(name: track.artist).first
+    if artist.picture.blank?
+      Rails.application.secrets.missing_cover
     else
-      artist = Artist.where(name: track.artist).first
-      unless artist.picture.blank?
-        artist.picture.url(:xsmall)
-      end
+      artist.picture.url(:xsmall)
     end
   end
 
   attribute :cover_small do
     track = object
-    unless track.cover.blank?
-      track.cover.url(:small)
+    artist = Artist.where(name: track.artist).first
+    if artist.picture.blank?
+      Rails.application.secrets.missing_cover
     else
-      artist = Artist.where(name: track.artist).first
-      unless artist.picture.blank?
-        artist.picture.url(:small)
-      end
+      artist.picture.url(:small)
     end
   end
 
   attribute :cover_medium do
     track = object
-    unless track.cover.blank?
-      track.cover.url(:medium)
+    artist = Artist.where(name: track.artist).first
+    if artist.picture.blank?
+      Rails.application.secrets.missing_cover
     else
-      artist = Artist.where(name: track.artist).first
-      unless artist.picture.blank?
-        artist.picture.url(:medium)
-      end
+      artist.picture.url(:medium)
     end
   end
 
   attribute :cover_large do
     track = object
-    unless track.cover.blank?
-      track.cover.url(:large)
+    artist = Artist.where(name: track.artist).first
+    if artist.picture.blank?
+      Rails.application.secrets.missing_cover
     else
-      artist = Artist.where(name: track.artist).first
-      unless artist.picture.blank?
-        artist.picture.url(:large)
-      end
+      artist.picture.url(:large)
     end
   end
 

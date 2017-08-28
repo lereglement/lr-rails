@@ -1,0 +1,9 @@
+@import '../vars';
+.flash-message-wrapper {
+  padding-top: $padding * 2;
+  position: absolute;
+  left: 0;
+  right: 0;
+  z-index: 9;
+  text-align: center;
+}

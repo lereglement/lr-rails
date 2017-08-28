@@ -38,7 +38,8 @@ class Api::V1::PlaylistsController < Api::V1::BaseController
       # Play auto featured
       if !has_next_track
         last_auto_feat = Playlist.where(type_of: :auto_feat).order(id: :desc).first
-        count_between = Playlist.where.not(type_of: :jingle).where("id > ?", last_auto_feat.id).count
+        count_between = last_auto_feat ? Playlist.where.not(type_of: :jingle).where("id > ?", last_auto_feat.id).count : 0
+
         if count_between >= Rails.application.secrets.track_auto_featured_modulo
           auto_featured = Track.where.not(artist: artists_to_avoid).where(state: :active).where("aired_count <= ?", Rails.application.secrets.track_auto_featured_limit).order(:last_aired_at).first
 
@@ -86,6 +87,7 @@ class Api::V1::PlaylistsController < Api::V1::BaseController
         to_play = Track.where(state: :active, is_converted: true, type_of: :track).order("RAND()").first if to_play.blank?
 
         Playlist.create({ track_id: to_play.id, type_of: :random })
+        has_next_track = true
 
         Bucket.delete_all
 
@@ -110,7 +112,7 @@ class Api::V1::PlaylistsController < Api::V1::BaseController
   end
 
   def get_current
-    current_track = Playlist.joins("INNER JOIN tracks ON tracks.id = playlists.track_id AND tracks.type_of = 'track'").where(is_aired: true).order(id: :desc).first.track
+    current_track = Track.get_current
 
     render json: current_track,
       root: 'data',
