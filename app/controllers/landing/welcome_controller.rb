@@ -15,7 +15,7 @@ class Landing::WelcomeController < Landing::BaseController
       current_track_response = Net::HTTP.get(current_track_uri)
       @current_track = OpenStruct.new(JSON.parse(current_track_response)['data'])
 
-      playlist_url = 'http://data.lereglement.sale/v1/youtube_videos/playlist'
+      playlist_url = 'http://data.lereglement.sale/v1/youtube_videos/playlist?q=analyse'
       playlist_uri = URI(playlist_url)
       playlist_response = Net::HTTP.get(playlist_uri)
       @videos = JSON.parse(playlist_response)['data'].map! do |video|

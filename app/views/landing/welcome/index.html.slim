@@ -60,8 +60,8 @@ main
       div class="g-ytsubscribe" data-channelid="UCcqe1EHmdaLVBwfqk5OtmXw" data-layout="default" data-count="default"
     .videos-list
       - @videos.each do |video|
-        .video-item-container
-          a.video-item href="#{video.url}" target='_blank'
+        a.video-item-container href="#{video.url}" target='_blank'
+          .video-item
             span.video-item-thumbnail style="background-image: url(#{video.thumbnail['url']});"
               span.video-item-thumbnail-player
                 = render 'icons/play'
