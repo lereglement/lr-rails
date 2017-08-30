@@ -19,6 +19,7 @@ html
 
   body
     = yield
-    
+
     = javascript_include_tag 'application'
+    script src="https://apis.google.com/js/platform.js"
     = yield :javascript_footer

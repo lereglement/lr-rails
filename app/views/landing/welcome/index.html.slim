@@ -14,7 +14,7 @@ main
           div style="margin-top: -4px;"
             span.navbar-typo
               = render 'icons/typo_lr'
-            span.navbar-tagline = 'Du bon rap mon cousin'
+            span.navbar-tagline = 'Pouces en Y depuis 2k16'
 
         .navbar-menu
           .navbar-networks
@@ -51,6 +51,24 @@ main
                 = 'LIEN DU SON'
             .badge.badge-live
               = 'LIVE'
+
+  .container
+    .title-container
+      .title
+        = 'Vidéos du Règlement'
+        span = "(#{@videos.size})"
+      div class="g-ytsubscribe" data-channelid="UCcqe1EHmdaLVBwfqk5OtmXw" data-layout="default" data-count="default"
+    .videos-list
+      - @videos.each do |video|
+        .video-item-container
+          a.video-item href="#{video.url}" target='_blank'
+            span.video-item-thumbnail style="background-image: url(#{video.thumbnail['url']});"
+              span.video-item-thumbnail-player
+                = render 'icons/play'
+            div
+              span.video-item-title = video.title.downcase.capitalize.gsub(/\(.*?\)/, '')
+              - if video.title[/\(.*?\)/]
+                span.video-item-tagline = video.title[/\(.*?\)/].gsub(/[()]/, "")
 
 side
   iframe#chat allowfullscreen="" frameborder="0" src="https://www.youtube.com/live_chat?v=A4tUSvPBDao&embed_domain=#{request.domain}" width="100%"

@@ -1,0 +1,94 @@
+@import '../vars';
+.videos-list {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 -($padding);
+  padding-bottom: 15px;
+}
+
+.video-item {
+  padding: $padding;
+  width: 100%;
+  display: block;
+  color: #120a3c;
+  font-weight: bold;
+  letter-spacing: -1px;
+  border-radius: 3px;
+  display: flex;
+  align-items: center;
+  box-shadow: 0px 0px 0px 1px rgb(231, 230, 235), 0px 1px 2px rgba(18, 10, 60, 0.12);
+  transition: box-shadow .15s;
+
+
+
+  &:hover {
+   box-shadow: 0px 0px 0px 1px darken(rgb(231, 230, 235), 5%), 0px 1px 3px rgba(18, 10, 60, 0.14);
+   .video-item-thumbnail-player {
+    display: flex;
+    }
+  }
+
+  &-container {
+    padding: $padding;
+    flex: 0 0 50%;
+  }
+
+  &-title {
+    display: block;
+    transition: all .15s;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 1.2;
+    letter-spacing: -0.5px;
+  }
+
+  &-tagline {
+    opacity: .7;
+    font-weight: 400;
+    margin-top: 6px;
+    display: block;
+  }
+
+  .video-item-thumbnail {
+    height: 90px;
+    width: 90px;
+    display: block;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    margin-right: $padding;
+    background-size: 190% !important;
+    border-radius: $radius;
+    background-position: center right;
+    flex: 0 0 90px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &-player {
+      display: none;
+      align-items: center;
+      background: rgba(255, 255, 255, 0.96);
+      justify-content: center;
+      border-radius: 50%;
+      width: 48px;
+      height: 48px;
+      box-shadow: 0 1px 2px 1px rgba(0, 0, 0, 0.05), 0 1px 2px 0 rgba(0, 0, 0, 0.12);
+
+      svg {
+        width: 37px;
+        height: 21px;
+        position: relative;
+        left: 1px;
+      }
+    }
+
+    &-helper {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      right: 0;
+      left: 0;
+      background-size: 190% !important;
+      background-position: center right;
+    }
+  }
+}
