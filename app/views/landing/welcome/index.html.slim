@@ -51,11 +51,22 @@ main
                 = 'LIEN DU SON'
             .badge.badge-live
               = 'LIVE'
+        .previous-tracks
+          .title.white.no-padding = 'SONS DIFFUSÉS'
+          - @previous_tracks.each do |track|
+            .track-item
+              .track-item-cover style="background: url(#{track['cover_xsmall']})"
+              div
+                .track-item-title
+                  = track['title']
+                .track-item-artist
+                  = track['artist']
+
 
   .container
     .title-container
       .title
-        = 'Vidéos du Règlement'
+        = 'Épisodes du Règlement'
         span = "(#{@videos.size})"
       div class="g-ytsubscribe" data-channelid="UCcqe1EHmdaLVBwfqk5OtmXw" data-layout="default" data-count="default"
     .videos-list

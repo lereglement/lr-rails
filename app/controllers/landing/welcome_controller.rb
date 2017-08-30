@@ -21,6 +21,11 @@ class Landing::WelcomeController < Landing::BaseController
       @videos = JSON.parse(playlist_response)['data'].map! do |video|
         OpenStruct.new(video)
       end
+
+      previous_tracks_url = 'http://data.lereglement.sale/v1/playlists/previous?limit=3'
+      previous_tracks_uri = URI(previous_tracks_url)
+      previous_tracks_response = Net::HTTP.get(previous_tracks_uri)
+      @previous_tracks = JSON.parse(previous_tracks_response)['data']
     end
 
     # http://data.lereglement.sale/v1/playlists/previous
