@@ -8,13 +8,15 @@ class Landing::WelcomeController < Landing::BaseController
     set_meta_tags default_meta_tags
     set_meta_tags title: "LEREGLEMENT.SALE"
     if Rails.env.production?
-      @current_track = Track.get_current
+      @current_track = OpenStruct.new(Data::V1::Tracks::TrackSerializer.new(Track.get_current, root: false).to_hash)
     else
       url = 'http://data.lereglement.sale/v1/playlists/current'
       uri = URI(url)
       response = Net::HTTP.get(uri)
       @current_track = OpenStruct.new(JSON.parse(response)['data'])
     end
+
+
 
     # http://data.lereglement.sale/v1/playlists/previous
     @networks = [
