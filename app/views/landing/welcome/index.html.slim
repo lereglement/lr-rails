@@ -62,14 +62,27 @@ main
       - @videos.each do |video|
         a.video-item-container href="#{video.url}" target='_blank'
           .video-item
-            span.video-item-thumbnail style="background-image: url(#{video.thumbnail['url']});"
-              span.video-item-thumbnail-player
-                = render 'icons/play'
             div
               span.video-item-title = video.title.downcase.capitalize.gsub(/\(.*?\)/, '')
               - if video.title[/\(.*?\)/]
                 span.video-item-tagline = video.title[/\(.*?\)/].gsub(/[()]/, "")
 
+              .video-item-stats
+                .video-item-stat
+                  = render 'icons/eye'
+                  span = number_to_human(video.statistics['view_count'], :format => '%n%u', :units => { :thousand => 'K' })
+
+                .video-item-stat
+                  = render 'icons/heart'
+                  span = number_to_human(video.statistics['like_count'], :format => '%n%u', :units => { :thousand => 'K' })
+
+                .video-item-stat
+                  = render 'icons/comment'
+                  span = number_to_human(video.statistics['comment_count'], :format => '%n%u', :units => { :thousand => 'K', :million => 'M' })
+
+            span.video-item-thumbnail style="background-image: url(#{video.thumbnail['url']});"
+              span.video-item-thumbnail-player
+                = render 'icons/play'
 side
   iframe#chat allowfullscreen="" frameborder="0" src="https://www.youtube.com/live_chat?v=A4tUSvPBDao&embed_domain=#{request.domain}" width="100%"
   div#player style="#{!Rails.env.development? && "opacity: 0;visibility:hidden;position: absolute;z-index: -1"}"
