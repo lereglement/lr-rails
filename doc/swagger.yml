@@ -10,20 +10,6 @@ basePath: /api/v1
 schemes:
   - http
 paths:
-  /youtube_videos/playlist:
-    get:
-      tags:
-        - youtube
-      summary: Get last Youtube videos
-      produces:
-        - application/json
-      responses:
-        '200':
-          description: successful operation
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/YoutubeVideo'
   /playlists/current:
     get:
       tags:
@@ -203,26 +189,6 @@ definitions:
         type: string
       cover_large:
         type: string
-  YoutubeVideo:
-    type: object
-    properties:
-      id:
-        type: string
-      url:
-        type: string
-      title:
-        type: string
-      thumbnail:
-        $ref: '#/definitions/YoutubeThumbnail'
-  YoutubeThumbnail:
-    type: object
-    properties:
-      url:
-        type: string
-      width:
-        type: integer
-      height:
-        type: integer
   CurrentTrack:
     type: object
     properties:
