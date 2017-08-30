@@ -8,7 +8,7 @@ class Landing::WelcomeController < Landing::BaseController
     set_meta_tags default_meta_tags
     set_meta_tags title: "LEREGLEMENT.SALE"
     if Rails.env.production?
-      @current_track = Track.get_current
+      @current_track = OpenStruct.new(Data::V1::Tracks::TrackSerializer.new(Track.get_current, root: false).to_hash)
     else
       current_track_url = 'http://data.lereglement.sale/v1/playlists/current'
       current_track_uri = URI(current_track_url)
@@ -23,7 +23,6 @@ class Landing::WelcomeController < Landing::BaseController
       end
     end
 
-    # http://data.lereglement.sale/v1/youtube_videos/playlist
     # http://data.lereglement.sale/v1/playlists/previous
 
     @networks = [

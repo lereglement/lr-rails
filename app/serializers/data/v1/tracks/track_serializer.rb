@@ -19,8 +19,7 @@ class Data::V1::Tracks::TrackSerializer < ActiveModel::Serializer
   end
 
   attribute :cover_xsmall do
-    track = object
-    artist = Artist.where(name: track.artist).first
+    artist = Artist.where(name: object.artist).first
     if artist.picture.blank?
       Rails.application.secrets.missing_cover
     else
@@ -29,8 +28,7 @@ class Data::V1::Tracks::TrackSerializer < ActiveModel::Serializer
   end
 
   attribute :cover_small do
-    track = object
-    artist = Artist.where(name: track.artist).first
+    artist = Artist.where(name: object.artist).first
     if artist.picture.blank?
       Rails.application.secrets.missing_cover
     else
@@ -39,8 +37,7 @@ class Data::V1::Tracks::TrackSerializer < ActiveModel::Serializer
   end
 
   attribute :cover_medium do
-    track = object
-    artist = Artist.where(name: track.artist).first
+    artist = Artist.where(name: object.artist).first
     if artist.picture.blank?
       Rails.application.secrets.missing_cover
     else
@@ -49,8 +46,7 @@ class Data::V1::Tracks::TrackSerializer < ActiveModel::Serializer
   end
 
   attribute :cover_large do
-    track = object
-    artist = Artist.where(name: track.artist).first
+    artist = Artist.where(name: object.artist).first
     if artist.picture.blank?
       Rails.application.secrets.missing_cover
     else
