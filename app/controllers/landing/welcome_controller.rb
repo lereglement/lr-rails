@@ -10,15 +10,26 @@ class Landing::WelcomeController < Landing::BaseController
     if Rails.env.production?
       @current_track = OpenStruct.new(Data::V1::Tracks::TrackSerializer.new(Track.get_current, root: false).to_hash)
     else
-      url = 'http://data.lereglement.sale/v1/playlists/current'
-      uri = URI(url)
-      response = Net::HTTP.get(uri)
-      @current_track = OpenStruct.new(JSON.parse(response)['data'])
+      current_track_url = 'http://data.lereglement.sale/v1/playlists/current'
+      current_track_uri = URI(current_track_url)
+      current_track_response = Net::HTTP.get(current_track_uri)
+      @current_track = OpenStruct.new(JSON.parse(current_track_response)['data'])
+
+      playlist_url = 'http://data.lereglement.sale/v1/youtube_videos/playlist?results=20&remove_live=1'
+      playlist_uri = URI(playlist_url)
+      playlist_response = Net::HTTP.get(playlist_uri)
+      @videos = JSON.parse(playlist_response)['data'].map! do |video|
+        OpenStruct.new(video)
+      end
+
+      previous_tracks_url = 'http://data.lereglement.sale/v1/playlists/previous?limit=3'
+      previous_tracks_uri = URI(previous_tracks_url)
+      previous_tracks_response = Net::HTTP.get(previous_tracks_uri)
+      @previous_tracks = JSON.parse(previous_tracks_response)['data']
     end
 
-
-
     # http://data.lereglement.sale/v1/playlists/previous
+
     @networks = [
       {
         slug: 'facebook',

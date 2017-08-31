@@ -1,0 +1,36 @@
+.previous-tracks {
+  min-width: 200px;
+  max-width: 200px;
+}
+
+.track-item {
+  display: flex;
+  border-radius: 3px;
+  margin: 7.5px 0;
+
+  &-artist {
+    opacity: .6;
+    font-size: 14px;
+  }
+
+  &-cover {
+    height: 44px;
+    width: 44px;
+    border-radius: 3px;
+    background-size: cover !important;
+    flex: 0 0 44px;
+    position: relative;
+    box-shadow: 0 3px 6px 0 rgba(0,0,0,0.09), 0 3px 6px 1px rgba(0,0,0,0.05);
+
+    margin-right: 7.5px;
+    &:after {
+      content: '';
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(#120a3c, .5);
+    }
+  }
+}
