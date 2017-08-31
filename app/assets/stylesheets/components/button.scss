@@ -62,11 +62,12 @@
 
 .button-youtube {
   color: white;
-  background: white;
+  background: linear-gradient(rgb(255, 255, 255), rgba(255, 255, 255, 0.81));
   color: $brand_youtube;
-  svg { fill: $brand_youtube }
+  transition: transform .15s, opacity .15s !important;
+  svg { path { fill: $brand_youtube }}
   &:hover {
-    background: lighten($brand_youtube, 07%);
+    background-color: white;
   }
 }
 
@@ -98,7 +99,7 @@
 }
 
 .button-provider {
-  transition-delay: .2s;
+  transition-delay: .2s !important;
 }
 
 .badge-live {
