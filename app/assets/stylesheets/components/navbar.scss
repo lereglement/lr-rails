@@ -25,7 +25,11 @@
     z-index: 9;
     left: 0;
     right: 0;
-    padding-right: 250px;
+    padding-right: 300px;
+
+    @media(max-width: 900px) {
+      padding-right: 0;
+    }
   }
 
   &-logo {
@@ -63,6 +67,9 @@
     letter-spacing: 0px;
     display: inline-block;
     margin-bottom: 2px;
+    @media(max-width: 600px) {
+      display: none;
+    }
 
 
     svg {
@@ -80,5 +87,10 @@
     font-size: 16px;
     margin-top: 3px;
     line-height: .9;
+
+    @media(max-width: 600px) {
+      display: none;
+    }
+
   }
 }

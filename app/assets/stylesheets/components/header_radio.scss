@@ -8,11 +8,24 @@
     display: flex;
     padding-top: 135px;
     align-items: center;
+
+    @media(max-width: 600px) {
+      padding: 15px 0;
+      padding-top: 90px;
+    }
+
+    @media(max-width: 526px) {
+      display: block;
+    }
   }
 
   &-infos {
     flex: 1;
     padding-left: $padding * 2;
+
+    @media(max-width: 526px) {
+      padding: 15px 0;
+    }
   }
 
   &-title {
@@ -76,5 +89,8 @@
     min-width: 722px;
     left: 0;
     top: 0;
+    @media(max-width: 700px) {
+      display: none;
+    }
   }
 }

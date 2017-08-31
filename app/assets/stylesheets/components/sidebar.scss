@@ -10,6 +10,10 @@ side {
   display: flex;
   flex-flow: column;
 
+  @media(max-width: 900px) {
+    display: none;
+  }
+
   #chat {
     height: 100%;
     width: 100%;
@@ -25,4 +29,9 @@ side {
 main {
   position: relative;
   padding-right: $sidebar-size;
+
+
+  @media(max-width: 900px) {
+    padding-right: 0;
+  }
 }
