@@ -11,6 +11,13 @@
   border-radius: 3px;
   margin: 7.5px 0;
 
+  &-title, &-artist {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 100%;
+  }
+
   &-artist {
     opacity: .6;
     font-size: 14px;
