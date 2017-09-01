@@ -10,14 +10,18 @@ side {
   display: flex;
   flex-flow: column;
 
+  @media(max-width: 900px) {
+    display: none;
+  }
+
   #chat {
     height: 100%;
     width: 100%;
   }
 
   #player {
-    min-height: 130px;
-    height: 170px;
+    width: 100%;
+    flex: 0 0 169px;
   }
 
 }
@@ -25,4 +29,9 @@ side {
 main {
   position: relative;
   padding-right: $sidebar-size;
+
+
+  @media(max-width: 900px) {
+    padding-right: 0;
+  }
 }
