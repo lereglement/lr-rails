@@ -8,11 +8,24 @@
     display: flex;
     padding-top: 135px;
     align-items: center;
+
+    @media(max-width: 600px) {
+      padding: 15px 0;
+      padding-top: 90px;
+    }
+
+    @media(max-width: 526px) {
+      display: block;
+    }
   }
 
   &-infos {
     flex: 1;
     padding-left: $padding * 2;
+
+    @media(max-width: 526px) {
+      padding: 15px 0;
+    }
   }
 
   &-title {
@@ -60,6 +73,15 @@
   justify-content: center;
   overflow: hidden;
 
+  img {
+    width: 100%;
+    min-width: 800px;
+
+    @media(max-width: 526px) {
+      min-width: 1200px;
+    }
+  }
+
   &:after {
     content: '';
     background: rgba(21, 11, 44, 0.75);
@@ -76,5 +98,8 @@
     min-width: 722px;
     left: 0;
     top: 0;
+    @media(max-width: 700px) {
+      display: none;
+    }
   }
 }

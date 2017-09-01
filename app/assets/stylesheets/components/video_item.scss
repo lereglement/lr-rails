@@ -68,6 +68,10 @@
     justify-content: center;
     align-items: center;
 
+    @media(max-width: 600px) {
+      display: none;
+    }
+
     &-player {
       display: none;
       align-items: center;
