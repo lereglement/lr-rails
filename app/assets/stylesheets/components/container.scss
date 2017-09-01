@@ -2,4 +2,8 @@
   margin: auto;
   max-width: 860px;
   padding: 0 30px;
+
+  @media(max-width: 600px) {
+    padding: 0 15px;
+  }
 }
