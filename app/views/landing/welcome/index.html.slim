@@ -45,10 +45,10 @@ main
             .button-player data-icon='pause'
               = render 'icons/pause'
               = render 'icons/play'
-            - if @current_track.origin_external_source
-              a.button.button-provider href="#{@current_track.external_source}" class="button-#{@current_track.origin_external_source || 'soundcloud'}" target='_blank'
-                = render "icons/#{@current_track.origin_external_source || 'soundcloud'}"
-                = 'LIEN DU SON'
+            a.button.button-provider href="#{@current_track.external_source}" class="button-#{@current_track.origin_external_source} #{'is-hidden' if @current_track.origin_external_source.nil?}" target='_blank'
+              = render "icons/soundcloud"
+              = render "icons/youtube"
+              = 'LIEN DU SON'
             .badge.badge-live
               = 'LIVE'
         .previous-tracks
@@ -56,7 +56,7 @@ main
           - @previous_tracks.each do |track|
             .track-item
               .track-item-cover style="background: url(#{track['cover_xsmall']})"
-              div
+              div style="width: 100%;"
                 .track-item-title
                   = track['title']
                 .track-item-artist
