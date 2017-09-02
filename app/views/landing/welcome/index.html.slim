@@ -62,38 +62,59 @@ main
                 .track-item-artist
                   = track['artist']
 
+  div style="background: white;"
+    .container
+      .title-container
+        .title
+          = 'Épisodes du Règlement'
+          span = "(#{@videos.size})"
+        div class="g-ytsubscribe" data-channelid="UCcqe1EHmdaLVBwfqk5OtmXw" data-layout="default" data-count="default"
+      .videos-list
+        - @videos.each do |video|
+          a.video-item-container href="#{video.url}" target='_blank'
+            .video-item
+              div
+                span.video-item-title = video.title.downcase.capitalize.gsub(/\(.*?\)/, '')
+                - if video.title[/\(.*?\)/]
+                  span.video-item-tagline = video.title[/\(.*?\)/].gsub(/[()]/, "")
 
-  .container
-    .title-container
-      .title
-        = 'Épisodes du Règlement'
-        span = "(#{@videos.size})"
-      div class="g-ytsubscribe" data-channelid="UCcqe1EHmdaLVBwfqk5OtmXw" data-layout="default" data-count="default"
-    .videos-list
-      - @videos.each do |video|
-        a.video-item-container href="#{video.url}" target='_blank'
-          .video-item
-            div
-              span.video-item-title = video.title.downcase.capitalize.gsub(/\(.*?\)/, '')
-              - if video.title[/\(.*?\)/]
-                span.video-item-tagline = video.title[/\(.*?\)/].gsub(/[()]/, "")
+                .video-item-stats
+                  .video-item-stat
+                    = render 'icons/eye'
+                    span = number_to_human(video.statistics['view_count'], :format => '%n%u', :units => { :thousand => 'K' })
 
-              .video-item-stats
-                .video-item-stat
-                  = render 'icons/eye'
-                  span = number_to_human(video.statistics['view_count'], :format => '%n%u', :units => { :thousand => 'K' })
+                  .video-item-stat
+                    = render 'icons/heart'
+                    span = number_to_human(video.statistics['like_count'], :format => '%n%u', :units => { :thousand => 'K' })
 
-                .video-item-stat
-                  = render 'icons/heart'
-                  span = number_to_human(video.statistics['like_count'], :format => '%n%u', :units => { :thousand => 'K' })
+                  .video-item-stat
+                    = render 'icons/comment'
+                    span = number_to_human(video.statistics['comment_count'], :format => '%n%u', :units => { :thousand => 'K', :million => 'M' })
 
-                .video-item-stat
-                  = render 'icons/comment'
-                  span = number_to_human(video.statistics['comment_count'], :format => '%n%u', :units => { :thousand => 'K', :million => 'M' })
+              span.video-item-thumbnail style="background-image: url(#{video.thumbnail['url']});"
+                span.video-item-thumbnail-player
+                  = render 'icons/play'
+    .discord-section
+      div.slices
+        figure
+        figure
+      .container
+        .discord-section-header
+          div
+            .main-title = 'Rejoinds la mif'
+            .feature
+              .feature-emoji
+                = '🎤'
+              .feature-title
+                = 'Des salons pour kicker'
 
-            span.video-item-thumbnail style="background-image: url(#{video.thumbnail['url']});"
-              span.video-item-thumbnail-player
-                = render 'icons/play'
+          a.button-discord href='https://discord.gg/wxa79Q7' target='_blank'
+            span = 'Rejoindre le'
+            span = render 'icons/discord_typo'
+        .discord-section-scene
+          a href='https://discord.gg/wxa79Q7' target='_blank'
+            .discord-window style="background: url(#{image_url 'screenshot/discord.png'})"
+
 side
   iframe#chat allowfullscreen="" frameborder="0" src="https://www.youtube.com/live_chat?v=A4tUSvPBDao&embed_domain=#{request.domain}" width="100%"
   div#player style="#{!Rails.env.development? && "opacity: 0;visibility:hidden;position: absolute;z-index: -1"}"

@@ -1,0 +1,108 @@
+.discord-section {
+  padding-top: 60px;
+  position: relative;
+
+  &.is-visible {
+    .discord-window {
+      transform: translateY(0);
+    }
+
+    figure {
+      transform: rotate(-6deg);
+      opacity: 1;
+      &:last-child {
+        opacity: .16;
+        transform: rotate(-10deg);
+      }
+    }
+  }
+  img {
+    width: 100%;
+    margin-left: -29px;
+    width: 860px;
+  }
+}
+
+.discord-section-header {
+  display: flex;
+  position: relative;
+  z-index: 2;
+  align-items: center;
+}
+
+.discord-section-scene {
+  border-radius: 4px 4px 0 0;
+  margin-top: 45px;
+  overflow: hidden;
+  position: relative;
+  z-index: 2;
+  height: 270px;
+}
+
+.discord-window {
+  background: #120a3c;
+  box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
+  height: 600px;
+  background-size: 100% !important;
+  transform: translateY(10%);
+  transition: all .6s;
+
+  &.is-visible {
+    transform: translateY(0);
+  }
+}
+
+.slices {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  overflow: hidden;
+
+  figure {
+    height: 246px;
+    position: absolute;
+    width: 200%;
+    transform: rotate(0) translateY(30%);
+    background-image: linear-gradient(-90deg, #4E2EF2 0%, #846FF0 100%);
+    height: 300px;
+    margin-left: -100px;
+    margin-top: 70px;
+    transition: all 1s;
+    opacity: 0;
+
+    &:last-child {
+      margin-top: 18px;
+
+      transition-delay: .2s;
+      transform: rotate(0) translateY(30%);
+    }
+  }
+}
+
+.feature {
+  display: flex;
+  align-items: center;
+  margin-top: 7px;
+
+  &-emoji {
+    height: 38px;
+    font-size: 20px;
+    width: 38px;
+    box-shadow: 0px 1px 1px rgba(32, 24, 71, 0.13), 0px 0px 0px 1px #ececf0;
+    border-radius: 50%;
+    margin-right: 7px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &-title {
+    font-size: 20px;
+    opacity: .6;
+  }
+}

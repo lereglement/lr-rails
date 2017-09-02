@@ -1,9 +1,17 @@
+.main-title {
+  font-size: 37px;
+  font-family: Futura;
+  font-weight: bold;
+  letter-spacing: -2px;
+}
+
 .title {
+  font-family: Futura;
+  font-weight: 500;
   padding: 30px 0;
   font-size: 16px;
   text-transform: uppercase;
-  opacity: .7;
-  font-weight: 500;
+  font-weight: bold;
   letter-spacing: -0.5px;
 
   &.no-padding {
@@ -11,6 +19,7 @@
   }
 
   & > span {
+    font-weight: 400;
     margin-left: 7px;
     font-size: 16px;
     opacity: .5;
