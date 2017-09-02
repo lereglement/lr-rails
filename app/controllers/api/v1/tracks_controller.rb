@@ -9,7 +9,7 @@ class Api::V1::TracksController < Api::V1::BaseController
   end
 
   def get_not_downloaded
-    tracks = Track.where.not(external_source: nil).where.not(external_source: "").where(track_file_name: nil).where.not(state: [:rejected, :to_review])
+    tracks = Track.where.not(external_source: nil).where.not(external_source: "").where(track_file_name: nil).where.not(state: [:rejected, :to_review]).limit(200)
 
     render json: tracks,
       root: 'data',
