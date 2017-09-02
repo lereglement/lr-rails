@@ -40,6 +40,8 @@ Rails.application.routes.draw do
     end
   end
 
-  get :root, path: '/', to: 'root#index'
+  namespace :landing, :path => '/' do
+    get :welcome, path: '/', to: 'welcome#index'
+  end
 
 end
