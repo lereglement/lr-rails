@@ -17,7 +17,7 @@ class Api::V1::TracksController < Api::V1::BaseController
   end
 
   def create
-    track_params = params[:track].permit(:title, :artist, :track, :title_external_source, :ref_external_source, :origin_external_source)
+    track_params = params[:track].permit(:title, :artist, :track, :external_source, :title_external_source, :ref_external_source, :origin_external_source, :state)
     Track.create({ state: :wip, type_of: :track }.merge(track_params))
 
     render json: true
