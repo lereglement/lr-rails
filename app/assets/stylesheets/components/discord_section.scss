@@ -28,6 +28,20 @@
   position: relative;
   z-index: 2;
   align-items: center;
+  @media(max-width: 600px) {
+    padding-bottom: 60px;
+    display: block;
+    text-align: center;
+
+    .button-discord {
+      margin-top: 30px !important;
+      margin: auto;
+
+      display: inline-flex;
+
+    }
+  }
+
 }
 
 .discord-section-scene {
@@ -37,6 +51,9 @@
   position: relative;
   z-index: 2;
   height: 270px;
+  @media(max-width: 600px) {
+    display: none;
+  }
 }
 
 .discord-window {
@@ -47,12 +64,17 @@
   transform: translateY(10%);
   transition: all .6s;
 
+
   &.is-visible {
     transform: translateY(0);
   }
 }
 
 .slices {
+  @media(max-width: 600px) {
+    display: none;
+  }
+
   position: absolute;
   top: 0;
   left: 0;
@@ -88,6 +110,11 @@
   display: flex;
   align-items: center;
   margin-top: 7px;
+
+  @media(max-width: 600px) {
+    justify-content: center;
+  }
+
 
   &-emoji {
     height: 38px;
