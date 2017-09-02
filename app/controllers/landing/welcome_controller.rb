@@ -24,7 +24,7 @@ class Landing::WelcomeController < Landing::BaseController
     @networks = [
       {
         slug: 'facebook',
-        link: 'facebook.com/lereglement/'
+        link: 'https://facebook.com/lereglement/'
       },
       {
         slug: 'instagram',
