@@ -158,6 +158,11 @@ definitions:
         type: string
       artist:
         type: string
+      state:
+        type: string
+      external_source:
+        type: string
+        description: url
       title_external_source:
         type: string
         description: video title

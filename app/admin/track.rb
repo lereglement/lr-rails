@@ -78,7 +78,7 @@ ActiveAdmin.register Track do
     column :track do |track|
       div style: "display:flex; align-items: center;" do
         artist = Artist.find_by(name: track.artist)
-        div auto_link(track, image_tag(artist.picture.url(:xsmall), size: 50, style: "margin-right: 10px;"))
+        div auto_link(track, image_tag(artist.picture.url(:xsmall), size: 50, style: "margin-right: 10px;")) if artist
         div do
           artist = Artist.find_by(name: track.artist)
           if artist
