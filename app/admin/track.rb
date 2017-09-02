@@ -110,7 +110,9 @@ ActiveAdmin.register Track do
       div link_to "Play next", "/playlists/now/?id=#{track.id}", class: "play-next", data: {confirm: 'Are you sure to play it next?'} if track.state.to_sym == :active && track.is_converted == true
     end
     column :source do |track|
-      div b track.origin_external_source
+      if track.origin_external_source
+        link_to image_tag("https://s3-eu-west-1.amazonaws.com/lereglement-prod/static/#{track.origin_external_source}.svg", size: 30), track.external_source, target: "_blank"
+      end
     end
     column :created do |track|
       time_ago(track.created_at)
