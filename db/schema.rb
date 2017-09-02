@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170823223256) do
+ActiveRecord::Schema.define(version: 20170902194958) do
 
   create_table "active_admin_comments", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.string "namespace"
@@ -118,7 +118,7 @@ ActiveRecord::Schema.define(version: 20170823223256) do
     t.index ["artist"], name: "artist"
     t.index ["bitrate"], name: "bitrate"
     t.index ["ref"], name: "idx_ref", unique: true
-    t.index ["ref_external_source"], name: "index_tracks_on_ref_external_source"
+    t.index ["ref_external_source"], name: "ref_external_source", unique: true
     t.index ["state"], name: "state"
   end
 

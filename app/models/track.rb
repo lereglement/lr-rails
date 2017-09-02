@@ -26,6 +26,7 @@ class Track < ApplicationRecord
   before_save :insert_artist
   after_save :set_after_save
   before_destroy :set_before_destroy
+  validate :check_duplicates
 
   TYPES = [
     :track,
@@ -67,6 +68,20 @@ class Track < ApplicationRecord
     passphrase = "#{self.id}+#{DateTime.now.to_date}#{Rails.application.secrets.secret_key_base}"
     self.ref = CryptLib.sha1(passphrase)
     self.save
+  end
+
+  def check_duplicates
+    if self.external_source
+      source_details = ExternalResourceLib.extract_from_url(self.external_source)
+
+      if source_details
+        similar = Track.find_by(ref_external_source: source_details[:ref])
+        unless similar.blank? || similar.id == self.id
+          errors.add(:external_source, "Duplicate")
+        end
+      end
+    end
+
   end
 
   def set_after_save
