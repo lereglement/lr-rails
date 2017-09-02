@@ -279,7 +279,8 @@ form fieldset ol > li label {
     background: $yellow-lighning;
   }
   &.rejected,
-  &.striked {
+  &.striked,
+  &.missing {
     background: $red;
   }
   &.jingle {

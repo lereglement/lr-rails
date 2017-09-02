@@ -97,7 +97,13 @@ ActiveAdmin.register Track do
     column :tags do |track|
       div status_tag track.state
       div status_tag track.type_of
-      div status_tag "Raw" if track.is_converted == false
+      if track.is_converted == false
+        if track.track.blank?
+          div status_tag "Missing"
+        else
+          div status_tag "Raw"
+        end
+      end
     end
     column :from_artist do |track|
       Track.where(artist: track.artist, state: :active).count
