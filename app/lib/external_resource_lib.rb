@@ -79,25 +79,27 @@ class ExternalResourceLib
         end
       end
 
-    elsif match = /^https?:\/\/(soundcloud\.com|snd\.sc)\/(.*)$/.match(url)
+    elsif match = /^https?:\/\/(m.)?(soundcloud\.com|snd\.sc)\/([a-z_0-9-]+\/[a-z_0-9-]+)(\?.*)?$/.match(url)
 
-      unless match[2].blank?
-        ref = match[2]
+      unless match[3].blank?
+        ref = match[3]
 
-        xml = HTTParty.get(url).body
-        content_parsed = Nokogiri::HTML(xml)
+        xml = HTTParty.get(url)
+        if xml.response.code && xml.response.code.to_i == 200
+          content_parsed = Nokogiri::HTML(xml.body)
 
-        title = content_parsed.title
+          title = content_parsed.title
 
-        return {
-          id_source: ref,
-          ref: CryptLib.md5(ref),
-          origin: :soundcloud,
-          url: url,
-          thumbnail: nil,
-          title: title,
-          description: nil
-        }
+          return {
+            id_source: ref,
+            ref: CryptLib.md5(ref),
+            origin: :soundcloud,
+            url: "https://soundcloud.com/#{ref}",
+            thumbnail: nil,
+            title: title,
+            description: nil
+          }
+        end
 
       end
 
