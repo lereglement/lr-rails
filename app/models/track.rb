@@ -26,7 +26,7 @@ class Track < ApplicationRecord
   before_save :insert_artist
   after_save :set_after_save
   before_destroy :set_before_destroy
-  validate :check_duplicates
+  validate :check_external_source
 
   TYPES = [
     :track,
@@ -70,15 +70,17 @@ class Track < ApplicationRecord
     self.save
   end
 
-  def check_duplicates
+  def check_external_source
     if self.external_source
       source_details = ExternalResourceLib.extract_from_url(self.external_source)
 
-      if source_details
+      if source_details && ([:youtube, :soundcloud].include? source_details[:origin]) && source_details[:title]
         similar = Track.find_by(ref_external_source: source_details[:ref])
         unless similar.blank? || similar.id == self.id
           errors.add(:external_source, "Duplicate")
         end
+      else
+        errors.add(:external_source, "External source not valid")
       end
     end
 
@@ -89,8 +91,12 @@ class Track < ApplicationRecord
       source_details = ExternalResourceLib.extract_from_url(self.external_source)
 
       if source_details
+        if self.title.blank?
+          self.update_column(:title, source_details[:title])
+        end
         self.update_column(:ref_external_source, source_details[:ref])
-        self.update_column(:origin_external_source, source_details[:origin])
+        self.update_column(:ref_external_source, source_details[:ref])
+        self.update_column(:external_source, source_details[:url])
       end
     end
 
