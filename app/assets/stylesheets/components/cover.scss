@@ -8,6 +8,7 @@
     background: rgba(white, .15);
     border-radius: 10px;
     box-shadow: 0 3px 6px 0 rgba(0,0,0,0.09), 0 3px 6px 1px rgba(0,0,0,0.05);
+    background-size: 101% !important;
 
     @media(max-width: 526px) {
       width: 100%;
@@ -41,7 +42,8 @@
     top: 0;
     filter: blur(20px);
     opacity: .5;
-    background-size: cover !important;
     border-radius: 10px;
+    background-size: 101% !important;
+
   }
 }
