@@ -1,6 +1,7 @@
 class Track < ApplicationRecord
   has_attached_file :track,
-    use_timestamp: false
+    use_timestamp: false,
+    default_url: ""
   do_not_validate_attachment_file_type :track
   # validates_attachment_file_name :track, :matches => %r{\.(mp3|ogg)$}i
 
@@ -71,7 +72,7 @@ class Track < ApplicationRecord
   end
 
   def check_external_source
-    if self.external_source
+    unless self.external_source.blank?
       source_details = ExternalResourceLib.extract_from_url(self.external_source)
 
       if source_details && ([:youtube, :soundcloud].include? source_details[:origin]) && source_details[:title]
