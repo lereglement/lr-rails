@@ -7,25 +7,25 @@ $(document).ready(function() {
 
   var i = 0
   var features = [{
-    title: 'Ça partage des sons',
-    emoji: '🎧'
-  },
-  {
-    title: 'Communauté 200% francophone', emoji: '🇫🇷'
-  },
-  {
-    title: 'Que des fous', emoji: '🍾'
-  },
-  {
-    title: 'Badge officiel de la mif', emoji: '📛'
-  },
-  {
-    title: 'Des salons pour kicker',
+    title: 'Ça kick tous les soirs',
     emoji: '🎤'
   },
   {
+    title: 'Partage d\'instrus', emoji: '📀'
+  },
+  {
+    title: 'MCs et kiffeurs de bon son', emoji: '🤝'
+  },
+  {
+    title: 'En mode animal style',
+    emoji: '🍟'
+  },
+  {
+  title: 'La mif en Y', emoji: '✌️'
+  },
+  {
     emoji: '🔥',
-    title: 'Du contenu exclusif'
+    title: 'Les news du Règlement en exclu'
   }
   ]
 
