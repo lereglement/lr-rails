@@ -14,7 +14,7 @@ class Landing::WelcomeController < Landing::BaseController
       @previous_tracks.push(OpenStruct.new(Data::V1::Tracks::TrackSerializer.new(track, root: false).to_hash))
     end
 
-    playlist_url = 'http://data.lereglement.sale/v1/youtube_videos/playlist?results=20&remove_live=1'
+    playlist_url = 'http://cache.lereglement.sale/youtube_videos?results=20&remove_live=1'
     playlist_uri = URI(playlist_url)
     playlist_response = Net::HTTP.get(playlist_uri)
     @videos = JSON.parse(playlist_response)['data'].map! do |video|

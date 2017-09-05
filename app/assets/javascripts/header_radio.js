@@ -1,7 +1,7 @@
 $(document).ready(function() {
   var old_track = {}
   setInterval(function() {
-    $.get('http://data.lereglement.sale/v1/playlists/current', function(response) {
+    $.get('http://cache.lereglement.sale/current', function(response) {
       var track = response.data;
       if(track.title != $('.header-radio-title').text() ) {
         $('.cover-huge, .cover-shadow').css({backgroundImage: "url(" + track.cover_large + ")"})
