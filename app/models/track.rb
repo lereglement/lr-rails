@@ -111,8 +111,8 @@ class Track < ApplicationRecord
     Playlist.where(track_id: self.id).delete_all
   end
 
-  def self.get_current
-    playlist_current = Playlist.joins("INNER JOIN tracks ON tracks.id = playlists.track_id AND tracks.type_of = 'track'").where(is_aired: true).order(id: :desc).first
+  def self.get_current(delay_in_sec = 0)
+    playlist_current = Playlist.joins("INNER JOIN tracks ON tracks.id = playlists.track_id AND tracks.type_of = 'track'").where(is_aired: true).where('aired_at < ?', Time.now - delay_in_sec).order(id: :desc).first
     playlist_current.blank? ? nil : playlist_current.track
   end
 
