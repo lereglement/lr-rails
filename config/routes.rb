@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
 
+  constraints subdomain: 'www' do
+    get ':any', to: redirect(subdomain: nil, path: '/%{any}'), any: /.*/
+  end
+
   constraints(lambda { |req| req.host.match(/^obs(-staging)?\.lereglement\.(here|xyz)$/) }) do
     namespace :obs, :path => '/' do
       get :track, path: '/tracks/current', to: 'tracks#current'
