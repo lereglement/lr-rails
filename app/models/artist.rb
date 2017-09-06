@@ -36,7 +36,7 @@ class Artist < ApplicationRecord
         self.update_column(:name, self.name)
       end
 
-      Track.where(artist: name_before).update_all(artist: new_name)
+      Track.where(artist: name_before).update_all(artist: new_name) unless name_before.blank?
     end
 
   end
