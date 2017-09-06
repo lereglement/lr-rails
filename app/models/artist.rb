@@ -22,7 +22,7 @@ class Artist < ApplicationRecord
 
   def check_tracks
 
-    if self.name != self.name_before_last_save
+    if self.name != self.name_before_last_save && self.name
       id = self.id
       new_name = self.name
       name_before = self.name_before_last_save
