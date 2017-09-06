@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
 
+  constraints(lambda { |req| req.host.match(/^www\.lereglement\.(here|sale)$/) }) do
+    get "/" => redirect { |params| "http://lereglement.sale" }
+  end
+
   constraints subdomain: 'www' do
     get ':any', to: redirect(subdomain: nil, path: '/%{any}'), any: /.*/
   end
