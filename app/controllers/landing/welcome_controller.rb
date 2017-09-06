@@ -14,12 +14,12 @@ class Landing::WelcomeController < Landing::BaseController
       @previous_tracks.push(OpenStruct.new(Data::V1::Tracks::TrackSerializer.new(track, root: false).to_hash))
     end
 
-    # playlist_url = 'http://cache.lereglement.sale/youtube_videos?results=20&remove_live=1'
-    # playlist_uri = URI(playlist_url)
-    # playlist_response = Net::HTTP.get(playlist_uri)
-    # @videos = JSON.parse(playlist_response)['data'].map! do |video|
-    #   OpenStruct.new(video)
-    # end
+    playlist_url = 'http://cache.lereglement.sale/youtube_videos'
+    playlist_uri = URI(playlist_url)
+    playlist_response = Net::HTTP.get(playlist_uri)
+    @videos = JSON.parse(playlist_response)['data'].map! do |video|
+      OpenStruct.new(video)
+    end
 
     @networks = [
       {
