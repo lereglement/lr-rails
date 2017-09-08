@@ -28,10 +28,14 @@ main
       = image_tag 'fries.gif'
     .container
       .header-radio-content
-        .cover-huge-container.is-in
-          .cover.cover-huge style="background-image: url(#{@current_track.cover_large || image_url('default_cover.jpg')})"
-          .cover-shadow style="background-image: url(#{@current_track.cover_large || image_url('default_cover.jpg')})"
-
+        div.cover-huge-wrapper
+          .volume-control-container
+            = render 'icons/volume_high'
+            #volume
+            = render 'icons/volume_mute'
+          .cover-huge-container.is-in
+            .cover.cover-huge style="background-image: url(#{@current_track.cover_large || image_url('default_cover.jpg')})"
+            .cover-shadow style="background-image: url(#{@current_track.cover_large || image_url('default_cover.jpg')})"
 
         .header-radio-infos
           h1.header-radio-title
@@ -61,7 +65,7 @@ main
                   = track['title']
                 .track-item-artist
                   = track['artist']
-                  
+
   div style="background: white;"
     - if @videos
       .container

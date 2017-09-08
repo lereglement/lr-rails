@@ -43,7 +43,7 @@
       $('.button-player, .button-provider, .badge-live').addClass('is-active')
       $('.badge-buffering').removeClass('is-active')
       player.unMute()
-      player.setVolume(100)
+      player.setVolume(50)
 
       return false
     } else if(event.data === 3) {
@@ -75,7 +75,7 @@
     if (currentVolume === 0) {
       player.pauseVideo();
       player.unMute();
-      return player.setVolume(100);
+      return player.setVolume(50);
     } else {
       player.setVolume(currentVolume - 5);
       return setTimeout((function() {
@@ -101,8 +101,8 @@
     player.setVolume(0)
 
     currentVolume = player.getVolume();
-    if (currentVolume === 100) {
-      return player.setVolume(100);
+    if (currentVolume === 50) {
+      return player.setVolume(50);
     } else {
       player.setVolume(currentVolume + 5);
       return setTimeout((function() {
@@ -110,3 +110,19 @@
       }), 10);
     }
   };
+
+    $(document).ready(function() {
+      $("#volume").slider({
+          min: 0,
+          max: 100,
+          orientation: 'vertical',
+          value: 50,
+          range: "min",
+          slide: function(event, ui) {
+            setVolume(ui.value);
+          }
+      });
+    })
+  function setVolume(val) {
+    player.setVolume(val);
+  }
