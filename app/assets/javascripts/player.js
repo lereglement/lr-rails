@@ -40,7 +40,7 @@
     if(event.data === 1) {
       // playing
       $('.button-player').attr("data-icon", "pause")
-      $('.button-player, .button-provider, .badge-live').addClass('is-active')
+      $('.button-player, .button-provider, .badge-live, .volume-control-container').addClass('is-active')
       $('.badge-buffering').removeClass('is-active')
       player.unMute()
       player.setVolume(50)
@@ -48,7 +48,7 @@
       return false
     } else if(event.data === 3) {
       // buffering
-      $('.button-player, .button-provider, .badge-live').removeClass('is-active')
+      $('.button-player, .button-provider, .badge-live, .volume-control-container').removeClass('is-active')
       $('.badge-buffering').addClass('is-active')
     } else if(event.data == 2) {
       $('.button-player').attr("data-icon", "play")
@@ -119,7 +119,7 @@
       $("#volume").slider({
           min: 0,
           max: 100,
-          orientation: 'vertical',
+          orientation: 'horizontal',
           value: 50,
           range: "min",
           slide: function(event, ui) {
@@ -129,4 +129,10 @@
     })
   function setVolume(val) {
     player.setVolume(val);
+
+    if(val == 0) {
+      $('.volume-control-container').attr('data-icon', 'mute')
+    } else {
+      $('.volume-control-container').attr('data-icon', 'full')
+    }
   }

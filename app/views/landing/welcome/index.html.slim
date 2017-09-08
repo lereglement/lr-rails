@@ -30,10 +30,6 @@ main
     .container
       .header-radio-content
         div.cover-huge-wrapper
-          .volume-control-container
-            = render 'icons/volume_high'
-            #volume
-            = render 'icons/volume_mute'
           .cover-huge-container.is-in
             .cover.cover-huge style="background-image: url(#{@current_track.cover_large || image_url('default_cover.jpg')})"
             .cover-shadow style="background-image: url(#{@current_track.cover_large || image_url('default_cover.jpg')})"
@@ -50,12 +46,17 @@ main
             .button-player data-icon='pause'
               = render 'icons/pause'
               = render 'icons/play'
+            .volume-control-container data-icon='full'
+              span
+                = render 'icons/volume_mute'
+                = render 'icons/volume_high'
+              #volume
             a.button.button-provider href="#{@current_track.external_source}" class="button-#{@current_track.origin_external_source} #{'is-hidden' if @current_track.origin_external_source.nil?}" target='_blank'
               = render "icons/soundcloud"
               = render "icons/youtube"
               = 'LIEN DU SON'
-            .badge.badge-live
-              = 'LIVE'
+            / .badge.badge-live
+            /  = 'LIVE'
         .previous-tracks
           .title.white.no-padding = 'SONS DIFFUSÉS'
           - @previous_tracks.each do |track|

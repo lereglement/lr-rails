@@ -1,5 +1,4 @@
 .cover-huge-wrapper {
-  display: flex;
 
   @media(max-width: 526px) {
     width: 100%;
@@ -8,20 +7,45 @@
 .volume-control-container {
    height: 100%;
    position: relative;
+   display: flex;
+   align-items: center;
    margin: 0;
    margin-right: 15px;
+   transition-delay: .2s;
+
+   svg {
+    display: none;
+   }
+
+   span {
+    display: inline-block;
+    width: 30px;
+   }
+
+   &[data-icon='mute'] {
+      svg {
+        &:first-child {
+          display: block;
+        }
+      }
+   }
+
+   &[data-icon='full'] {
+     svg {
+      &:last-child {
+        display: block;
+      }
+     }
+   }
    @media(max-width: 600px) {
      width: 100%;
      display: none;
    }
 
    .volume-up {
-    margin-bottom: 10px;
+    margin-right: 7px;
    }
 
-   .volume-mute {
-    margin-top: 10px;
-   }
 
   i {
     position: absolute;
@@ -46,8 +70,8 @@
 
 #volume {
   position: relative;
-  height: 126px;
-  width: 4px;
+  height: 4px;
+  width: 60px;
   background: #555;
   border-radius: 15px;
   margin: 0 auto;
@@ -64,14 +88,15 @@
   }
 
   .ui-slider-handle {
-    width: 16px;
-    height: 16px;
+    width: 12px;
+    height: 12px;
     border-radius: 20px;
     background: #FFF;
+
     position: absolute;
     margin-left: -6px;
-    margin-bottom: -7px;
     cursor: pointer;
+    margin-top: -4px;
     outline: none;
     transition: transform 200ms cubic-bezier(.68, -0.55, .265, 1.55);
 
@@ -86,8 +111,8 @@
         left: 0;
         background: #4E2EF2;
         margin: auto;
-        height: 12px;
-        width: 12px;
+        height: 8px;
+        width: 8px;
         border-radius: 50%;
       }
     }
