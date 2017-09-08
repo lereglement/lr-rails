@@ -14,7 +14,7 @@ $(document).ready(function() {
     title: 'Partage d\'instrus', emoji: '📀'
   },
   {
-    title: 'MCs et kiffeurs de bon son', emoji: '🤝'
+    title: 'MCs et kiffeurs de bon son', emoji: '🤝👨‍❤️‍👨'
   },
   {
     title: 'En mode animal style',
