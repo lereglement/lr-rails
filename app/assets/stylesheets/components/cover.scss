@@ -20,6 +20,9 @@
       transition: all .15s;
       transform: scale(.8);
       opacity:  0;
+      @media(max-width: 526px) {
+        width: 100%;
+      }
       &.is-in {
         opacity: 1;
         transform: scale(1);
