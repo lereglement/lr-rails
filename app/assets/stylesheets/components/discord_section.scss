@@ -70,6 +70,12 @@
   }
 }
 
+_::-webkit-full-page-media, _:future, :root .safari_only {
+  .slices {
+    display: none;
+  }
+}
+
 .slices {
   @media(max-width: 600px) {
     display: none;

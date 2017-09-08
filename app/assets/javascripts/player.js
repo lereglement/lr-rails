@@ -60,6 +60,10 @@
     player.stopVideo();
   }
 
+  $('.video-item-container').on('click', function() {
+    pauseVideo(player)
+  })
+
   function pauseVideo(player) {
     var currentVolume;
     if (player == null) {

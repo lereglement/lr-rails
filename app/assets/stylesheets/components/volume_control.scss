@@ -50,8 +50,6 @@
   width: 4px;
   background: #555;
   border-radius: 15px;
-  display: flex;
-  align-items: flex-end;
   margin: 0 auto;
 
   .ui-slider-range-min {
@@ -62,16 +60,17 @@
     border: none;
     border-radius: 10px;
     outline: none;
+    bottom: 0;
   }
 
   .ui-slider-handle {
     width: 16px;
     height: 16px;
-    margin-bottom: -17px;
     border-radius: 20px;
     background: #FFF;
     position: absolute;
     margin-left: -6px;
+    margin-bottom: -7px;
     cursor: pointer;
     outline: none;
     transition: transform 200ms cubic-bezier(.68, -0.55, .265, 1.55);
