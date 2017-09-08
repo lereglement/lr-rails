@@ -6,9 +6,15 @@
 
   &-menu {
     margin-left: auto;
+    display: flex;
+    align-items: center;
   }
 
   &-networks {
+    display: flex;
+    align-items: center;
+    margin-right: 15px;
+
     a {
       margin-left: $padding;
       opacity: .5;

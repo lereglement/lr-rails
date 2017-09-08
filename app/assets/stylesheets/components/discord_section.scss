@@ -70,12 +70,6 @@
   }
 }
 
-_::-webkit-full-page-media, _:future, :root .safari_only {
-  .slices {
-    display: none;
-  }
-}
-
 .slices {
   @media(max-width: 600px) {
     display: none;
@@ -102,6 +96,7 @@ _::-webkit-full-page-media, _:future, :root .safari_only {
     margin-top: 70px;
     transition: all 1s;
     opacity: 0;
+    left: 0;
 
     &:last-child {
       margin-top: 18px;
