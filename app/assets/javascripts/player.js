@@ -8,6 +8,7 @@
   // 3. This function creates an <iframe> (and YouTube player)
   //    after the API code downloads.
   var player;
+  var playerState;
   function onYouTubeIframeAPIReady() {
     player = new YT.Player('player', {
       width: '250',
@@ -22,12 +23,11 @@
   }
 
   $('.button-player').on('click', function() {
-    if(player.isMuted()) {
-      player.unMute()
-      $('.button-player').attr('data-icon', 'pause')
+    if(playerState.data == 2) {
+      playVideo(player)
+      player.seekTo(player.getDuration())
     } else {
-      $('.button-player').attr('data-icon', 'play')
-      player.mute()
+      pauseVideo(player)
     }
   })
 
@@ -36,19 +36,77 @@
   }
 
   function onPlayerStateChange(event) {
+    playerState = event
     if(event.data === 1) {
-      player.setVolume(100)
-      player.unMute()
-
+      // playing
+      $('.button-player').attr("data-icon", "pause")
       $('.button-player, .button-provider, .badge-live').addClass('is-active')
       $('.badge-buffering').removeClass('is-active')
+      player.unMute()
+      player.setVolume(100)
+
       return false
-    } else {
+    } else if(event.data === 3) {
+      // buffering
       $('.button-player, .button-provider, .badge-live').removeClass('is-active')
       $('.badge-buffering').addClass('is-active')
+    } else if(event.data == 2) {
+      $('.button-player').attr("data-icon", "play")
+      // paused
     }
 
   }
   function stopVideo() {
     player.stopVideo();
   }
+
+  function pauseVideo(player) {
+    var currentVolume;
+    if (player == null) {
+      player = void 0;
+    }
+    if (!player) {
+      throw new Error('No YouTube player instance specified.');
+    }
+    if (!player.hasOwnProperty('getVolume')) {
+      throw new Error("'" + (Object.prototype.toString.call(player)) + "' is not a valid YouTube player instance.");
+    }
+    currentVolume = player.getVolume();
+    if (currentVolume === 0) {
+      player.pauseVideo();
+      player.unMute();
+      return player.setVolume(100);
+    } else {
+      player.setVolume(currentVolume - 5);
+      return setTimeout((function() {
+        return pauseVideo(player);
+      }), 10);
+    }
+  };
+
+  function playVideo(player) {
+
+    var currentVolume;
+    if (player == null) {
+      player = void 0;
+    }
+    if (!player) {
+      throw new Error('No YouTube player instance specified.');
+    }
+    if (!player.hasOwnProperty('getVolume')) {
+      throw new Error("'" + (Object.prototype.toString.call(player)) + "' is not a valid YouTube player instance.");
+    }
+
+    player.playVideo();
+    player.setVolume(0)
+
+    currentVolume = player.getVolume();
+    if (currentVolume === 100) {
+      return player.setVolume(100);
+    } else {
+      player.setVolume(currentVolume + 5);
+      return setTimeout((function() {
+        return playVideo(player);
+      }), 10);
+    }
+  };
