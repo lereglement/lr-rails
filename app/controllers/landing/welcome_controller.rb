@@ -6,7 +6,7 @@ class Landing::WelcomeController < Landing::BaseController
 
   def index
     set_meta_tags default_meta_tags
-    set_meta_tags title: "LEREGLEMENT.SALE"
+    set_meta_tags title: "Le Règlement"
 
     @current_track = OpenStruct.new(Data::V1::Tracks::TrackSerializer.new(Track.get_current, root: false).to_hash)
     @previous_tracks = []
