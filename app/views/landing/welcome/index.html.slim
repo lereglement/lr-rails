@@ -40,6 +40,11 @@ main
           .header-radio-subtitle
             span = 'de '
             = @current_track.artist
+          .header-radio-actions-mobile
+            a.button.button-youtube href="https://www.youtube.com/lereglement/live" target='_blank'
+              = render "icons/youtube"
+              = 'ÉCOUTER EN LIVE'
+
           .header-radio-actions
             .badge.badge-buffering.is-active
               = 'BUFFERING'

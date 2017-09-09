@@ -53,6 +53,9 @@
   &-actions {
     display: flex;
     align-items: center;
+    @media (max-width: 526px) {
+      display: none;
+    }
 
     & > * {
       margin-right: $padding;
@@ -103,3 +106,12 @@
     }
   }
 }
+
+.header-radio-actions-mobile {
+  display: none;
+
+  @media (max-width: 526px) {
+    display: block;
+  }
+}
+
