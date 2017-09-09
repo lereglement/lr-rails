@@ -34,6 +34,7 @@ Rails.application.routes.draw do
         get :get_current_track, path: '/playlists/current', to: 'playlists#get_current'
         get :get_previous_tracks, path: '/playlists/previous', to: 'playlists#get_previous'
         resources :facebook, only: [:create, :show]
+        resources :settings, only: [:index]
       end
     end
   end

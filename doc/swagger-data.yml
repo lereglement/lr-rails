@@ -61,6 +61,20 @@ paths:
             type: array
             items:
               $ref: '#/definitions/Track'
+  /settings:
+    get:
+      tags:
+        - settings
+      summary: Get settings
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Setting'
 definitions:
   YoutubeVideo:
     type: object
@@ -117,4 +131,11 @@ definitions:
       cover_medium:
         type: string
       cover_large:
+        type: string
+  Setting:
+    type: object
+    properties:
+      name:
+        type: string
+      value:
         type: string
