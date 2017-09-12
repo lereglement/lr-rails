@@ -1,6 +1,7 @@
 class Api::V1::PlaylistsController < Api::V1::BaseController
 
   def get_next
+    tag = :fr
     next_track = Playlist.where(is_aired: false).order(:id).first
 
     has_next_track = next_track.blank? ? false : true
@@ -28,7 +29,7 @@ class Api::V1::PlaylistsController < Api::V1::BaseController
 
       if !has_next_track
         artist_buffer_count = Artist.count / 3
-        track_buffer_count = Track.where(state: :active).count / 2
+        track_buffer_count = Track.filter_tag(tag).where(state: :active).count / 2
 
         tracks_with_artists_to_avoid = Playlist.where(is_aired: true).order(id: :desc).limit(artist_buffer_count).pluck(:track_id)
         tracks_to_avoid = Playlist.where(is_aired: true).order(id: :desc).limit(track_buffer_count).pluck(:track_id)
@@ -41,7 +42,7 @@ class Api::V1::PlaylistsController < Api::V1::BaseController
         count_between = last_auto_feat ? Playlist.where.not(type_of: :jingle).where("id > ?", last_auto_feat.id).count : 0
 
         if count_between >= Rails.application.secrets.track_auto_featured_modulo
-          auto_featured = Track.where.not(artist: artists_to_avoid).where(state: :active).where("aired_count <= ?", Rails.application.secrets.track_auto_featured_limit).order(:last_aired_at).first
+          auto_featured = Track.filter_tag(tag).where.not(artist: artists_to_avoid).where(state: :active).where("aired_count <= ?", Rails.application.secrets.track_auto_featured_limit).order(:last_aired_at).first
 
           unless auto_featured.blank?
             Playlist.create({ track_id: auto_featured.id, type_of: :auto_feat })

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170909212450) do
+ActiveRecord::Schema.define(version: 20170912031607) do
 
   create_table "_track_wip", id: false, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.bigint "id", default: 0, null: false
@@ -90,7 +90,9 @@ ActiveRecord::Schema.define(version: 20170909212450) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "artist", limit: 100
+    t.bigint "tag_id"
     t.index ["artist"], name: "artist"
+    t.index ["tag_id"], name: "index_buckets_on_tag_id"
     t.index ["track_id"], name: "track_id"
   end
 
@@ -124,6 +126,21 @@ ActiveRecord::Schema.define(version: 20170909212450) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["name"], name: "name"
+  end
+
+  create_table "tagged_tracks", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC" do |t|
+    t.bigint "track_id", null: false
+    t.bigint "tag_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["tag_id"], name: "index_tagged_tracks_on_tag_id"
+    t.index ["track_id", "tag_id"], name: "index_tagged_tracks_on_track_id_and_tag_id", unique: true
+  end
+
+  create_table "tags", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC" do |t|
+    t.string "name", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "tracks", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC" do |t|
@@ -177,6 +194,9 @@ ActiveRecord::Schema.define(version: 20170909212450) do
     t.index ["state"], name: "state"
   end
 
+  add_foreign_key "buckets", "tags", name: "fk_bucket_tag"
   add_foreign_key "buckets", "tracks", name: "fk_bucket_track"
   add_foreign_key "playlists", "tracks", name: "fk_playlist_track"
+  add_foreign_key "tagged_tracks", "tags", name: "fk_tagged_tag"
+  add_foreign_key "tagged_tracks", "tracks", name: "fk_tagged_track"
 end

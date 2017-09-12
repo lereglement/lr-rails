@@ -47,7 +47,8 @@ ActiveAdmin.register Track do
     :state,
     :type_of,
     :external_source,
-    :origin
+    :origin,
+    tag_ids: []
 
   filter :title_or_artist_contains
   filter :state, as: :select, collection: Track.get_states.map { |value| value }
@@ -132,6 +133,15 @@ ActiveAdmin.register Track do
         auto_link(Artist.find_by(name: track.artist), track.artist)
       end
       row :title
+      row :tags do |track|
+        span status_tag track.state
+        span status_tag track.type_of
+        span status_tag "Raw" if track.is_converted == false
+        span do
+          tags = track.tags.pluck(:name)
+          tags.each { |tag| status_tag tag }
+        end
+      end
       row :error_logs do |track|
         div do
           track.error_logs.split(",").each do |log|
@@ -158,11 +168,6 @@ ActiveAdmin.register Track do
           span track.bitrate if track.bitrate
         end
       end unless track.track.blank?
-      row :tags do |track|
-        span status_tag track.state
-        span status_tag track.type_of
-        span status_tag "Raw" if track.is_converted == false
-      end
       row :ref
       row :actions do |track|
         div link_to "Check errors", "/tracks/check?id=#{track.id}"
@@ -206,13 +211,10 @@ ActiveAdmin.register Track do
       input :type_of, as: :select, collection: Track.get_types.map { |value| value }, include_blank: false
       input :is_converted
     end
+    inputs 'Tags' do
+      input :tags, as: :check_boxes
+    end
     div style: "display: flex; align-items: stretch; " do
-      div style: "flex-grow: 1" do
-        inputs 'Cover' do
-          input :cover, as: :file, input_html: { accept:".jpeg,.jpg,.png,.gif" }
-          li style: "background-image: url(#{resource.cover.url(:large)}); width: 150px; height: 150px; background-size: cover; margin-left: 20%; margin-top: -170px;"
-        end
-      end
       div style: "flex-grow: 1" do
         inputs 'File' do
           input :track, as: :file, input_html: { accept:".mp3,.ogg" }
