@@ -76,6 +76,9 @@ ActiveAdmin.register Playlist do
         end
       end
     end
+    column :tag do |item|
+      status_tag item.tag.name if item.tag
+    end
     column :last_aired do |item|
       div do
         before = Playlist.where(track_id: item.track_id, is_aired: true).where.not(aired_at: nil).where("id < ?", item.id).order(id: :desc).first

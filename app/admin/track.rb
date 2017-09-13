@@ -91,6 +91,11 @@ ActiveAdmin.register Track do
             track_title = !track.title.blank? ? track.title : track.track_file_name
             span auto_link track, track_title
             span " (#{Time.at(track.duration).utc.strftime("%M:%S")})" if track.duration
+            div do
+              track.tags.each do |tag|
+                status_tag tag.name
+              end
+            end
           end
         end
       end

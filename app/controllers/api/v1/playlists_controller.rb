@@ -1,7 +1,7 @@
 class Api::V1::PlaylistsController < Api::V1::BaseController
 
   def get_next
-    tag = :fr
+    tag = 1
     next_track = Playlist.where(is_aired: false).order(:id).first
 
     has_next_track = next_track.blank? ? false : true
@@ -11,7 +11,7 @@ class Api::V1::PlaylistsController < Api::V1::BaseController
       last_track = Playlist.where(is_aired: true).order(id: :desc).first
 
       # Play a jingle
-      if last_track.id % Rails.application.secrets.jingle_modulo == 0
+      if last_track && last_track.id % Rails.application.secrets.jingle_modulo == 0
 
         # Play official jingle
         if last_track.id % 2 == 0
@@ -37,7 +37,7 @@ class Api::V1::PlaylistsController < Api::V1::BaseController
       end
 
       # Play auto featured
-      if !has_next_track
+      if !has_next_track && tag == 1
         last_auto_feat = Playlist.where(type_of: :auto_feat).order(id: :desc).first
         count_between = last_auto_feat ? Playlist.where.not(type_of: :jingle).where("id > ?", last_auto_feat.id).count : 0
 
@@ -45,7 +45,7 @@ class Api::V1::PlaylistsController < Api::V1::BaseController
           auto_featured = Track.filter_tag(tag).where.not(artist: artists_to_avoid).where(state: :active).where("aired_count <= ?", Rails.application.secrets.track_auto_featured_limit).order(:last_aired_at).first
 
           unless auto_featured.blank?
-            Playlist.create({ track_id: auto_featured.id, type_of: :auto_feat })
+            Playlist.create({ track_id: auto_featured.id, type_of: :auto_feat, tag_id: tag })
             has_next_track = true
           end
         end
@@ -54,43 +54,44 @@ class Api::V1::PlaylistsController < Api::V1::BaseController
       # Insert a track
       if !has_next_track
 
-        bucket_pick = Bucket.where.not(artist: artists_to_avoid).where.not(id: tracks_to_avoid).order("RAND()").first
+        bucket_pick = Bucket.filter_tag(tag).where.not(artist: artists_to_avoid).where.not(id: tracks_to_avoid).order("RAND()").first
 
         # Regenerate bucket if can't find tracks
         if bucket_pick.blank?
-          Bucket.delete_all
+          Bucket.filter_tag(tag).delete_all
 
           to_insert = []
-          Track.where(state: :active, is_converted: true, type_of: :track).order("RAND()").each do |track|
+          Track.filter_tag(tag).where(state: :active, is_converted: true, type_of: :track).order("RAND()").each do |track|
             to_insert.push({
               track_id: track.id,
-              artist: track.artist
+              artist: track.artist,
+              tag_id: tag
             })
           end
           Bucket.create(to_insert)
 
-          bucket_pick = Bucket.where.not(artist: artists_to_avoid).order("RAND()").first
+          bucket_pick = Bucket.filter_tag(tag).where.not(artist: artists_to_avoid).order("RAND()").first
         end
 
         unless bucket_pick.blank?
-          Playlist.create({ track_id: bucket_pick.track_id, type_of: :bucket })
+          Playlist.create({ track_id: bucket_pick.track_id, type_of: :bucket, tag_id: tag })
           has_next_track = true
         end
 
-        Bucket.find_by(track_id: bucket_pick.track_id).delete if bucket_pick
+        Bucket.filter_tag(tag).find_by(track_id: bucket_pick.track_id).delete if bucket_pick
 
       end
 
       if !has_next_track
 
-        to_play = Track.where(state: :active, is_converted: true, type_of: :track).where.not(artist: artists_to_avoid).order("RAND()").first
+        to_play = Track.filter_tag(tag).where(state: :active, is_converted: true, type_of: :track).where.not(artist: artists_to_avoid).order("RAND()").first
 
-        to_play = Track.where(state: :active, is_converted: true, type_of: :track).order("RAND()").first if to_play.blank?
+        to_play = Track.filter_tag(tag).where(state: :active, is_converted: true, type_of: :track).order("RAND()").first if to_play.blank?
 
-        Playlist.create({ track_id: to_play.id, type_of: :random })
+        Playlist.create({ track_id: to_play.id, type_of: :random, tag_id: tag })
         has_next_track = true
 
-        Bucket.delete_all
+        Bucket.filter_tag(tag).delete_all
 
       end
 
