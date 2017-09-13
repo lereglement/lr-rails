@@ -20,15 +20,7 @@ class Track < ApplicationRecord
   accepts_nested_attributes_for :tagged_tracks
 
   scope :external_source_missing_in, -> (bool) { where(" external_source IS NULL OR external_source = '' ") }
-  scope :filter_tag, -> (tag) {
-    case tag
-    when :us then
-      tag_id = 2
-    else
-      tag_id = 1
-    end
-    joins("INNER JOIN tagged_tracks ON tagged_tracks.tag_id = #{tag_id}")
-  }
+  scope :filter_tag, -> (tag_id) { joins("INNER JOIN tagged_tracks ON tagged_tracks.track_id = tracks.id AND tagged_tracks.tag_id = #{tag_id}") }
 
   def self.ransackable_scopes(_auth_object = nil)
     [:external_source_missing_in]

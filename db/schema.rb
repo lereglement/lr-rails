@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170912031607) do
+ActiveRecord::Schema.define(version: 20170913212010) do
 
   create_table "_track_wip", id: false, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.bigint "id", default: 0, null: false
@@ -115,7 +115,9 @@ ActiveRecord::Schema.define(version: 20170912031607) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "type_of", limit: 40
+    t.bigint "tag_id"
     t.index ["is_aired"], name: "is_aired"
+    t.index ["tag_id"], name: "index_playlists_on_tag_id"
     t.index ["track_id"], name: "fk_playlist_track"
     t.index ["type_of", "id"], name: "type_of_id"
   end
@@ -196,6 +198,7 @@ ActiveRecord::Schema.define(version: 20170912031607) do
 
   add_foreign_key "buckets", "tags", name: "fk_bucket_tag"
   add_foreign_key "buckets", "tracks", name: "fk_bucket_track"
+  add_foreign_key "playlists", "tags", name: "fk_playlist_tag"
   add_foreign_key "playlists", "tracks", name: "fk_playlist_track"
   add_foreign_key "tagged_tracks", "tags", name: "fk_tagged_tag"
   add_foreign_key "tagged_tracks", "tracks", name: "fk_tagged_track"
