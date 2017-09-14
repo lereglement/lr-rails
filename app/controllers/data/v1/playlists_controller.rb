@@ -3,7 +3,7 @@ class Data::V1::PlaylistsController < Data::V1::BaseController
   skip_before_action :authenticate_request!, only: [:get_current, :get_previous]
 
   def get_current
-    current_track = Track.get_current(15)
+    current_track = Track.get_current(0)
 
     render json: current_track,
       root: 'data',
