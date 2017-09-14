@@ -10,8 +10,8 @@ class Data::V1::PlaylistsController < Data::V1::BaseController
     if Time.now > '2017-09-16 21:00' && Time.now < '2017-09-16 23:59'
       Rails.logger.debug "TRANCHE A"
     end
-    if Time.now > '2017-09-16 20:00' && Time.now < '2017-09-16 21:00'
-      Rails.logger.debug "TRANCHE B"      
+    if Time.now > '2017-09-16 18:00' && Time.now < '2017-09-16 19:00'
+      Rails.logger.debug "TRANCHE B"
     end
 
     render json: current_track,
