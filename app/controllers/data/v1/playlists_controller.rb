@@ -7,10 +7,10 @@ class Data::V1::PlaylistsController < Data::V1::BaseController
     Rails.logger.debug "======================================================================================"
     Rails.logger.debug Time.now
     Rails.logger.debug "======================================================================================"
-    if Time.now > '2017-09-16 21:00' && Time.now < '2017-09-16 23:59'
+    if Time.now > '2017-09-14 21:00' && Time.now < '2017-09-14 23:59'
       Rails.logger.debug "TRANCHE A"
     end
-    if Time.now > '2017-09-16 18:00' && Time.now < '2017-09-16 19:00'
+    if Time.now > '2017-09-14 18:00' && Time.now < '2017-09-14 19:00'
       Rails.logger.debug "TRANCHE B"
     end
 
