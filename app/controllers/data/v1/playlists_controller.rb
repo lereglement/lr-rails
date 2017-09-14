@@ -4,6 +4,15 @@ class Data::V1::PlaylistsController < Data::V1::BaseController
 
   def get_current
     current_track = Track.get_current(15)
+    Rails.logger.debug "======================================================================================"
+    Rails.logger.debug Time.now
+    Rails.logger.debug "======================================================================================"
+    if Time.now > '2017-09-16 21:00' && Time.now < '2017-09-16 23:59'
+      Rails.logger.debug "TRANCHE A"
+    end
+    if Time.now > '2017-09-16 20:00' && Time.now < '2017-09-16 21:00'
+      Rails.logger.debug "TRANCHE B"      
+    end
 
     render json: current_track,
       root: 'data',
