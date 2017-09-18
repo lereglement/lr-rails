@@ -20,7 +20,7 @@ class Track < ApplicationRecord
   accepts_nested_attributes_for :tagged_tracks
 
   scope :external_source_missing_in, -> (bool) { where(" external_source IS NULL OR external_source = '' ") }
-  scope :filter_tag, -> (tag_id) { joins("INNER JOIN tagged_tracks ON tagged_tracks.track_id = tracks.id AND tagged_tracks.tag_id = #{tag_id}") }
+  scope :filter_tag, -> (tag) { joins("INNER JOIN tagged_tracks ON tagged_tracks.track_id = tracks.id AND tagged_tracks.tag_id = #{Tag.get_id(tag)}") }
 
   def self.ransackable_scopes(_auth_object = nil)
     [:external_source_missing_in]
@@ -104,6 +104,12 @@ class Track < ApplicationRecord
       end
     end
 
+    if saved_change_to_external_source? && self.external_source.blank?
+      self.update_column(:ref_external_source, nil)
+      self.update_column(:origin_external_source, nil)
+      self.update_column(:external_source, nil)
+    end
+
     if self.state && self.state.to_sym != :active
       Bucket.where(track_id: self.id).delete_all
     end
@@ -166,10 +172,11 @@ class Track < ApplicationRecord
     end
   end
 
-  def self.get_hours(aired_count_min, state = :active)
+  def self.get_hours(aired_count_min, tag = :default, state = :active)
     hours = Track.select("
       SUM(duration)/60/60 AS hours
     ")
+    .filter_tag(tag)
     .where(state: state)
     .where("aired_count < ?", aired_count_min).first["hours"]
     hours.round(1) if hours
