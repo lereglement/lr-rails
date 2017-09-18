@@ -101,6 +101,7 @@ class Track < ApplicationRecord
         self.update_column(:ref_external_source, source_details[:ref])
         self.update_column(:origin_external_source, source_details[:origin])
         self.update_column(:external_source, source_details[:url])
+        self.update_column(:external_published_at, source_details[:published_at])
       end
     end
 
@@ -108,6 +109,7 @@ class Track < ApplicationRecord
       self.update_column(:ref_external_source, nil)
       self.update_column(:origin_external_source, nil)
       self.update_column(:external_source, nil)
+      self.update_column(:external_published_at, nil)
     end
 
     if self.state && self.state.to_sym != :active
