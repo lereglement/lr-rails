@@ -50,6 +50,7 @@ ActiveAdmin.register Track do
     :origin,
     tag_ids: []
 
+  filter :tags, as: :select, collection: proc { Tag.order(:id).map { |a| [a.name, a.id] } }
   filter :title_or_artist_contains
   filter :state, as: :select, collection: Track.get_states.map { |value| value }
   filter :type_of, as: :select, collection: Track.get_types.map { |value| value }

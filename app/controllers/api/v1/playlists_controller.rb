@@ -1,9 +1,9 @@
 class Api::V1::PlaylistsController < Api::V1::BaseController
 
   def get_next
-    tag = 1
+    tag = :default
     if Time.now > '2017-09-14 19:00' && Time.now < '2017-09-14 21:59'
-      tag = 2
+      tag = :us
     end
 
     next_track = Playlist.where(is_aired: false).order(:id).first

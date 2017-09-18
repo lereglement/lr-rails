@@ -8,7 +8,7 @@ ActiveAdmin.register_page "Dashboard" do
     columns do
 
       column do
-        most_played = Track.where(state: :active, type_of: :track).order(aired_count: :desc).limit(50)
+        most_played = Track.filter_tag(:default).where(state: :active, type_of: :track).order(aired_count: :desc).limit(50)
 
         panel "Most played" do
           table do
@@ -28,35 +28,9 @@ ActiveAdmin.register_page "Dashboard" do
       end
 
       column do
-        pending = Track.where(state: :pending, type_of: :track).order(id: :desc).limit(30)
-
-        panel "Pending" do
-          table do
-            pending.map do |track|
-              tr do
-                td do
-                  div b link_to(track.title, track_path(track))
-                end
-              end
-            end
-          end unless pending.blank?
-        end
-
-        to_review = Track.where(state: :to_review, type_of: :track).order(id: :desc).limit(50)
-
-        panel "To Review" do
-          table do
-            to_review.map do |track|
-              tr do
-                td do
-                  div b link_to(track.title, track_path(track))
-                end
-              end
-            end
-          end unless to_review.blank?
-        end
 
         new_tracks = Track
+          .filter_tag(:default)
           .where(state: :active, type_of: :track)
           .where("aired_count <= ?", Rails.application.secrets.track_new_limit)
           .order(id: :desc).limit(50)
@@ -74,6 +48,7 @@ ActiveAdmin.register_page "Dashboard" do
         end
 
         auto_featured_tracks = Track
+          .filter_tag(:default)
           .where(state: :active, type_of: :track)
           .where("aired_count <= ?", Rails.application.secrets.track_auto_featured_limit)
           .order(id: :desc).limit(50)
