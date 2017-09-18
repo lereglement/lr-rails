@@ -24,7 +24,8 @@ class ExternalResourceLib
             url: "https://www.youtube.com/watch?v=#{ref}",
             thumbnail: "https://img.youtube.com/vi/#{ref}/hqdefault.jpg",
             title: snippet["title"],
-            description: snippet["description"]
+            description: snippet["description"],
+            published_at: Time.parse(snippet["publishedAt"])
           }
 
         end
@@ -49,7 +50,8 @@ class ExternalResourceLib
           url: "https://www.dailymotion.com/video/#{ref}",
           thumbnail: "https://www.dailymotion.com/thumbnail/video/#{ref}",
           title: parsed["title"],
-          description: parsed["description"]
+          description: parsed["description"],
+          published_at: nil
         }
       end
 
@@ -73,7 +75,8 @@ class ExternalResourceLib
             url: "https://www.dailymotion.com/video/#{ref}",
             thumbnail: item["thumbnail_large"],
             title: item["title"],
-            description: item["description"]
+            description: item["description"],
+            published_at: item["upload_date"]
           }
 
         end
@@ -97,7 +100,8 @@ class ExternalResourceLib
             url: "https://soundcloud.com/#{ref}",
             thumbnail: nil,
             title: title,
-            description: nil
+            description: nil,
+            published_at: nil
           }
         end
 

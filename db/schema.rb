@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170913212010) do
+ActiveRecord::Schema.define(version: 20170918203822) do
 
   create_table "_track_wip", id: false, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.bigint "id", default: 0, null: false
@@ -127,7 +127,7 @@ ActiveRecord::Schema.define(version: 20170913212010) do
     t.string "value"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["name"], name: "name"
+    t.index ["name"], name: "name", length: { name: 191 }
   end
 
   create_table "tagged_tracks", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC" do |t|
@@ -172,6 +172,7 @@ ActiveRecord::Schema.define(version: 20170913212010) do
     t.string "ref_external_source", limit: 180
     t.string "origin_external_source", limit: 40
     t.string "error_logs"
+    t.datetime "external_published_at"
     t.index ["artist"], name: "artist"
     t.index ["bitrate"], name: "bitrate"
     t.index ["ref"], name: "idx_ref", unique: true

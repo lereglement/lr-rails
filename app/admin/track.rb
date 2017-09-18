@@ -197,6 +197,7 @@ ActiveAdmin.register Track do
             div style: "padding: 20px;" do
               div b source[:title]
               div source[:description][0..500] if source[:description]
+              div b time_ago(source[:published_at]) if source[:published_at]
             end
           end
         elsif track.external_source
