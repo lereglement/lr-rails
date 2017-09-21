@@ -41,7 +41,7 @@ class Api::V1::PlaylistsController < Api::V1::BaseController
       end
 
       # Play auto featured
-      if !has_next_track && tag == 1
+      if !has_next_track && tag == :default
         last_auto_feat = Playlist.where(type_of: :auto_feat).order(id: :desc).first
         count_between = last_auto_feat ? Playlist.where.not(type_of: :jingle).where("id > ?", last_auto_feat.id).count : 0
 
