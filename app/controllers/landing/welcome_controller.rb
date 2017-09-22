@@ -17,8 +17,12 @@ class Landing::WelcomeController < Landing::BaseController
     playlist_url = 'http://cache.lereglement.sale/youtube_videos'
     playlist_uri = URI(playlist_url)
     playlist_response = Net::HTTP.get(playlist_uri)
-    @videos = JSON.parse(playlist_response)['data'].map! do |video|
-      OpenStruct.new(video)
+    if !playlist_response.blank?
+      @videos = JSON.parse(playlist_response)['data'].map! do |video|
+        OpenStruct.new(video)
+      end
+    else
+      @videos = []
     end
 
     @networks = [
