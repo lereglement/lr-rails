@@ -54,7 +54,7 @@ ActiveAdmin.register Bucket do
       end
     end
     column :tag do |item|
-      status_tag item.tag.name
+      status_tag item.tag.name if item.tag
     end
     column :created do |item|
       time_ago(item.created_at)
