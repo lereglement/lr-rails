@@ -49,7 +49,7 @@ class Api::V1::PlaylistsController < Api::V1::BaseController
           auto_featured = Track.filter_tag(tag).where.not(artist: artists_to_avoid).where(state: :active).where("aired_count <= ?", Rails.application.secrets.track_auto_featured_limit).order(:last_aired_at).first
 
           unless auto_featured.blank?
-            Playlist.create({ track_id: auto_featured.id, type_of: :auto_feat, tag_id: tag })
+            Playlist.create({ track_id: auto_featured.id, type_of: :auto_feat, tag_id: Tag.get_id(tag) })
             has_next_track = true
           end
         end
@@ -69,7 +69,7 @@ class Api::V1::PlaylistsController < Api::V1::BaseController
             to_insert.push({
               track_id: track.id,
               artist: track.artist,
-              tag_id: tag
+              tag_id: Tag.get_id(tag)
             })
           end
           Bucket.create(to_insert)
@@ -78,7 +78,7 @@ class Api::V1::PlaylistsController < Api::V1::BaseController
         end
 
         unless bucket_pick.blank?
-          Playlist.create({ track_id: bucket_pick.track_id, type_of: :bucket, tag_id: tag })
+          Playlist.create({ track_id: bucket_pick.track_id, type_of: :bucket, tag_id: Tag.get_id(tag) })
           has_next_track = true
         end
 
@@ -92,7 +92,7 @@ class Api::V1::PlaylistsController < Api::V1::BaseController
 
         to_play = Track.filter_tag(tag).where(state: :active, is_converted: true, type_of: :track).order("RAND()").first if to_play.blank?
 
-        Playlist.create({ track_id: to_play.id, type_of: :random, tag_id: tag })
+        Playlist.create({ track_id: to_play.id, type_of: :random, tag_id: Tag.get_id(tag) })
         has_next_track = true
 
         Bucket.filter_tag(tag).delete_all
