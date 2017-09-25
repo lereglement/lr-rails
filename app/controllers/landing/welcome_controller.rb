@@ -18,9 +18,14 @@ class Landing::WelcomeController < Landing::BaseController
     playlist_uri = URI(playlist_url)
     playlist_response = Net::HTTP.get(playlist_uri)
     if !playlist_response.blank?
-      @videos = JSON.parse(playlist_response)['data'].map! do |video|
-        OpenStruct.new(video)
+      begin
+        @videos = JSON.parse(playlist_response)['data'].map! do |video|
+          OpenStruct.new(video)
+        end
+      rescue JSON::ParserError
+        @videos = []
       end
+
     else
       @videos = []
     end
