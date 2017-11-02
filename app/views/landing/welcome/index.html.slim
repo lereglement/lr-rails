@@ -126,7 +126,3 @@ main
         .discord-section-scene
           a href='https://discord.gg/wxa79Q7' target='_blank'
             .discord-window style="background: url(#{image_url 'screenshot/discord.png'})"
-
-side
-  iframe#chat allowfullscreen="" frameborder="0" src="https://www.youtube.com/live_chat?v=A4tUSvPBDao&embed_domain=#{request.domain}" width="100%"
-  div#player style="#{!Rails.env.development? && "opacity: 0;visibility:hidden;position: absolute;z-index: -1"}"
