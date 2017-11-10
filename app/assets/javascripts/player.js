@@ -1,4 +1,4 @@
-var audio = new Audio('http://51.15.201.147:8000/live');
+var audio = new Audio('http://lb-icecast.lereglement.sale/live');
 audio.addEventListener('playing', function() {
   audio.volume = .5
   $('.badge-buffering').removeClass('is-active');
