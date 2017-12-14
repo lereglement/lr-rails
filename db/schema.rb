@@ -10,37 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170918203822) do
-
-  create_table "_track_wip", id: false, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
-    t.bigint "id", default: 0, null: false
-    t.string "artist", limit: 100, collation: "utf8mb4_unicode_ci"
-    t.string "title", collation: "utf8mb4_unicode_ci"
-    t.integer "duration"
-    t.integer "bitrate"
-    t.boolean "is_converted", default: false, null: false
-    t.string "state", limit: 40, default: "pending", collation: "utf8mb4_unicode_ci"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "track_file_name", collation: "utf8mb4_unicode_ci"
-    t.string "track_content_type", collation: "utf8mb4_unicode_ci"
-    t.integer "track_file_size"
-    t.datetime "track_updated_at"
-    t.string "ref", limit: 40, collation: "utf8mb4_unicode_ci"
-    t.string "type_of", limit: 40, collation: "utf8mb4_unicode_ci"
-    t.datetime "last_aired_at"
-    t.integer "aired_count", default: 0
-    t.string "cover_file_name", collation: "utf8mb4_unicode_ci"
-    t.string "cover_content_type", collation: "utf8mb4_unicode_ci"
-    t.integer "cover_file_size"
-    t.datetime "cover_updated_at"
-    t.string "external_source", collation: "utf8mb4_unicode_ci"
-    t.integer "duration_converted"
-    t.string "title_external_source", collation: "utf8mb4_unicode_ci"
-    t.string "ref_external_source", limit: 180, collation: "utf8mb4_unicode_ci"
-    t.string "origin_external_source", limit: 40, collation: "utf8mb4_unicode_ci"
-    t.string "error_logs", collation: "utf8mb4_unicode_ci"
-  end
+ActiveRecord::Schema.define(version: 20171214100957) do
 
   create_table "active_admin_comments", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.string "namespace"
@@ -127,7 +97,7 @@ ActiveRecord::Schema.define(version: 20170918203822) do
     t.string "value"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["name"], name: "name", length: { name: 191 }
+    t.index ["name"], name: "name"
   end
 
   create_table "tagged_tracks", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC" do |t|
@@ -192,6 +162,7 @@ ActiveRecord::Schema.define(version: 20170918203822) do
     t.string "state", limit: 40, default: "pending"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "roles_mask"
     t.index ["facebook_user_id"], name: "facebook_user_id", unique: true
     t.index ["ref"], name: "ref", unique: true
     t.index ["state"], name: "state"
