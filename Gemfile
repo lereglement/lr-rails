@@ -35,6 +35,7 @@ gem 'httparty', '~> 0.15.6'
 gem "autoprefixer-rails"
 gem 'rails-assets-jquery.inview', source: 'https://rails-assets.org'
 gem 'rails-assets-jqueryui', source: 'https://rails-assets.org'
+gem 'cancancan', '~> 2.0'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development

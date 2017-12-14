@@ -214,8 +214,8 @@ ActiveAdmin.register Track do
     inputs 'Details' do
       input :artist, as: :autocomplete, url: autocomplete_artist_name_artists_path
       input :title
-      input :state, as: :select, collection: Track.get_states.map { |value| value }, include_blank: false
-      input :type_of, as: :select, collection: Track.get_types.map { |value| value }, include_blank: false
+      input :state, as: :select, collection: Track.get_states_for_roles(current_admin_user.roles), include_blank: false
+      input :type_of, as: :select, collection: Track.get_types, include_blank: false
       input :is_converted
     end
     inputs 'Tags' do
