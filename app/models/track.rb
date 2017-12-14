@@ -56,6 +56,15 @@ class Track < ApplicationRecord
     STATES
   end
 
+  def self.get_states_for_roles(roles)
+    states = []
+    if roles.include?("admin")
+      self.get_states
+    elsif roles.include?("mc")
+      [:pending]
+    end
+  end
+
   def self.get_state_to_check
     [
       :active,
