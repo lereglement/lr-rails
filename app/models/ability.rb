@@ -8,7 +8,10 @@ class Ability
       if user.admin?
         can :manage, :all
       elsif user.mc?
-        can :manage, Track, state: :pending
+        can :read, :all
+
+        can :create, Track
+        can [:update, :destroy], Track, state: "pending"
       end
     #
     # The first argument to `can` is the action you are giving the user
