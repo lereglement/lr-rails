@@ -10,6 +10,8 @@ class Ability
       elsif user.mc?
         can :read, :all
 
+        can :manage, Artist
+
         can :create, Track
         can [:update, :destroy], Track, state: "pending"
       end
