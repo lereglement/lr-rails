@@ -90,6 +90,7 @@ GEM
       thor (~> 0.19)
     builder (3.2.3)
     byebug (9.1.0)
+    cancancan (2.1.2)
     case_transform (0.2)
       activesupport
     climate_control (0.2.0)
@@ -301,6 +302,7 @@ DEPENDENCIES
   better_errors
   binding_of_caller
   byebug
+  cancancan (~> 2.0)
   coffee-rails (~> 4.2.1)
   curb (~> 0.9.3)
   devise (~> 4.3.0)
