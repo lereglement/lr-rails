@@ -13,7 +13,9 @@ class Ability
         can :manage, Artist
 
         can :create, Track
-        can [:update, :destroy], Track, state: "pending"
+        can [:update, :destroy], Track do |track|
+          ["pending", "wip"].include? track.state
+        end
       end
     #
     # The first argument to `can` is the action you are giving the user
