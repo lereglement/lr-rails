@@ -14,7 +14,7 @@ class Ability
 
         can :create, Track
         can [:update, :destroy], Track do |track|
-          ["pending", "wip"].include? track.state
+          ["pending", "wip", "rejected"].include? track.state
         end
       end
     #
