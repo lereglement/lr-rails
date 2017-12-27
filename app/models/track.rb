@@ -61,7 +61,7 @@ class Track < ApplicationRecord
     if roles.include?("admin")
       self.get_states
     elsif roles.include?("mc")
-      [:pending, :rejected]
+      [:pending, :rejected, :wip]
     end
   end
 
