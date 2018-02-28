@@ -5,8 +5,8 @@ class Api::V1::PlaylistsController < Api::V1::BaseController
 
     Time.zone = 'Paris'
     now = Time.zone.now
-    # Monday between 19:00 and 22:59
-    if now.wday == 1 && now.hour >= 19 && now.hour < 23
+    # Monday between 19:00 and 21:59
+    if now.wday == 1 && now.hour >= 19 && now.hour < 22
       tag = :us
     end
 
