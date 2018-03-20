@@ -15,10 +15,10 @@ default: &default
   collation: utf8mb4_unicode_ci
   pool: 5
   timeout: 5000
-  host: <%= ENV["MYSQL_ADDON_HOST_M"] %>
-  database: <%= ENV["MYSQL_ADDON_DB_M"] %>
-  username: <%= ENV["MYSQL_ADDON_USER_M"] %>
-  password: <%= ENV["MYSQL_ADDON_PASSWORD_M"] %>
+  host: <%= ENV["MYSQL_ADDON_HOST"] %>
+  database: <%= ENV["MYSQL_ADDON_DB"] %>
+  username: <%= ENV["MYSQL_ADDON_USER"] %>
+  password: <%= ENV["MYSQL_ADDON_PASSWORD"] %>
 
 development:
   <<: *default
