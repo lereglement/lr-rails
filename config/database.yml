@@ -19,6 +19,7 @@ default: &default
   database: <%= ENV["MYSQL_ADDON_DB"] %>
   username: <%= ENV["MYSQL_ADDON_USER"] %>
   password: <%= ENV["MYSQL_ADDON_PASSWORD"] %>
+  port: <%= ENV["MYSQL_ADDON_PORT"] %>
 
 development:
   <<: *default
