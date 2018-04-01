@@ -2,10 +2,17 @@
 
 ## Rails
 Le site du reglement est une app Rails avec une base de donnee MySQL.  
-Avec les problemes qui viennent avec une db MySQL en local, nous avons aussi un repo qui permet de setup le Rails et la DB avec Docker (plus d'info sur le [repo](https://github.com/lereglement/lr-docker-rails) du Docker).  
-Note: On utilise Docker seulement pour setup le dev environment et pas pour staging/prod.  
-Note 2: Si t'as un problem, ping @jauny, il en a aussi chier.  
-Note 3: Si tu veux t'amuser a tout faire tourner sans Docker, no soucy 👍.  
+
+### Setup
+- Install [rbenv](https://github.com/rbenv/rbenv#installation)
+- Install ruby 2.4.1 `rbenv install 2.4.1 && rbenv local 2.4.1`
+- Install [Bundler](http://bundler.io/) `gem install bundler`
+- Install MySQL `brew install mysql` and follow directive to have mysql launched at startup time
+- `~/lr-rails $ bundle install`
+- `~/lr-rails $ bundle exec rails db:create db:migrate`
+- Download dump from clever-cloud staging db
+- Import dump into your dev db `mysql -u user --password=password dev < <dump_file>`
+- `bundle exec rails s` should successfully start :)
 
 
 ## Workflow
