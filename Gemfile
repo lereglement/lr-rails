@@ -6,36 +6,37 @@ git_source(:github) do |repo_name|
 end
 
 
-gem 'rails', '~> 5.1.0'
-gem 'mysql2', '>= 0.3.18', '< 0.5'
-gem 'puma', '~> 3.0'
-gem 'sass-rails', '~> 5.0'
-gem 'turbolinks', '~> 5'
-gem 'uglifier', '>= 1.3.0'
-gem 'jbuilder', '~> 2.5'
-gem 'active_model_serializers', '~> 0.10.6'
-gem 'devise', '~> 4.3.0'
-gem "mini_magick", '~> 4.7.0'
-gem 'rack-cors', "~> 0.4.1"
-gem 'jwt', '~> 1.5.6'
-gem 'curb', "~> 0.9.3"
-gem 'inherited_resources', '~> 1.7'
-gem 'activeadmin', '~> 1.0.0'
-gem 'coffee-rails', '~> 4.2.1'
-gem 'therubyracer', git: 'https://github.com/cowboyd/therubyracer.git'
-gem 'meta-tags', '~> 2.4.0'
-gem 'slim', '~> 3.0.7'
-gem 'dotiw', '~> 3.1.1'
-gem "paperclip", "~> 5.1.0"
-gem 'aws-sdk', '~> 2.3.0'
-gem 'nilify_blanks', '~> 1.2.0'
-gem 'kaminari', '~> 1.0.1'
-gem 'rails3-jquery-autocomplete', '~> 1.0.11'
-gem 'httparty', '~> 0.15.6'
 gem "autoprefixer-rails"
+gem "mini_magick", '~> 4.7.0'
+gem "paperclip", "~> 5.1.0"
+gem 'active_model_serializers', '~> 0.10.6'
+gem 'activeadmin', '~> 1.0.0'
+gem 'aws-sdk', '~> 2.3.0'
+gem 'cancancan', '~> 2.0'
+gem 'coffee-rails', '~> 4.2.1'
+gem 'curb', "~> 0.9.3"
+gem 'devise', '~> 4.3.0'
+gem 'dotiw', '~> 3.1.1'
+gem 'httparty', '~> 0.15.6'
+gem 'inherited_resources', '~> 1.7'
+gem 'jbuilder', '~> 2.5'
+gem 'jwt', '~> 1.5.6'
+gem 'kaminari', '~> 1.0.1'
+gem 'meta-tags', '~> 2.4.0'
+gem 'mysql2', '>= 0.3.18', '< 0.5'
+gem 'nilify_blanks', '~> 1.2.0'
+gem 'puma', '~> 3.0'
+gem 'rack-cors', "~> 0.4.1"
+gem 'rails', '~> 5.1.0'
 gem 'rails-assets-jquery.inview', source: 'https://rails-assets.org'
 gem 'rails-assets-jqueryui', source: 'https://rails-assets.org'
-gem 'cancancan', '~> 2.0'
+gem 'rails3-jquery-autocomplete', '~> 1.0.11'
+gem 'sass-rails', '~> 5.0'
+gem "sentry-raven"
+gem 'slim', '~> 3.0.7'
+gem 'therubyracer', git: 'https://github.com/cowboyd/therubyracer.git'
+gem 'turbolinks', '~> 5'
+gem 'uglifier', '>= 1.3.0'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
