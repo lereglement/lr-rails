@@ -24,5 +24,9 @@ module LeReglement
       end
     end
 
+    Raven.configure do |config|
+      config.dsn = 'https://819acef0a5e24b34920b79581b65c80f:21bfa547f8524eaaae7cf849098d1c14@sentry.io/936325'
+    end
+
   end
 end
