@@ -199,6 +199,7 @@ GEM
     polyamorous (1.3.1)
       activerecord (>= 3.0)
     puma (3.10.0)
+    r7insight (2.7.6)
     rack (2.0.3)
     rack-cors (0.4.1)
     rack-test (0.6.3)
@@ -324,6 +325,7 @@ DEPENDENCIES
   nilify_blanks (~> 1.2.0)
   paperclip (~> 5.1.0)
   puma (~> 3.0)
+  r7insight
   rack-cors (~> 0.4.1)
   rails (~> 5.1.0)
   rails-assets-jquery.inview!
