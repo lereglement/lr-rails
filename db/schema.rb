@@ -10,9 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171214100957) do
+ActiveRecord::Schema.define(version: 20180401074101) do
 
-  create_table "active_admin_comments", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
+  create_table "active_admin_comments", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.string "namespace"
     t.text "body"
     t.string "resource_id", null: false
@@ -26,7 +26,7 @@ ActiveRecord::Schema.define(version: 20171214100957) do
     t.index ["resource_type", "resource_id"], name: "index_active_admin_comments_on_resource_type_and_resource_id"
   end
 
-  create_table "admin_users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
+  create_table "admin_users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
@@ -90,6 +90,7 @@ ActiveRecord::Schema.define(version: 20171214100957) do
     t.index ["is_aired"], name: "is_aired"
     t.index ["tag_id"], name: "index_playlists_on_tag_id"
     t.index ["track_id"], name: "fk_playlist_track"
+    t.index ["track_id"], name: "index_playlists_on_track_id"
     t.index ["type_of", "id"], name: "type_of_id"
   end
 
@@ -98,7 +99,7 @@ ActiveRecord::Schema.define(version: 20171214100957) do
     t.string "value"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["name"], name: "name"
+    t.index ["name"], name: "name", length: { name: 191 }
   end
 
   create_table "tagged_tracks", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC" do |t|
@@ -149,6 +150,7 @@ ActiveRecord::Schema.define(version: 20171214100957) do
     t.index ["ref"], name: "idx_ref", unique: true
     t.index ["ref_external_source"], name: "ref_external_source", unique: true
     t.index ["state"], name: "state"
+    t.index ["type_of"], name: "index_tracks_on_type_of"
   end
 
   create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC" do |t|
