@@ -1,0 +1,23 @@
+active:
+  state: active
+
+pending:
+  state: pending
+
+rejected:
+  state: rejected
+
+expired:
+  state: expired
+
+striked:
+  state: striked
+
+wip:
+  state: wip
+
+to_review:
+  state: to_review
+
+suggested:
+  state: suggested

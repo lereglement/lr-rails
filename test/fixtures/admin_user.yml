@@ -1,0 +1,11 @@
+admin:
+  roles_mask: 1
+  email: admin@example.com
+
+mc:
+  roles_mask: 2
+  email: mc@example.com
+
+admin_mc:
+  roles_mask: 3
+  email: adminmc@example.com
