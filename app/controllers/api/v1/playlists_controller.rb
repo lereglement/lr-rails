@@ -15,12 +15,10 @@ class Api::V1::PlaylistsController < Api::V1::BaseController
     has_next_track = next_track.blank? ? false : true
 
     if !has_next_track
-
       last_track = Playlist.where(is_aired: true).order(id: :desc).first
 
       # Play a jingle
       if last_track && last_track.id % Rails.application.secrets.jingle_modulo == 0
-
         # Play official jingle
         if last_track.id % 2 == 0
           jingle = Track.where(type_of: :jingle, artist: "Jingle officiel").first
@@ -61,7 +59,6 @@ class Api::V1::PlaylistsController < Api::V1::BaseController
 
       # Insert a track
       if !has_next_track
-
         bucket_pick = Bucket.filter_tag(tag).where.not(artist: artists_to_avoid).where.not(id: tracks_to_avoid).order("RAND()").first
 
         # Regenerate bucket if can't find tracks
@@ -87,7 +84,6 @@ class Api::V1::PlaylistsController < Api::V1::BaseController
         end
 
         Bucket.filter_tag(tag).find_by(track_id: bucket_pick.track_id).delete if bucket_pick
-
       end
 
       if !has_next_track

@@ -1,8 +1,11 @@
-require 'rails_helper'
-require 'json'
-require 'byebug'
+require "rails_helper"
+require "json"
+require "byebug"
 
 describe Api::V1::PlaylistsController, :type => :controller do
+  let(:track) { Track.last }
+  let(:playlist) { Playlist.last }
+
   context "during regular hours" do
     before do
       time = Time.zone.local(2018, 1, 1, 15)
@@ -10,9 +13,6 @@ describe Api::V1::PlaylistsController, :type => :controller do
     end
 
     context "when there is a Playlist that is not played yet" do
-      let(:track) { Track.last }
-      let(:playlist) { Playlist.last }
-
       before(:each) do
         playlist.update!(:is_aired => false, :track_id => track.id)
         track.update!(:last_aired_at => nil, :aired_count => 0)
@@ -41,7 +41,103 @@ describe Api::V1::PlaylistsController, :type => :controller do
         data.fetch("title").should == track.title
       end
     end
-    context "when all Playlists have been played"
+
+    context "when all Playlists have been played" do
+      let(:jingle) { Track.first }
+
+      before do
+        playlist.update!(:is_aired => true)
+      end
+
+      context "and it is jingle time" do
+        context "and it fins a jingle" do
+          before do
+            jingle.update!(:artist => "Jingle officiel")
+          end
+
+          it "creates a jingle" do
+            Rails.application.secrets.jingle_modulo = playlist.id
+            resp = get :get_next
+            data = JSON.parse(resp.body).fetch("data")
+
+            data.should_not be nil
+            data.fetch("artist").should == jingle.artist
+            data.fetch("type_of").should == jingle.type_of
+          end
+          context "and it is official jingle time" do
+            it "creates a Playlist for the official jingle"
+          end
+          context "and it is other jingle time" do
+            it "creates a Playlist for the other jingle"
+          end
+        end
+
+        context "but it does not find a jingle" do
+          context "if its time for an auto feature" do
+            context "and it finds an auto feature" do
+              before do
+                Playlist.first.update!(:type_of => :auto_feat)
+              end
+
+              it "creates a Playlist for this autofeature" do
+                Rails.application.secrets.track_auto_featured_limit = 0
+                Rails.application.secrets.track_auto_featured_limit = 999
+                Track.first.update!(:type_of => :auto_feat)
+                resp = get :get_next
+                data = JSON.parse(resp.body).fetch("data")
+                data.fetch("type_of").should == "auto_feat"
+              end
+            end
+            context "but an auto feature is not found" do
+              context "and it finds a bucket" do
+                it "creates a Playlist for the bucket" do
+                  Track.find(3).update!(:type_of => :bucket)
+                  resp = get :get_next
+
+                  Playlist.last.type_of.should == "bucket"
+                  data = JSON.parse(resp.body).fetch("data")
+                  data.fetch("type_of").should == "bucket"
+                end
+              end
+              context "but it does not find a bucket" do
+                it "creates a new bucket"
+                context "the created bucket is valid" do
+                  it "creates a Playlist for the bucket"
+                end
+                context "the created bucket is not not valid" do
+                  context "and it can find a track of a wanted artist" do
+                    it "creates a Playlist for it"
+                  end
+                  context "but it does not find a track of a wanted artist" do
+                    it "creates a Playlist for it"
+                  end
+                end
+              end
+            end
+          end
+        end
+      end
+    end
   end
-  context "during rap us hours"
+
+  context "during rap us hours" do
+    before do
+      time = Time.zone.local(2018, 4, 16, 22)
+      Time.zone.stub(:now).and_return(time)
+    end
+
+    context "when there is a Playlist that is not played yet" do
+      before(:each) do
+        playlist.update!(:is_aired => false, :track_id => track.id)
+        track.update!(:last_aired_at => nil, :aired_count => 0)
+      end
+
+      it "gets a us rap track" do
+        resp = get :get_next
+        data = JSON.parse(resp.body).fetch("data")
+
+        data.fetch("artist").should == track.artist
+      end
+    end
+  end
 end
