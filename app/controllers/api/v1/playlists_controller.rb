@@ -1,14 +1,7 @@
 class Api::V1::PlaylistsController < Api::V1::BaseController
 
   def get_next
-    tag = :default
-
-    Time.zone = 'Paris'
-    now = Time.zone.now
-    # Monday between 21:00 and 23:59
-    if now.wday == 1 && now.hour >= 21
-      tag = :us
-    end
+    tag = Tag.get_current_tag_name
 
     next_track = Playlist.where(is_aired: false).order(:id).first
 

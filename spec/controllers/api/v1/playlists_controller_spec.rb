@@ -1,6 +1,5 @@
 require "rails_helper"
 require "json"
-require "byebug"
 
 describe Api::V1::PlaylistsController, :type => :controller do
   let(:track) { Track.last }
