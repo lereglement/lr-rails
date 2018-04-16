@@ -3,44 +3,31 @@ class Api::V1::PlaylistsController < Api::V1::BaseController
   def get_next
     tag = Tag.get_current_tag_name
 
-    next_track = Playlist.where(is_aired: false).order(:id).first
+    next_track = Playlist.get_first_unaired
 
     has_next_track = next_track.blank? ? false : true
 
     if !has_next_track
-      last_track = Playlist.where(is_aired: true).order(id: :desc).first
-
       # Play a jingle
-      if last_track && last_track.id % Rails.application.secrets.jingle_modulo == 0
-        # Play official jingle
-        if last_track.id % 2 == 0
-          jingle = Track.where(type_of: :jingle, artist: "Jingle officiel").first
-        else
-          jingle = Track.where(type_of: :jingle, artist: "Jingle").order(:last_aired_at).first
-        end
+      if Playlist.should_play_jingle
+        jingle = Playlist.get_next_jingle
 
         unless jingle.blank?
           Playlist.create({ track_id: jingle.id, type_of: :jingle })
           has_next_track = true
         end
-
       end
 
       if !has_next_track
-        artist_buffer_count = Artist.count / 3
-        track_buffer_count = Track.filter_tag(tag).where(state: :active).count / 2
-
-        tracks_with_artists_to_avoid = Playlist.where(is_aired: true).order(id: :desc).limit(artist_buffer_count).pluck(:track_id)
-        tracks_to_avoid = Playlist.where(is_aired: true).order(id: :desc).limit(track_buffer_count).pluck(:track_id)
-        artists_to_avoid = Track.where(id: tracks_with_artists_to_avoid).pluck(:artist)
+        tracks_to_avoid = Playlist.get_tracks_to_avoid
+        artists_to_avoid = Playlist.get_artists_to_avoid
       end
 
       # Play auto featured
       if !has_next_track && tag == :default
-        last_auto_feat = Playlist.where(type_of: :auto_feat).order(id: :desc).first
-        count_between = last_auto_feat ? Playlist.where.not(type_of: :jingle).where("id > ?", last_auto_feat.id).count : 0
+        count_since_last_auto_feat = Playlist.get_count_since_last_auto_feat
 
-        if count_between >= Rails.application.secrets.track_auto_featured_modulo
+        if count_since_last_auto_feat >= Rails.application.secrets.track_auto_featured_modulo
           auto_featured = Track.filter_tag(tag).where.not(artist: artists_to_avoid).where(state: :active).where("aired_count <= ?", Rails.application.secrets.track_auto_featured_limit).order(:last_aired_at).first
 
           unless auto_featured.blank?

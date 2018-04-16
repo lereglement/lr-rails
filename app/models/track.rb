@@ -192,4 +192,12 @@ class Track < ApplicationRecord
     .where("aired_count < ?", aired_count_min).first["hours"]
     hours.round(1) if hours
   end
+
+  def self.get_artists_from_ids(ids)
+    where(:id => ids).pluck(:artist)
+  end
+
+  def self.get_buffer_count
+    filter_tag(:default).where(:state => :active).count / 2
+  end
 end
