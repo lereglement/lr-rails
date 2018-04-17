@@ -1,3 +1,4 @@
+require "byebug"
 class Api::V1::PlaylistsController < Api::V1::BaseController
 
   def get_next
@@ -5,57 +6,42 @@ class Api::V1::PlaylistsController < Api::V1::BaseController
 
     next_track = Playlist.get_first_unaired
 
-    has_next_track = next_track.blank? ? false : true
-
-    if !has_next_track
-      # Play a jingle
+    # jingle?
+    if next_track.blank?
       if Playlist.should_play_jingle
         jingle = Playlist.get_next_jingle
 
-        unless jingle.blank?
-          Playlist.create({ track_id: jingle.id, type_of: :jingle })
-          has_next_track = true
+        if jingle
+          next_track = Playlist.create({ track_id: jingle.id, type_of: :jingle })
         end
       end
 
-      if !has_next_track
-        artists_to_avoid = Playlist.get_artists_to_avoid
-      end
+      # auto feat?
+      if next_track.blank? && tag == :default
+        autofeat = Playlist.get_next_valid_auto_feat_for_tag(tag)
 
-      # Play auto featured
-      if !has_next_track && tag == :default
-        auto_featured = Playlist.get_next_valid_auto_feat_for_tag(tag)
-
-        unless auto_featured.blank?
-          Playlist.create({ track_id: auto_featured.id, type_of: :auto_feat, tag_id: Tag.get_id(tag) })
-          has_next_track = true
+        if autofeat
+          next_track = Playlist.create({ track_id: autofeat.id, type_of: :auto_feat, tag_id: Tag.get_id(tag) })
         end
       end
 
       # Insert a track
-      if !has_next_track
+      if next_track.blank?
         bucket_pick = Bucket.pick_next(tag)
 
-        unless bucket_pick.blank?
-          Playlist.create({ track_id: bucket_pick.track_id, type_of: :bucket, tag_id: Tag.get_id(tag) })
+        if bucket_pick
+          next_track = Playlist.create({ track_id: bucket_pick.track_id, type_of: :bucket, tag_id: Tag.get_id(tag) })
           Bucket.delete_by_track_id(bucket_pick.track_id)
-          has_next_track = true
         end
       end
 
-      if !has_next_track
-        to_play = Track.filter_tag(tag).where(state: :active, is_converted: true, type_of: :track).where.not(artist: artists_to_avoid).order("RAND()").first
+      if next_track.blank?
+        to_play = Track.get_random_track_for_tag_filtered_for_artists(tag, Playlist.get_artists_to_avoid)
+        to_play ||= Track.get_random_track_for_tag(tag)
 
-        to_play = Track.filter_tag(tag).where(state: :active, is_converted: true, type_of: :track).order("RAND()").first if to_play.blank?
-
-        Playlist.create({ track_id: to_play.id, type_of: :random, tag_id: Tag.get_id(tag) })
-        has_next_track = true
-
+        next_track = Playlist.create({ track_id: to_play.id, type_of: :random, tag_id: Tag.get_id(tag) })
         Bucket.filter_tag(tag).delete_all
-
       end
-
-      next_track = Playlist.where(is_aired: false).order(:id).first
     end
 
     next_track.update({
@@ -70,7 +56,6 @@ class Api::V1::PlaylistsController < Api::V1::BaseController
     render json: next_track,
       root: 'data',
       serializer: Api::V1::Playlists::NextSerializer
-
   end
 
   def get_current

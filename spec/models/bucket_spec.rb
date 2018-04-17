@@ -13,7 +13,7 @@ describe "Bucket#get_random_track_for_tag" do
                     :artist => track.artist,
                     :tag_id => Tag.get_id(:us)
     end
-    
+
     it "returns a track" do
       Bucket.get_random_track_for_tag(:us).track_id.should eq track.id
     end

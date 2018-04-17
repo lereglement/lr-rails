@@ -193,6 +193,12 @@ class Track < ApplicationRecord
     hours.round(1) if hours
   end
 
+  def self.get_playable_tracks
+    where(:state => :active,
+          :is_converted => true,
+          :type_of => :track)
+  end
+
   def self.get_artists_from_ids(ids)
     where(:id => ids).pluck(:artist)
   end
@@ -202,7 +208,11 @@ class Track < ApplicationRecord
   end
 
   def self.get_playable_tracks_for_tag(tag)
-    filter_tag(tag).where(state: :active, is_converted: true, type_of: :track).order("RAND()")
+    get_playable_tracks.filter_tag(tag)
+  end
+
+  def self.get_random_track_for_tag(tag)
+    get_playable_tracks_for_tag(tag).sample
   end
 
   def self.get_next_auto_feat_for_tag(tag = :default)
@@ -211,5 +221,15 @@ class Track < ApplicationRecord
         .where(state: :active)
         .where("aired_count <= ?", Rails.application.secrets.track_auto_featured_limit)
         .order(:last_aired_at).first
+  end
+
+  def self.filter_artists_for_tag(tag, artists)
+    get_playable_tracks
+      .filter_tag(tag)
+      .where.not(artist: artists)
+  end
+
+  def self.get_random_track_for_tag_filtered_for_artists(tag, artists)
+    filter_artists_for_tag(tag, artists).sample
   end
 end

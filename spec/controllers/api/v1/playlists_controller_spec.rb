@@ -24,7 +24,7 @@ describe Api::V1::PlaylistsController, :type => :controller do
         playlist.aired_at.should > Time.zone.now - 1.seconds
         playlist.is_aired.should be true
       end
-      
+
       it "finds the related track and updates it" do
         get :get_next
         track.reload
@@ -64,12 +64,6 @@ describe Api::V1::PlaylistsController, :type => :controller do
             data.fetch("artist").should == jingle.artist
             data.fetch("type_of").should == jingle.type_of
           end
-          context "and it is official jingle time" do
-            it "creates a Playlist for the official jingle"
-          end
-          context "and it is other jingle time" do
-            it "creates a Playlist for the other jingle"
-          end
         end
 
         context "but it does not find a jingle" do
@@ -97,11 +91,17 @@ describe Api::V1::PlaylistsController, :type => :controller do
                 end
               end
               context "a bucket is not picked" do
+                before { Bucket.stub(:pick_next) { nil } }
+
                 context "and it can find a track of a wanted artist" do
-                  it "creates a Playlist for it"
-                end
-                context "but it does not find a track of a wanted artist" do
-                  it "creates a Playlist for it"
+                  track = Track.last
+                  it "creates a Playlist for it" do
+                    Track.stub(:get_random_track_for_tag_filtered_for_artists) do
+                      track
+                    end
+                    get :get_next
+                    Playlist.last.track_id.should eq track.id
+                  end
                 end
               end
             end
