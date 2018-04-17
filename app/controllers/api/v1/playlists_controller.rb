@@ -1,4 +1,3 @@
-require "byebug"
 class Api::V1::PlaylistsController < Api::V1::BaseController
 
   def get_next
