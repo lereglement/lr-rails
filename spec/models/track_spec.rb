@@ -15,3 +15,13 @@ describe "Track#get_artists_from_ids" do
     Track.get_artists_from_ids([]).should be_empty
   end
 end
+
+describe "Track#get_playable_tracks_for_tag" do
+  it "returns list of active, converted tracks with tag" do
+    Track.get_playable_tracks_for_tag(:default).each do |track|
+      track.state.should eq "active"
+      track.is_converted.should be true
+      track.type_of.should eq "track"
+    end
+  end
+end

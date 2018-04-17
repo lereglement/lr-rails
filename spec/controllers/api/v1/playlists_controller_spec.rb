@@ -1,3 +1,4 @@
+require "byebug"
 require "rails_helper"
 require "json"
 
@@ -88,28 +89,19 @@ describe Api::V1::PlaylistsController, :type => :controller do
               end
             end
             context "but an auto feature is not found" do
-              context "and it finds a bucket" do
+              context "a bucket is picked" do
                 it "creates a Playlist for the bucket" do
-                  Track.find(3).update!(:type_of => :bucket)
-                  resp = get :get_next
-
-                  Playlist.last.type_of.should == "bucket"
-                  data = JSON.parse(resp.body).fetch("data")
-                  data.fetch("type_of").should == "bucket"
+                  Bucket.stub(:pick_next) { Bucket.create :track_id => 5 }
+                  get :get_next
+                  Playlist.last.track_id.should eq 5
                 end
               end
-              context "but it does not find a bucket" do
-                it "creates a new bucket"
-                context "the created bucket is valid" do
-                  it "creates a Playlist for the bucket"
+              context "a bucket is not picked" do
+                context "and it can find a track of a wanted artist" do
+                  it "creates a Playlist for it"
                 end
-                context "the created bucket is not not valid" do
-                  context "and it can find a track of a wanted artist" do
-                    it "creates a Playlist for it"
-                  end
-                  context "but it does not find a track of a wanted artist" do
-                    it "creates a Playlist for it"
-                  end
+                context "but it does not find a track of a wanted artist" do
+                  it "creates a Playlist for it"
                 end
               end
             end

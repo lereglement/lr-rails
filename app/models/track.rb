@@ -200,4 +200,16 @@ class Track < ApplicationRecord
   def self.get_buffer_count
     filter_tag(:default).where(:state => :active).count / 2
   end
+
+  def self.get_playable_tracks_for_tag(tag)
+    filter_tag(tag).where(state: :active, is_converted: true, type_of: :track).order("RAND()")
+  end
+
+  def self.get_next_auto_feat_for_tag(tag = :default)
+      Track.filter_tag(tag)
+        .where.not(artist: Playlist.get_artists_to_avoid)
+        .where(state: :active)
+        .where("aired_count <= ?", Rails.application.secrets.track_auto_featured_limit)
+        .order(:last_aired_at).first
+  end
 end

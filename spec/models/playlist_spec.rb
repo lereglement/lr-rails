@@ -77,17 +77,17 @@ describe "Playlist#get_last_auto_feat" do
   end
 end
 
-describe "Playlist#get_count_since_last_auto_feat" do
+describe "Playlist#count_since_last_auto_feat" do
   it "returns how many non-jingle plays have happened since last auto feat" do
     Playlist.first.update! :type_of => :auto_feat
-    Playlist.get_count_since_last_auto_feat.should eq Playlist.get_non_jingle_tracks.count - 1
+    Playlist.count_since_last_auto_feat.should eq Playlist.get_non_jingle_tracks.count - 1
 
     Playlist.last.update! :type_of => :auto_feat
-    Playlist.get_count_since_last_auto_feat.should eq 0
+    Playlist.count_since_last_auto_feat.should eq 0
   end
 
   it "return 0 when no auto feat was played" do
-    Playlist.get_count_since_last_auto_feat.should eq 0
+    Playlist.count_since_last_auto_feat.should eq 0
   end
 end
 
@@ -112,5 +112,36 @@ describe "Playlist#get_tracks_to_avoid" do
     tracks = Playlist.get_tracks_to_avoid
     tracks.count.should eq 1
     tracks.first.should be Playlist.last.track_id
+  end
+end
+
+describe "Playlist#get_next_auto_feat_for_tag" do
+  context "when it is time for an auto feat" do
+    let (:track) { Track.new }
+
+    it "returns the last aired track" do
+      Rails.application.secrets.track_auto_featured_modulo = 2
+      Playlist.stub(:count_since_last_auto_feat) { 3 }
+      Track.stub(:get_next_auto_feat_for_tag) { track }
+
+      Playlist.get_next_valid_auto_feat_for_tag(:default).should eq track
+    end
+
+    it "returns nil when no track is valid" do
+      Rails.application.secrets.track_auto_featured_modulo = 2
+      Playlist.stub(:count_since_last_auto_feat) { 3 }
+      Track.stub(:get_next_auto_feat_for_tag) { nil }
+
+      Playlist.get_next_valid_auto_feat_for_tag(:default).should be nil
+    end
+  end
+  context "when it is not time for an auto feat" do
+    it "returns nil" do
+      Rails.application.secrets.track_auto_featured_modulo = 2
+      Playlist.stub(:count_since_last_auto_feat) { 1 }
+
+      expect(Track).not_to receive(:get_next_auto_feat_for_tag)
+      Playlist.get_next_valid_auto_feat_for_tag(:default).should be nil
+    end
   end
 end

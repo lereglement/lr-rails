@@ -1,5 +1,3 @@
-require "byebug"
-
 class Playlist < ApplicationRecord
 
   belongs_to :track
@@ -34,11 +32,17 @@ class Playlist < ApplicationRecord
     end
   end
 
+  def self.get_next_valid_auto_feat_for_tag(tag = :default)
+    if count_since_last_auto_feat >= Rails.application.secrets.track_auto_featured_modulo
+      Track.get_next_auto_feat_for_tag(tag)
+    end
+  end
+
   def self.get_last_auto_feat
     where(:type_of => :auto_feat).order(:id).last
   end
 
-  def self.get_count_since_last_auto_feat
+  def self.count_since_last_auto_feat
     last_auto_feat = get_last_auto_feat
     last_auto_feat ? get_non_jingle_tracks_since(get_last_auto_feat).count : 0
   end

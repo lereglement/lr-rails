@@ -19,55 +19,31 @@ class Api::V1::PlaylistsController < Api::V1::BaseController
       end
 
       if !has_next_track
-        tracks_to_avoid = Playlist.get_tracks_to_avoid
         artists_to_avoid = Playlist.get_artists_to_avoid
       end
 
       # Play auto featured
       if !has_next_track && tag == :default
-        count_since_last_auto_feat = Playlist.get_count_since_last_auto_feat
+        auto_featured = Playlist.get_next_valid_auto_feat_for_tag(tag)
 
-        if count_since_last_auto_feat >= Rails.application.secrets.track_auto_featured_modulo
-          auto_featured = Track.filter_tag(tag).where.not(artist: artists_to_avoid).where(state: :active).where("aired_count <= ?", Rails.application.secrets.track_auto_featured_limit).order(:last_aired_at).first
-
-          unless auto_featured.blank?
-            Playlist.create({ track_id: auto_featured.id, type_of: :auto_feat, tag_id: Tag.get_id(tag) })
-            has_next_track = true
-          end
+        unless auto_featured.blank?
+          Playlist.create({ track_id: auto_featured.id, type_of: :auto_feat, tag_id: Tag.get_id(tag) })
+          has_next_track = true
         end
       end
 
       # Insert a track
       if !has_next_track
-        bucket_pick = Bucket.filter_tag(tag).where.not(artist: artists_to_avoid).where.not(id: tracks_to_avoid).order("RAND()").first
-
-        # Regenerate bucket if can't find tracks
-        if bucket_pick.blank?
-          Bucket.filter_tag(tag).delete_all
-
-          to_insert = []
-          Track.filter_tag(tag).where(state: :active, is_converted: true, type_of: :track).order("RAND()").each do |track|
-            to_insert.push({
-              track_id: track.id,
-              artist: track.artist,
-              tag_id: Tag.get_id(tag)
-            })
-          end
-          Bucket.create(to_insert)
-
-          bucket_pick = Bucket.filter_tag(tag).where.not(artist: artists_to_avoid).order("RAND()").first
-        end
+        bucket_pick = Bucket.pick_next(tag)
 
         unless bucket_pick.blank?
           Playlist.create({ track_id: bucket_pick.track_id, type_of: :bucket, tag_id: Tag.get_id(tag) })
+          Bucket.delete_by_track_id(bucket_pick.track_id)
           has_next_track = true
         end
-
-        Bucket.filter_tag(tag).find_by(track_id: bucket_pick.track_id).delete if bucket_pick
       end
 
       if !has_next_track
-
         to_play = Track.filter_tag(tag).where(state: :active, is_converted: true, type_of: :track).where.not(artist: artists_to_avoid).order("RAND()").first
 
         to_play = Track.filter_tag(tag).where(state: :active, is_converted: true, type_of: :track).order("RAND()").first if to_play.blank?
