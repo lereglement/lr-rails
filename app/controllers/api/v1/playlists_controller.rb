@@ -3,11 +3,13 @@ class Api::V1::PlaylistsController < Api::V1::BaseController
   def get_next
     tag = Tag.get_current_tag_name
 
+    logger.info("getting next unaired track")
     next_track = Playlist.get_first_unaired
 
     # jingle?
     if next_track.blank?
       if Playlist.should_play_jingle
+        logger.info(:message => "getting next jingle")
         jingle = Playlist.get_next_jingle
 
         if jingle
@@ -17,6 +19,7 @@ class Api::V1::PlaylistsController < Api::V1::BaseController
 
       # auto feat?
       if next_track.blank? && tag == :default
+        logger.info(:message => "getting next auto feat")
         autofeat = Playlist.get_next_valid_auto_feat_for_tag(tag)
 
         if autofeat
@@ -26,6 +29,7 @@ class Api::V1::PlaylistsController < Api::V1::BaseController
 
       # Insert a track
       if next_track.blank?
+        logger.info(:message => "getting next bucket pick")
         bucket_pick = Bucket.pick_next(tag)
 
         if bucket_pick
@@ -35,6 +39,7 @@ class Api::V1::PlaylistsController < Api::V1::BaseController
       end
 
       if next_track.blank?
+        logger.info(:message => "getting next track")
         to_play = Track.get_random_track_for_tag_filtered_for_artists(tag, Playlist.get_artists_to_avoid)
         to_play ||= Track.get_random_track_for_tag(tag)
 
