@@ -19,7 +19,7 @@ class Tag < ApplicationRecord
     def self.get_current_tag_name
       rap_us_night_day = Rails.application.secrets.rap_us_night_day
       rap_us_night_start = Rails.application.secrets.rap_us_night_start
-      now = Time.now
+      now = Time.zone.now
 
       if now.wday == rap_us_night_day && now.hour >= rap_us_night_start
         :us
