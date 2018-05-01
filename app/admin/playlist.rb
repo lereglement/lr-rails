@@ -21,15 +21,21 @@ ActiveAdmin.register Playlist do
     link_to 'Double-R Live', 'https://www.youtube.com/lereglement/live'
   end
 
+  controller do
+  def scoped_collection
+    super.includes :track # prevents N+1 queries to your database
+  end
+end
+
   index do
     column :id
     column :aired_at do |item|
       time_ago(item.aired_at)
     end
-    column :type do |item|
+    column :type, sortable: :type_of do |item|
       status_tag item.type_of
     end
-    column :track do |item|
+    column :track, sortable: 'tracks.title' do |item|
       track = item.track
       artist = Artist.find_by(name: track.artist)
       div style: "display:flex; align-items: center;" do
@@ -54,10 +60,10 @@ ActiveAdmin.register Playlist do
         end
       end
     end
-    column :duration do |item|
+    column :duration, sortable: 'tracks.duration' do |item|
       Time.at(item.track.duration).utc.strftime("%M:%S") if item.track.duration
     end
-    column :aired_count do |item|
+    column :aired_count, sortable: 'tracks.aired_count' do |item|
       track = item.track
       track.aired_count
     end
@@ -79,7 +85,7 @@ ActiveAdmin.register Playlist do
     column :tag do |item|
       status_tag item.tag.name if item.tag
     end
-    column :last_aired do |item|
+    column :last_aired, sortable: 'tracks.last_aired_at' do |item|
       div do
         before = Playlist.where(track_id: item.track_id, is_aired: true).where.not(aired_at: nil).where("id < ?", item.id).order(id: :desc).first
         unless before.blank?
@@ -87,7 +93,7 @@ ActiveAdmin.register Playlist do
         end
       end
     end
-    column :created do |item|
+    column :created, sortable: :created_at do |item|
       time_ago(item.created_at)
     end
     actions
