@@ -3,9 +3,10 @@ module ActiveAdmin::ViewsHelper #camelized file name
   def time_ago(date)
     if date
       if date.to_date === Time.now.to_date
-        "Today, #{date.strftime("%Hh %M")}"
+        "Today, #{date.strftime("%Hh%M")}"
       else
-        "#{distance_of_time_in_words(Time.now, date, highest_measure_only: true)} ago"
+        days = (Time.now.to_date - date.to_date).to_i
+        "#{days} day#{days < 2 ? "" : "s"} ago"
       end
     end
   end
