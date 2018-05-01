@@ -13,9 +13,15 @@ ActiveAdmin.register Bucket do
     link_to 'Empty bucket', '/buckets/empty', data: {confirm: 'Are you sure?'}
   end
 
+  controller do
+    def scoped_collection
+      super.includes :track # prevents N+1 queries to your database
+    end
+  end
+
   index do
     column :id
-    column :track do |bucket|
+    column :track, sortable: 'tracks.title' do |bucket|
       track = bucket.track
       artist = Artist.find_by(name: track.artist)
       div style: "display:flex; align-items: center;" do
@@ -40,7 +46,7 @@ ActiveAdmin.register Bucket do
         end
       end
     end
-    column :duration do |bucket|
+    column :duration, sortable: 'tracks.duration' do |bucket|
       Time.at(bucket.track.duration).utc.strftime("%M:%S") if bucket.track.duration
     end
     column :last_from_artist do |item|
@@ -56,7 +62,7 @@ ActiveAdmin.register Bucket do
     column :tag do |item|
       status_tag item.tag.name if item.tag
     end
-    column :created do |item|
+    column :created, sortable: :created_at do |item|
       time_ago(item.created_at)
     end
     actions
