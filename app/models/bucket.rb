@@ -7,7 +7,7 @@ class Bucket < ApplicationRecord
 
   def self.pick_next(tag=:default)
     pick = get_random_track_for_tag(tag)
-    if pick.present?
+    if pick.blank?
       regenerate_for_tag(tag)
       pick = get_random_track_for_tag(tag)
     end
