@@ -77,7 +77,7 @@ ActiveAdmin.register Track do
 
   index do
     column :id
-    column :track do |track|
+    column :track, sortable: :title do |track|
       div style: "display:flex; align-items: center;" do
         artist = Artist.find_by(name: track.artist)
         div auto_link(track, image_tag(artist.picture.url(:xsmall), size: 50, style: "margin-right: 10px;")) if artist
@@ -115,10 +115,10 @@ ActiveAdmin.register Track do
     column :from_artist do |track|
       Track.where(artist: track.artist, state: :active).count
     end
-    column :aired do |track|
+    column :aired, sortable: :aired_count do |track|
       track.aired_count
     end
-    column :last_aired do |track|
+    column :last_aired, sortable: :last_aired_at do |track|
       div DateLib.humanize(Time.now - track.last_aired_at) if track.last_aired_at
       div link_to "Play next", "/playlists/now/?id=#{track.id}", class: "play-next", data: {confirm: 'Are you sure to play it next?'} if track.state.to_sym == :active && track.is_converted == true
     end
@@ -127,7 +127,7 @@ ActiveAdmin.register Track do
         link_to image_tag("https://s3-eu-west-1.amazonaws.com/lereglement-prod/static/#{track.origin_external_source}.svg", size: 30), track.external_source, target: "_blank"
       end
     end
-    column :created do |track|
+    column :created, sortable: :created_at do |track|
       time_ago(track.created_at)
     end
     actions
