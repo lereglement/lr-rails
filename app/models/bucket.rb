@@ -8,6 +8,7 @@ class Bucket < ApplicationRecord
   def self.pick_next(tag=:default)
     pick = get_random_track_for_tag(tag)
     if pick.blank?
+      logger.info("no track found in Bucket, regenerating one")
       regenerate_for_tag(tag)
       pick = get_random_track_for_tag(tag)
     end
@@ -15,7 +16,7 @@ class Bucket < ApplicationRecord
   end
 
   def self.get_random_track_for_tag(tag)
-    filter_tag(tag).where.not(artist: Playlist.get_artists_to_avoid).where.not(id: Playlist.get_tracks_to_avoid).order("RAND()").first
+    filter_tag(tag).where.not(artist: Playlist.get_artists_to_avoid).where.not(track_id: Playlist.get_tracks_to_avoid).order("RAND()").first
   end
 
   def self.delete_all_for_tag(tag)
