@@ -16,7 +16,7 @@ ActiveAdmin.register Artist do
 
   index do
     column :id
-    column :artist do |artist|
+    column :artist, sortable: :name do |artist|
       div style: "display:flex; align-items: center;" do
         div auto_link(artist, image_tag(artist.picture.url(:xsmall), size: 50, style: "margin-right: 10px;"))
         div auto_link(artist, artist.name)
