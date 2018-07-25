@@ -21,7 +21,7 @@ main
             - @networks.each do |network|
               a href="#{network[:link]}" target='_blank'
                 = render "icons/#{network[:slug]}"
-          a.button-donation href='https://streamlabs.com/lereglement' target='_blank' = 'Faire un don'
+          a.button-donation href='https://www.patreon.com/lereglement' target='_blank' = 'Faire un don'
 
 
   header.header-radio
@@ -86,7 +86,7 @@ main
             a.video-item-container href="#{video.url}" target='_blank'
               .video-item
                 div
-                  span.video-item-title = video.title.downcase.capitalize.gsub(/\(.*?\)/, '')
+                  span.video-item-title = video.title
                   - if video.title[/\(.*?\)/]
                     span.video-item-tagline = video.title[/\(.*?\)/].gsub(/[()]/, "")
 
