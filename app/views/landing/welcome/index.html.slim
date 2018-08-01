@@ -86,7 +86,7 @@ main
             a.video-item-container href="#{video.url}" target='_blank'
               .video-item
                 div
-                  span.video-item-title = video.title
+                  span.video-item-title = video.title.downcase.capitalize.gsub(/\(.*?\)/, '')
                   - if video.title[/\(.*?\)/]
                     span.video-item-tagline = video.title[/\(.*?\)/].gsub(/[()]/, "")
 
