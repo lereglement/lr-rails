@@ -14,7 +14,7 @@ $(document).ready(function() {
     title: 'Partage d\'instrus', emoji: '📀'
   },
   {
-    title: 'MCs et kiffeurs de bon son', emoji: '🤝👨‍❤️‍👨'
+    title: 'Auto-Géré par la mif', emoji: '🤝'
   },
   {
     title: 'En mode animal style',
@@ -22,10 +22,6 @@ $(document).ready(function() {
   },
   {
   title: 'La mif en Y', emoji: '✌️'
-  },
-  {
-    emoji: '🔥',
-    title: 'Les news du Règlement en exclu'
   }
   ]
 
