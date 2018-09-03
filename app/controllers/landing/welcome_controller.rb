@@ -9,7 +9,7 @@ class Landing::WelcomeController < Landing::BaseController
     set_meta_tags default_meta_tags
     set_meta_tags title: "Le Règlement"
 
-    @videos = get_youtube_videos({results: 20, remove_live: 1}).map! do |video|
+    @videos = get_youtube_videos({remove_live: 1}).map! do |video|
       OpenStruct.new(video)
     end
 
