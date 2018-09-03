@@ -29,49 +29,6 @@ main
       = image_tag 'fries.gif'
     .container
       .header-radio-content
-        div.cover-huge-wrapper
-          .cover-huge-container.is-in
-            .cover.cover-huge style="background-image: url(#{@current_track.cover_large || image_url('default_cover.jpg')})"
-            .cover-shadow style="background-image: url(#{@current_track.cover_large || image_url('default_cover.jpg')})"
-
-        .header-radio-infos
-          h1.header-radio-title
-            = @current_track.title
-          .header-radio-subtitle
-            span = 'de '
-            = @current_track.artist
-          .header-radio-actions-mobile
-            a.button.button-youtube href="https://www.youtube.com/lereglement/live" target='_blank'
-              = render "icons/youtube"
-              = 'ÉCOUTER EN LIVE'
-
-          .header-radio-actions
-            .badge.badge-buffering.is-active
-              = 'BUFFERING'
-            .button-player data-icon='pause'
-              = render 'icons/pause'
-              = render 'icons/play'
-            .volume-control-container data-icon='full'
-              span
-                = render 'icons/volume_mute'
-                = render 'icons/volume_high'
-              #volume
-            a.button.button-provider href="#{@current_track.external_source}" class="button-#{@current_track.origin_external_source} #{'is-hidden' if @current_track.origin_external_source.nil?}" target='_blank'
-              = render "icons/soundcloud"
-              = render "icons/youtube"
-              = 'LIEN DU SON'
-            / .badge.badge-live
-            /  = 'LIVE'
-        .previous-tracks
-          .title.white.no-padding = 'SONS DIFFUSÉS'
-          - @previous_tracks.each do |track|
-            .track-item
-              .track-item-cover style="background: url(#{track['cover_xsmall']})"
-              div style="width: 100%;"
-                .track-item-title
-                  = track['title']
-                .track-item-artist
-                  = track['artist']
 
   div style="background: white;"
     - if @videos
@@ -103,7 +60,7 @@ main
                       = render 'icons/comment'
                       span = number_to_human(video.statistics['comment_count'], :format => '%n%u', :units => { :thousand => 'K', :million => 'M' })
 
-                span.video-item-thumbnail style="background-image: url(#{video.thumbnail['url']});"
+                span.video-item-thumbnail style="background-image: url(#{video.thumbnail[:url]});"
                   span.video-item-thumbnail-player
                     = render 'icons/play'
     .discord-section
