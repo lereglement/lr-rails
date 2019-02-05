@@ -1,5 +1,3 @@
-require 'curb'
-
 class Data::V1::FacebookController < Data::V1::BaseController
 
   skip_before_action :authenticate_request!, only: [:create, :show]
@@ -68,20 +66,22 @@ class Data::V1::FacebookController < Data::V1::BaseController
       if request.headers["HTTP_AUTHORIZATION"].nil? || request.headers["HTTP_AUTHORIZATION"][0,7] != "Bearer "
         false
       else
-        bearer = request.headers["HTTP_AUTHORIZATION"]
+        false
+        # getting an error when CleverCloud tries to install curb, so just killing it since we are not using it for now
+        #bearer = request.headers["HTTP_AUTHORIZATION"]
 
-        c = Curl::Easy.new
-        url = "https://graph.facebook.com/v2.9/me"
-        headers={}
-        headers['Authorization'] = bearer
-        c.url = url
-        c.headers = headers
-        c.perform
+        #c = Curl::Easy.new
+        #url = "https://graph.facebook.com/v2.9/me"
+        #headers={}
+        #headers['Authorization'] = bearer
+        #c.url = url
+        #c.headers = headers
+        #c.perform
 
-        facebook_result = JSON.parse c.body_str
-        facebook_result_id = facebook_result.to_h["id"]
+        #facebook_result = JSON.parse c.body_str
+        #facebook_result_id = facebook_result.to_h["id"]
 
-        facebook_result_id.to_s == id.to_s
+        #facebook_result_id.to_s == id.to_s
       end
     end
 

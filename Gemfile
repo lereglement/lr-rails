@@ -14,7 +14,6 @@ gem 'activeadmin', '~> 1.0.0'
 gem 'aws-sdk', '~> 2.3.0'
 gem 'cancancan', '~> 2.0'
 gem 'coffee-rails', '~> 4.2.1'
-gem 'curb', "~> 0.9.3"
 gem 'devise', '~> 4.3.0'
 gem 'dotiw', '~> 3.1.1'
 gem 'httparty', '~> 0.15.6'
